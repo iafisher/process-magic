@@ -1,0 +1,14 @@
+[package]
+name = "telefork"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[[bin]]
+name = "teleserver"
+path = "src/teleserver/bin/main.rs"
+
+[[bin]]
+name = "teleclient"
+path = "src/teleclient/bin/main.rs"
