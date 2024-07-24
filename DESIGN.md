@@ -13,7 +13,7 @@ remote2> teleclient -p 42
 
 teleserver and teleclient communicate over a network socket (HTTP?)
 teleclient reads process information locally using `ptrace`, then sends a network request to teleserver
-teleserver receives 
+teleserver receives
 
 Things that need to be copied over
 
