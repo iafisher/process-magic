@@ -13,7 +13,7 @@ pub struct MemoryMap {
     pub executable: bool,
 }
 
-pub fn read_memory_maps(pid: u64) -> Result<Vec<MemoryMap>> {
+pub fn read_memory_maps(pid: i32) -> Result<Vec<MemoryMap>> {
     let path = format!("/proc/{}/maps", pid);
     let file = File::open(&path)?;
     let reader = BufReader::new(file);
