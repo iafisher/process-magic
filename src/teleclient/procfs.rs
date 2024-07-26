@@ -11,6 +11,8 @@ pub struct MemoryMap {
     pub readable: bool,
     pub writable: bool,
     pub executable: bool,
+    pub private: bool,
+    pub data: Vec<u8>,
 }
 
 pub fn read_memory_maps(pid: i32) -> Result<Vec<MemoryMap>> {
@@ -33,7 +35,7 @@ fn parse_map_line(line: &str) -> Result<MemoryMap> {
     let label = parts[5];
 
     let (base_address, size) = parse_byte_range(byte_range)?;
-    let (readable, writable, executable) = parse_permissions(permissions)?;
+    let (readable, writable, executable, private) = parse_permissions(permissions)?;
 
     Ok(MemoryMap {
         base_address,
@@ -42,6 +44,8 @@ fn parse_map_line(line: &str) -> Result<MemoryMap> {
         readable,
         writable,
         executable,
+        private,
+        data: Vec::new(),
     })
 }
 
@@ -56,7 +60,7 @@ fn parse_byte_range(byte_range: &str) -> Result<(u64, u64)> {
 }
 
 /// returns (readable, writable, executable)
-fn parse_permissions(permissions: &str) -> Result<(bool, bool, bool)> {
+fn parse_permissions(permissions: &str) -> Result<(bool, bool, bool, bool)> {
     let chars: Vec<char> = permissions.chars().collect();
     if chars.len() != 4 {
         return Err(anyhow!(
@@ -68,8 +72,9 @@ fn parse_permissions(permissions: &str) -> Result<(bool, bool, bool)> {
     let readable = chars[0] == 'r';
     let writable = chars[1] == 'w';
     let executable = chars[2] == 'x';
+    let private = chars[3] == 'p';
 
-    Ok((readable, writable, executable))
+    Ok((readable, writable, executable, private))
 }
 
 #[cfg(test)]
@@ -84,6 +89,7 @@ mod tests {
         assert!(memory_map.readable);
         assert!(!memory_map.writable);
         assert!(memory_map.executable);
+        assert!(memory_map.private);
         assert_eq!(memory_map.label, "/usr/lib/aarch64-linux-gnu/libc.so.6");
     }
 }
