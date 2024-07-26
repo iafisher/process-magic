@@ -2,8 +2,9 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 use anyhow::{anyhow, Result};
+use serde::{Serialize, Deserialize};
 
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct MemoryMap {
     pub base_address: u64,
     pub size: u64,
