@@ -1,8 +1,9 @@
+use core::fmt;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 use anyhow::{anyhow, Result};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct MemoryMap {
@@ -76,6 +77,28 @@ fn parse_permissions(permissions: &str) -> Result<(bool, bool, bool, bool)> {
     let private = chars[3] == 'p';
 
     Ok((readable, writable, executable, private))
+}
+
+impl fmt::Display for MemoryMap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "mapping from {:#x} to {:#x} (size={}) ",
+            self.base_address,
+            self.base_address + self.size,
+            self.size
+        )?;
+        write!(f, "{}", if self.readable { "r" } else { "-" })?;
+        write!(f, "{}", if self.writable { "w" } else { "-" })?;
+        write!(f, "{}", if self.executable { "x" } else { "-" })?;
+        write!(f, "{}", if self.private { "p" } else { "-" })?;
+
+        if !self.label.is_empty() {
+            write!(f, " ({})", self.label)?;
+        }
+
+        std::fmt::Result::Ok(())
+    }
 }
 
 #[cfg(test)]
