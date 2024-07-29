@@ -8,12 +8,12 @@ use telefork::{common::httpapi, teleserver};
 #[macro_use]
 extern crate rocket;
 
-#[post("/telefork", data = "<_request>")]
+#[post("/telefork", data = "<request>")]
 fn telefork_route(
-    _request: Json<httpapi::TeleforkApiRequest>,
+    request: Json<httpapi::TeleforkApiRequest>,
 ) -> (Status, Json<httpapi::TeleforkApiResponse>) {
     println!("handling request");
-    if let Err(e) = teleserver::spawn::spawn_process() {
+    if let Err(e) = teleserver::spawn::spawn_process(&request.register_data, &request.memory_maps) {
         eprintln!("error: {}", e);
         return (
             Status::InternalServerError,

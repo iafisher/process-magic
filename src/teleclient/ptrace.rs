@@ -50,7 +50,7 @@ impl Tracer {
                 &mut iov as *mut _
             )
         }
-        .map_err(|e| anyhow!("failed to get register set: {}", e))?;
+        .map_err(|e| anyhow!("PTRACE_GETREGSET failed: {}", e))?;
 
         let mut r = Vec::new();
         for i in 0..iov.iov_len as isize {
