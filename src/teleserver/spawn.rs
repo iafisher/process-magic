@@ -9,15 +9,19 @@ use syscalls::Sysno;
 
 use crate::teleclient::procfs::MemoryMap;
 
-pub fn spawn_process(register_data: &Vec<u8>, memory_maps: &Vec<MemoryMap>) -> Result<()> {
-    println!("spawn_process");
+pub fn spawn_process(
+    gp_register_data: &Vec<u8>,
+    fp_register_data: &Vec<u8>,
+    memory_maps: &Vec<MemoryMap>,
+) -> Result<()> {
+    println!("spawn_process: fp_register_data: {:?}", fp_register_data);
     match unsafe { fork() }? {
         nix::unistd::ForkResult::Parent { child } => {
             println!("in parent, child PID is {}", child);
             nix::sys::wait::waitpid(child, Some(WaitPidFlag::WSTOPPED))
                 .map_err(|e| anyhow!("failed to waitpid: {}", e))?;
 
-            initialize_process(child, register_data, memory_maps)?;
+            initialize_process(child, gp_register_data, fp_register_data, memory_maps)?;
 
             // TODO: registers: ptrace()
             // TODO: memory: https://docs.rs/nix/0.29.0/nix/sys/uio/fn.process_vm_writev.html
@@ -40,9 +44,20 @@ pub fn spawn_process(register_data: &Vec<u8>, memory_maps: &Vec<MemoryMap>) -> R
 
 fn initialize_process(
     pid: Pid,
-    register_data: &Vec<u8>,
-    memory_maps: &Vec<MemoryMap>,
+    gp_register_data: &Vec<u8>,
+    fp_register_data: &Vec<u8>,
+    _memory_maps: &Vec<MemoryMap>,
 ) -> Result<()> {
+    set_registers(pid, libc::NT_PRSTATUS, gp_register_data)?;
+    // TODO: fpsr on ARM isn't set correctly
+    set_registers(pid, libc::NT_PRFPREG, fp_register_data)?;
+
+    // TODO: memory
+
+    Ok(())
+}
+
+fn set_registers(pid: Pid, kind: libc::c_int, register_data: &Vec<u8>) -> Result<()> {
     let mut regs = MaybeUninit::<libc::user_regs_struct>::uninit();
     let iov_len = core::mem::size_of_val(&regs);
     if iov_len != register_data.len() {
@@ -70,13 +85,11 @@ fn initialize_process(
             Sysno::ptrace,
             libc::PTRACE_SETREGSET,
             pid.as_raw(),
-            libc::NT_PRSTATUS,
+            kind,
             &iov as *const _
         )
     }
     .map_err(|e| anyhow!("PTRACE_SETREGSET failed: {}", e))?;
-
-    // TODO: memory
 
     Ok(())
 }

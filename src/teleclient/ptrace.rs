@@ -27,7 +27,15 @@ impl Tracer {
         Ok(Self { pid })
     }
 
-    pub fn get_registers(&self) -> Result<Vec<u8>> {
+    pub fn get_general_purpose_registers(&self) -> Result<Vec<u8>> {
+        self.get_registers(libc::NT_PRSTATUS)
+    }
+
+    pub fn get_floating_point_registers(&self) -> Result<Vec<u8>> {
+        self.get_registers(libc::NT_PRFPREG)
+    }
+
+    pub fn get_registers(&self, kind: libc::c_int) -> Result<Vec<u8>> {
         // adapted from https://github.com/facebookexperimental/reverie/blob/852e08e75ddcd0ca3f5ea0ded7e60491051ffb76/safeptrace/src/lib.rs#L515
 
         // `regs` will be initialized by called ptrace(). We need this instead of just `libc::iovec`
@@ -45,7 +53,7 @@ impl Tracer {
                 Sysno::ptrace,
                 libc::PTRACE_GETREGSET,
                 self.pid.as_raw(),
-                libc::NT_PRSTATUS,
+                kind,
                 // `*mut _` lets the compiler figure out the proper type here
                 &mut iov as *mut _
             )

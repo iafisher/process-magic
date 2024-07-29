@@ -14,12 +14,14 @@ fn main() -> Result<()> {
     let args = Args::parse();
 
     let tracer = ptrace::Tracer::seize_and_interrupt(args.pid)?;
-    let register_data = tracer.get_registers()?;
+    let gp_register_data = tracer.get_general_purpose_registers()?;
+    let fp_register_data = tracer.get_floating_point_registers()?;
     let memory_maps = tracer.read_memory()?;
 
     let client = reqwest::blocking::Client::new();
     let request = httpapi::TeleforkApiRequest {
-        register_data,
+        gp_register_data,
+        fp_register_data,
         memory_maps,
     };
     let response: httpapi::TeleforkApiResponse = client

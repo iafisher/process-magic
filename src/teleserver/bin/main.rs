@@ -13,7 +13,11 @@ fn telefork_route(
     request: Json<httpapi::TeleforkApiRequest>,
 ) -> (Status, Json<httpapi::TeleforkApiResponse>) {
     println!("handling request");
-    if let Err(e) = teleserver::spawn::spawn_process(&request.register_data, &request.memory_maps) {
+    if let Err(e) = teleserver::spawn::spawn_process(
+        &request.gp_register_data,
+        &request.fp_register_data,
+        &request.memory_maps,
+    ) {
         eprintln!("error: {}", e);
         return (
             Status::InternalServerError,
@@ -36,5 +40,7 @@ fn rocket() -> _ {
         ..Config::debug_default()
     };
 
-    rocket::build().configure(&config).mount("/", routes![telefork_route])
+    rocket::build()
+        .configure(&config)
+        .mount("/", routes![telefork_route])
 }
