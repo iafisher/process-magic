@@ -6,7 +6,7 @@ use std::{
 
 use anyhow::{anyhow, Result};
 use nix::{fcntl, sys, unistd};
-use telefork::proctool::common::{Args, PORT};
+use telefork::proctool::common::{Args, PauseArgs, PORT};
 
 pub fn main() -> Result<()> {
     self_daemonize()?;
@@ -36,24 +36,27 @@ fn handle_client(stream: TcpStream) -> Result<()> {
         }
 
         let args: Args = serde_json::from_str(&line)?;
-        let command = args.command.clone();
-
         let result = run_command(args);
         if let Err(e) = result {
-            eprintln!("failed to run command {}: {}", command, e);
+            eprintln!("failed to run command: {}", e);
         }
     }
     Ok(())
 }
 
 fn run_command(args: Args) -> Result<()> {
-    let pid = unistd::Pid::from_raw(args.pid);
-    if args.command == "pause" {
-        sys::ptrace::attach(pid)?;
-    } else if args.command == "resume" {
-        sys::ptrace::detach(pid, None)?;
-    } else {
-        return Err(anyhow!("unknown command {:?}", args.command));
+    match args {
+        Args::Pause(args) => {
+            let pid = unistd::Pid::from_raw(args.pid);
+            sys::ptrace::attach(pid)?;
+        }
+        Args::Resume(args) => {
+            let pid = unistd::Pid::from_raw(args.pid);
+            sys::ptrace::detach(pid, None)?;
+        }
+        _ => {
+            return Err(anyhow!("unknown command {:?}", args));
+        }
     }
 
     Ok(())
@@ -62,7 +65,7 @@ fn run_command(args: Args) -> Result<()> {
 fn self_daemonize() -> Result<()> {
     sys::stat::umask(sys::stat::Mode::empty());
 
-    if let unistd::ForkResult::Parent { .. } = unsafe{unistd::fork()}? {
+    if let unistd::ForkResult::Parent { .. } = unsafe { unistd::fork() }? {
         std::process::exit(0);
     }
 

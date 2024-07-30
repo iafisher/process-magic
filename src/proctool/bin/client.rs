@@ -1,5 +1,6 @@
 use std::io::Write;
 use std::net::TcpStream;
+use std::process::Command;
 
 use anyhow::{anyhow, Result};
 
@@ -8,15 +9,29 @@ use clap::Parser;
 use telefork::proctool::common::{Args, PORT};
 
 fn main() -> Result<()> {
-    // TODO: daemon-start, daemon-kill, daemon-logs commands
+    // TODO: daemon-start, daemon-kill commands
 
     let args = Args::parse();
-    let mut daemon = Daemon::connect()?;
-    let result = daemon.send_command(args);
-    if let Err(e) = result {
-        eprintln!("error: {}", e);
-        std::process::exit(1);
+
+    match args {
+        Args::DaemonLogs(_) => {
+            let mut cmd = Command::new("tail")
+                .arg("-f")
+                .arg("/home/ian/proctool-daemon.log")
+                .spawn()?;
+            cmd.wait()?;
+        }
+        _ => {
+            // command handled by daemon
+            let mut daemon = Daemon::connect()?;
+            let result = daemon.send_command(args);
+            if let Err(e) = result {
+                eprintln!("error: {}", e);
+                std::process::exit(1);
+            }
+        }
     }
+
     Ok(())
 }
 
