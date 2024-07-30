@@ -6,7 +6,7 @@ use std::{
 
 use anyhow::{anyhow, Result};
 use nix::{fcntl, sys, unistd};
-use telefork::proctool::common::{Args, PauseArgs, PORT};
+use telefork::proctool::common::{Args, DaemonMessage, PORT};
 
 pub fn main() -> Result<()> {
     self_daemonize()?;
@@ -15,18 +15,23 @@ pub fn main() -> Result<()> {
     println!("listening");
     for stream in listener.incoming() {
         println!("handling new client");
-        let result = handle_client(stream?);
-        if let Err(e) = result {
-            // TODO: will this output go anywhere?
-            eprintln!("error: {}", e);
-        } else {
-            println!("closed connection");
+        match handle_client(stream?) {
+            Ok(should_shutdown) => {
+                if should_shutdown {
+                    println!("shutting down!");
+                    break;
+                }
+            }
+            Err(e) => {
+                eprintln!("error: {}", e);
+            }
         }
     }
     Ok(())
 }
 
-fn handle_client(stream: TcpStream) -> Result<()> {
+// returns true if server should shut down
+fn handle_client(stream: TcpStream) -> Result<bool> {
     let mut reader = BufReader::new(stream);
     loop {
         let mut line = String::new();
@@ -35,13 +40,21 @@ fn handle_client(stream: TcpStream) -> Result<()> {
             break;
         }
 
-        let args: Args = serde_json::from_str(&line)?;
-        let result = run_command(args);
-        if let Err(e) = result {
-            eprintln!("failed to run command: {}", e);
+        let message: DaemonMessage = serde_json::from_str(&line)?;
+
+        match message {
+            DaemonMessage::Command(args) => {
+                let result = run_command(args);
+                if let Err(e) = result {
+                    eprintln!("failed to run command: {}", e);
+                }
+            }
+            DaemonMessage::Kill => {
+                return Ok(true);
+            }
         }
     }
-    Ok(())
+    Ok(false)
 }
 
 fn run_command(args: Args) -> Result<()> {
