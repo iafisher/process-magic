@@ -1,10 +1,13 @@
 CC = gcc
 CFLAGS = -Wall
 
-all: out/waitforinput out/splitpoem
+all: out/waitforinput out/splitpoem out/countforever
 
 out/waitforinput: waitforinput.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 out/splitpoem: splitpoem.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+out/countforever: countforever.c
 	$(CC) $(CFLAGS) -o $@ $<

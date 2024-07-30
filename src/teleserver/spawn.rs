@@ -3,6 +3,7 @@ use std::io::{IoSlice, Seek, SeekFrom, Write};
 use std::mem::MaybeUninit;
 
 use anyhow::{anyhow, Result};
+use libc::{MAP_FAILED, MAP_FIXED, MAP_SHARED, PROT_EXEC, PROT_READ, PROT_WRITE};
 use nix::sys::ptrace as nix_ptrace;
 use nix::sys::signal::{self, Signal};
 use nix::sys::uio::RemoteIoVec;
@@ -50,13 +51,13 @@ fn initialize_process(
     // important to call this before setting registers as it relies on a valid value of PC
     unmap_existing_memory(pid)?;
 
-    // set_registers(pid, libc::NT_PRSTATUS, gp_register_data)?;
-    // // TODO: fpsr on ARM isn't set correctly
-    // set_registers(pid, libc::NT_PRFPREG, fp_register_data)?;
+    set_registers(pid, libc::NT_PRSTATUS, gp_register_data)?;
+    // TODO: fpsr on ARM isn't set correctly
+    set_registers(pid, libc::NT_PRFPREG, fp_register_data)?;
 
-    // for memory_map in memory_maps {
-    //     write_memory_map(pid, memory_map)?;
-    // }
+    for memory_map in memory_maps {
+        write_memory_map(pid, memory_map)?;
+    }
 
     Ok(())
 }
@@ -123,11 +124,11 @@ fn unmap_existing_memory(pid: Pid) -> Result<()> {
         }
     }
 
-    if let Some(code_page) = code_page_opt {
-        // this is expected to fail as it tried to restore the old instruction, which won't work
-        // because we just unmapped that page.
-        let _ = unmap_one(pid, &code_page);
-    }
+    // if let Some(code_page) = code_page_opt {
+    //     // this is expected to fail as it tried to restore the old instruction, which won't work
+    //     // because we just unmapped that page.
+    //     let _ = unmap_one(pid, &code_page);
+    // }
 
     Ok(())
 }
@@ -189,6 +190,7 @@ fn make_syscall(pid: Pid, sysno: Sysno, args: Vec<u64>) -> Result<u64> {
 }
 
 fn write_memory_map(pid: Pid, memory_map: &MemoryMap) -> Result<()> {
+    // TODO: the page that contains PC must be mapped already or else our syscall injection doesn't work
     map_page_in_child(pid, memory_map)?;
 
     let result = nix::sys::uio::process_vm_writev(
@@ -201,6 +203,7 @@ fn write_memory_map(pid: Pid, memory_map: &MemoryMap) -> Result<()> {
     );
 
     if result.is_err() {
+        println!("process_vm_writev failed");
         // TODO: is this necessary?
         let mut f = File::options()
             .read(true)
@@ -217,6 +220,41 @@ fn write_memory_map(pid: Pid, memory_map: &MemoryMap) -> Result<()> {
 }
 
 fn map_page_in_child(pid: Pid, memory_map: &MemoryMap) -> Result<()> {
-    // TODO
+    let mut prot = 0;
+    if memory_map.readable {
+        prot |= PROT_READ;
+    }
+
+    if memory_map.writable {
+        prot |= PROT_WRITE;
+    }
+
+    if memory_map.executable {
+        prot |= PROT_EXEC;
+    }
+
+    let mut flags = 0;
+    if memory_map.private {
+        flags |= MAP_SHARED;
+    }
+    flags |= MAP_FIXED;
+
+    let r = make_syscall(
+        pid,
+        Sysno::mmap,
+        vec![
+            memory_map.base_address,
+            memory_map.size,
+            prot as u64,
+            flags as u64,
+            0,
+            0,
+        ],
+    )?;
+
+    if r as *mut libc::c_void == MAP_FAILED {
+        return Err(anyhow!("mmap failed"));
+    }
+
     Ok(())
 }
