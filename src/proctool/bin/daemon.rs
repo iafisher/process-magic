@@ -5,25 +5,33 @@ use std::{
 };
 
 use anyhow::{anyhow, Result};
+use log::LevelFilter;
+use log4rs::{
+    append::file::FileAppender,
+    config::{Appender, Root},
+    encode::pattern::PatternEncoder,
+    Config,
+};
 use nix::{fcntl, sys, unistd};
 use telefork::proctool::common::{Args, DaemonMessage, PORT};
 
 pub fn main() -> Result<()> {
     self_daemonize()?;
+    configure_logging()?;
 
     let listener = TcpListener::bind(format!("127.0.0.1:{}", PORT))?;
-    println!("listening");
+    log::info!("listening on port {}", PORT);
     for stream in listener.incoming() {
-        println!("handling new client");
+        log::info!("new TCP connection");
         match handle_client(stream?) {
             Ok(should_shutdown) => {
                 if should_shutdown {
-                    println!("shutting down!");
+                    log::info!("shutting down due to client request");
                     break;
                 }
             }
             Err(e) => {
-                eprintln!("error: {}", e);
+                log::error!("error while servicing request: {}", e);
             }
         }
     }
@@ -46,7 +54,7 @@ fn handle_client(stream: TcpStream) -> Result<bool> {
             DaemonMessage::Command(args) => {
                 let result = run_command(args);
                 if let Err(e) = result {
-                    eprintln!("failed to run command: {}", e);
+                    log::error!("failed to run command: {}", e);
                 }
             }
             DaemonMessage::Kill => {
@@ -92,27 +100,35 @@ fn self_daemonize() -> Result<()> {
     }
 
     // stdin
-    fcntl::open(
-        "/dev/null",
-        fcntl::OFlag::O_RDONLY | fcntl::OFlag::O_NOCTTY,
-        sys::stat::Mode::empty(),
-    )?;
+    open_devnull()?;
     // stdout
-    open_logfile()?;
+    open_devnull()?;
     // stderr
-    open_logfile()?;
+    open_devnull()?;
 
     Ok(())
 }
 
-fn open_logfile() -> Result<()> {
-    use nix::fcntl::OFlag;
-    use nix::sys::stat::Mode;
+fn configure_logging() -> Result<()> {
+    let file_appender = FileAppender::builder()
+        .encoder(Box::new(PatternEncoder::new("{d} {l} - {m}")))
+        // TODO: real path
+        .build("/home/ian/proctool-daemon.log")?;
 
+    let config = Config::builder()
+        .appender(Appender::builder().build("main", Box::new(file_appender)))
+        .build(Root::builder().appender("main").build(LevelFilter::Info))?;
+
+    log4rs::init_config(config)?;
+
+    Ok(())
+}
+
+fn open_devnull() -> Result<()> {
     fcntl::open(
-        "proctool-daemon.log",
-        OFlag::O_CREAT | OFlag::O_APPEND,
-        Mode::S_IRUSR | Mode::S_IWUSR | Mode::S_IRGRP | Mode::S_IWGRP | Mode::S_IROTH,
+        "/dev/null",
+        fcntl::OFlag::O_RDONLY | fcntl::OFlag::O_NOCTTY,
+        sys::stat::Mode::empty(),
     )?;
     Ok(())
 }

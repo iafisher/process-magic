@@ -22,7 +22,7 @@ fn main() -> Result<()> {
         }
         Args::DaemonLogs(_) => {
             let mut cmd = Command::new("tail")
-                .arg("-f")
+                .arg("-F")
                 .arg("/home/ian/proctool-daemon.log")
                 .spawn()?;
             cmd.wait()?;
