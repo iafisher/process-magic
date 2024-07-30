@@ -7,7 +7,7 @@ pub mod common {
     #[derive(Parser, Debug, Serialize, Deserialize)]
     pub struct Args {
         // TODO: real subcommand
-        command: String,
-        pid: i32,
+        pub command: String,
+        pub pid: i32,
     }
 }

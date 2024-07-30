@@ -4,7 +4,7 @@ use std::{
     os::fd::RawFd,
 };
 
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use nix::{fcntl, sys, unistd};
 use telefork::proctool::common::{Args, PORT};
 
@@ -35,10 +35,27 @@ fn handle_client(stream: TcpStream) -> Result<()> {
             break;
         }
 
-        println!("got data: {:?}", line);
         let args: Args = serde_json::from_str(&line)?;
-        println!("got args: {:?}", args);
+        let command = args.command.clone();
+
+        let result = run_command(args);
+        if let Err(e) = result {
+            eprintln!("failed to run command {}: {}", command, e);
+        }
     }
+    Ok(())
+}
+
+fn run_command(args: Args) -> Result<()> {
+    let pid = unistd::Pid::from_raw(args.pid);
+    if args.command == "pause" {
+        sys::ptrace::attach(pid)?;
+    } else if args.command == "resume" {
+        sys::ptrace::detach(pid, None)?;
+    } else {
+        return Err(anyhow!("unknown command {:?}", args.command));
+    }
+
     Ok(())
 }
 
@@ -78,7 +95,7 @@ fn open_logfile() -> Result<()> {
 
     fcntl::open(
         "proctool-daemon.log",
-        OFlag::O_CREAT | OFlag::O_WRONLY,
+        OFlag::O_CREAT | OFlag::O_APPEND,
         Mode::S_IRUSR | Mode::S_IWUSR | Mode::S_IRGRP | Mode::S_IWGRP | Mode::S_IROTH,
     )?;
     Ok(())

@@ -8,6 +8,8 @@ use clap::Parser;
 use telefork::proctool::common::{Args, PORT};
 
 fn main() -> Result<()> {
+    // TODO: daemon-start, daemon-kill, daemon-logs commands
+
     let args = Args::parse();
     let mut daemon = Daemon::connect()?;
     let result = daemon.send_command(args);
@@ -31,7 +33,6 @@ impl Daemon {
 
     pub fn send_command(&mut self, args: Args) -> Result<()> {
         let data = serde_json::to_string(&args)?;
-        println!("sending data: {:?}", data);
         self.stream.write(data.as_bytes())?;
         Ok(())
     }
