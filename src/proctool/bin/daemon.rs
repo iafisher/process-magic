@@ -16,8 +16,10 @@ use nix::{fcntl, sys, unistd};
 use telefork::proctool::common::{Args, DaemonMessage, PORT};
 
 pub fn main() -> Result<()> {
-    self_daemonize()?;
-    configure_logging()?;
+    let root = std::env::var("PROCTOOL_ROOT").or(Err(anyhow!("PROCTOOL_ROOT must be set")))?;
+
+    self_daemonize(&root)?;
+    configure_logging(&root)?;
 
     let listener = TcpListener::bind(format!("127.0.0.1:{}", PORT))?;
     log::info!("listening on port {}", PORT);
@@ -83,7 +85,7 @@ fn run_command(args: Args) -> Result<()> {
     Ok(())
 }
 
-fn self_daemonize() -> Result<()> {
+fn self_daemonize(root: &str) -> Result<()> {
     sys::stat::umask(sys::stat::Mode::empty());
 
     if let unistd::ForkResult::Parent { .. } = unsafe { unistd::fork() }? {
@@ -93,7 +95,7 @@ fn self_daemonize() -> Result<()> {
     // procedure from Advanced Programming in the Unix Environment, ch. 13 sec. 3
     unistd::setsid()?;
     // TODO: real path
-    unistd::chdir("/home/ian")?;
+    unistd::chdir(root)?;
     let (_, max_open_files) = sys::resource::getrlimit(sys::resource::Resource::RLIMIT_NOFILE)?;
     for fd in 0..max_open_files {
         let _ = unistd::close(fd as RawFd);
@@ -109,11 +111,11 @@ fn self_daemonize() -> Result<()> {
     Ok(())
 }
 
-fn configure_logging() -> Result<()> {
+fn configure_logging(root: &str) -> Result<()> {
     let file_appender = FileAppender::builder()
         .encoder(Box::new(PatternEncoder::new("{d} {l} - {m}")))
         // TODO: real path
-        .build("/home/ian/proctool-daemon.log")?;
+        .build(format!("{}/daemon.log", root))?;
 
     let config = Config::builder()
         .appender(Appender::builder().build("main", Box::new(file_appender)))

@@ -11,6 +11,8 @@ use telefork::proctool::common::{Args, DaemonMessage, PORT};
 fn main() -> Result<()> {
     let args = Args::parse();
 
+    let root = std::env::var("PROCTOOL_ROOT").or(Err(anyhow!("PROCTOOL_ROOT must be set")))?;
+
     match args {
         Args::DaemonKill(_) => {
             let mut daemon = Daemon::connect()?;
@@ -23,14 +25,14 @@ fn main() -> Result<()> {
         Args::DaemonLogs(_) => {
             let mut cmd = Command::new("tail")
                 .arg("-F")
-                .arg("/home/ian/proctool-daemon.log")
+                .arg(format!("{}/daemon.log", root))
                 .spawn()?;
             cmd.wait()?;
         }
         Args::DaemonStart(_) => {
             let mut cmd = Command::new("sudo")
                 // TODO: real path
-                .arg("target/debug/proctool-daemon")
+                .arg(format!("{}/bin/proctool-daemon", root))
                 .spawn()?;
             cmd.wait()?;
         }
