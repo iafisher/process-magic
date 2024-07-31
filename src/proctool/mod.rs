@@ -13,25 +13,15 @@ pub mod common {
 
     #[derive(Parser, Debug, Serialize, Deserialize)]
     pub enum Args {
-        DaemonKill(DaemonKillArgs),
-        DaemonLogs(DaemonLogsArgs),
-        DaemonStart(DaemonStartArgs),
-        DaemonStatus(DaemonStatusArgs),
+        DaemonKill,
+        DaemonLogs,
+        DaemonRestart,
+        DaemonStart,
+        DaemonStatus,
         Pause(PauseArgs),
         Resume(ResumeArgs),
+        Takeover(TakeoverArgs),
     }
-
-    #[derive(clap::Args, Debug, Serialize, Deserialize)]
-    pub struct DaemonKillArgs {}
-
-    #[derive(clap::Args, Debug, Serialize, Deserialize)]
-    pub struct DaemonLogsArgs {}
-
-    #[derive(clap::Args, Debug, Serialize, Deserialize)]
-    pub struct DaemonStartArgs {}
-
-    #[derive(clap::Args, Debug, Serialize, Deserialize)]
-    pub struct DaemonStatusArgs {}
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct PauseArgs {
@@ -40,6 +30,11 @@ pub mod common {
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct ResumeArgs {
+        pub pid: i32,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct TakeoverArgs {
         pub pid: i32,
     }
 }

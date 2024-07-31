@@ -13,49 +13,78 @@ fn main() -> Result<()> {
 
     let root = std::env::var("PROCTOOL_ROOT").or(Err(anyhow!("PROCTOOL_ROOT must be set")))?;
 
+    // TODO: daemon-restart
     match args {
-        Args::DaemonKill(_) => {
-            let mut daemon = Daemon::connect()?;
-            let result = daemon.send_message(DaemonMessage::Kill);
-            if let Err(e) = result {
-                eprintln!("error: {}", e);
-                std::process::exit(1);
-            }
+        Args::DaemonKill => {
+            kill_daemon()?;
         }
-        Args::DaemonLogs(_) => {
-            let mut cmd = Command::new("tail")
-                .arg("-F")
-                .arg(format!("{}/daemon.log", root))
-                .spawn()?;
-            cmd.wait()?;
+        Args::DaemonLogs => {
+            follow_daemon_logs(&root)?;
         }
-        Args::DaemonStart(_) => {
-            let mut cmd = Command::new("sudo")
-                // TODO: real path
-                .arg(format!("{}/bin/proctool-daemon", root))
-                .spawn()?;
-            cmd.wait()?;
+        Args::DaemonRestart => {
+            kill_daemon()?;
+            start_daemon(&root)?;
         }
-        Args::DaemonStatus(_) => {
-            if Daemon::connect().is_ok() {
-                println!("daemon is running");
-            } else {
-                println!("daemon is not running");
-                std::process::exit(1);
-            }
+        Args::DaemonStart => {
+            start_daemon(&root)?;
+        }
+        Args::DaemonStatus => {
+            print_daemon_status();
         }
         _ => {
-            // command handled by daemon
-            let mut daemon = Daemon::connect()?;
-            let result = daemon.send_message(DaemonMessage::Command(args));
-            if let Err(e) = result {
-                eprintln!("error: {}", e);
-                std::process::exit(1);
-            }
+            dispatch_to_daemon(args)?;
         }
     }
 
     Ok(())
+}
+
+fn kill_daemon() -> Result<()> {
+    let mut daemon = Daemon::connect()?;
+    let result = daemon.send_message(DaemonMessage::Kill);
+    if let Err(e) = result {
+        eprintln!("error: {}", e);
+        std::process::exit(1);
+    }
+
+    Ok(())
+}
+
+fn start_daemon(root: &str) -> Result<()> {
+    let mut cmd = Command::new("sudo")
+        .arg(format!("PROCTOOL_ROOT={}", root))
+        .arg(format!("{}/bin/proctool-daemon", root))
+        .spawn()?;
+    cmd.wait()?;
+    Ok(())
+}
+
+fn follow_daemon_logs(root: &str) -> Result<()> {
+    let mut cmd = Command::new("tail")
+        .arg("-F")
+        .arg(format!("{}/daemon.log", root))
+        .spawn()?;
+    cmd.wait()?;
+    Ok(())
+}
+
+fn dispatch_to_daemon(args: Args) -> Result<()> {
+    let mut daemon = Daemon::connect()?;
+    let result = daemon.send_message(DaemonMessage::Command(args));
+    if let Err(e) = result {
+        eprintln!("error: {}", e);
+        std::process::exit(1);
+    }
+    Ok(())
+}
+
+fn print_daemon_status() {
+    if Daemon::connect().is_ok() {
+        println!("daemon is running");
+    } else {
+        println!("daemon is not running");
+        std::process::exit(1);
+    }
 }
 
 struct Daemon {

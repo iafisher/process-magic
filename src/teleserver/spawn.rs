@@ -106,11 +106,11 @@ fn unmap_existing_memory(pid: Pid) -> Result<()> {
         .map_err(|e| anyhow!("PTRACE_GETREGSET failed: {}", e))?;
     let pc = process_registers.pc;
 
-    let mut code_page_opt: Option<&MemoryMap> = None;
+    let mut _code_page_opt: Option<&MemoryMap> = None;
     for memory_map in memory_maps.iter() {
         if memory_map.base_address <= pc && pc < memory_map.base_address + memory_map.size {
             println!("skipping map with PC for now");
-            code_page_opt = Some(memory_map);
+            _code_page_opt = Some(memory_map);
             continue;
         }
 
