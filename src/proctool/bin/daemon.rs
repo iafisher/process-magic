@@ -113,14 +113,25 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             sys::ptrace::setregset::<sys::ptrace::regset::NT_PRSTATUS>(pid, registers)
                 .map_err(|e| anyhow!("PTRACE_SETREGSET failed: {}", e))?;
 
+            let new_instructions: u64 = 0xd4000001d4000001;
+            log::info!("overwriting at {:#x}", registers.pc);
             // 0xd4000001 = svc #0
-            sys::ptrace::write(pid, p, 0xd4000001)
+            sys::ptrace::write(pid, p, new_instructions as i64)
                 .map_err(|e| anyhow!("PTRACE_POKEDATA failed (syscall injection): {}", e))?;
 
-            sys::ptrace::step(pid, None).map_err(|e| anyhow!("PTRACE_SINGLESTEP failed: {}", e))?;
-            sys::wait::waitpid(pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
-                .map_err(|e| anyhow!("failed to waitpid (syscall injection): {}", e))?;
-            sys::ptrace::detach(pid, None).map_err(|e| anyhow!("PTRACE_DETACH failed: {}", e))?;
+            // TODO: remove this debugging switch
+            let pause_to_inspect = false;
+            if !pause_to_inspect {
+                sys::ptrace::step(pid, None)
+                    .map_err(|e| anyhow!("PTRACE_SINGLESTEP failed: {}", e))?;
+                sys::wait::waitpid(pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
+                    .map_err(|e| anyhow!("failed to waitpid (syscall injection): {}", e))?;
+                sys::ptrace::detach(pid, None)
+                    .map_err(|e| anyhow!("PTRACE_DETACH failed: {}", e))?;
+            } else {
+                sys::ptrace::detach(pid, Some(sys::signal::Signal::SIGSTOP))
+                    .map_err(|e| anyhow!("PTRACE_DETACH failed: {}", e))?;
+            }
         }
         _ => {
             return Err(anyhow!("unknown command {:?}", args));
