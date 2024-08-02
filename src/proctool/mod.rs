@@ -36,5 +36,8 @@ pub mod common {
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct TakeoverArgs {
         pub pid: i32,
+        /// pause the program after taking it over, to inspect program state
+        #[arg(long)]
+        pub pause: bool,
     }
 }

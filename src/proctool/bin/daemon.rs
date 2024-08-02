@@ -98,30 +98,36 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             sys::wait::waitpid(pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
                 .map_err(|e| anyhow!("failed to waitpid (set-up): {}", e))?;
 
+            ensure_not_in_syscall(pid)
+                .map_err(|e| anyhow!("failed to ensure not in syscall: {}", e))?;
+
             let mut registers = sys::ptrace::getregset::<sys::ptrace::regset::NT_PRSTATUS>(pid)
                 .map_err(|e| anyhow!("PTRACE_GETREGSET failed: {}", e))?;
-            let str_addr = inject_string_constant(pid, format!("{}/bin/takeover", root))
-                .map_err(|e| anyhow!("failed to inject string constant: {}", e))?;
+            let (str_addr, empty_addr) =
+                inject_string_constant(pid, format!("{}/bin/takeover", root))
+                    .map_err(|e| anyhow!("failed to inject string constant: {}", e))?;
 
             // syscall number in x8, args in x0, x1, x2, x3...
             registers.regs[8] = Sysno::execve.id() as u64;
             registers.regs[0] = str_addr;
-            registers.regs[1] = 0;
-            registers.regs[2] = 0;
+            registers.regs[1] = empty_addr;
+            registers.regs[2] = empty_addr;
 
-            let p = registers.pc as *mut libc::c_void;
+            // PC on ARM64 is 1-2 instructions ahead of the next instruction to execute due to pipelining.
+            let p = (registers.pc - 8) as *mut libc::c_void;
             sys::ptrace::setregset::<sys::ptrace::regset::NT_PRSTATUS>(pid, registers)
                 .map_err(|e| anyhow!("PTRACE_SETREGSET failed: {}", e))?;
 
-            let new_instructions: u64 = 0xd4000001d4000001;
-            log::info!("overwriting at {:#x}", registers.pc);
             // 0xd4000001 = svc #0
+            let new_instructions: u64 = 0xd4000001d4000001;
             sys::ptrace::write(pid, p, new_instructions as i64)
                 .map_err(|e| anyhow!("PTRACE_POKEDATA failed (syscall injection): {}", e))?;
 
-            // TODO: remove this debugging switch
-            let pause_to_inspect = false;
-            if !pause_to_inspect {
+            let p2 = registers.pc as *mut libc::c_void;
+            sys::ptrace::write(pid, p2, new_instructions as i64)
+                .map_err(|e| anyhow!("PTRACE_POKEDATA failed (syscall injection): {}", e))?;
+
+            if !args.pause {
                 sys::ptrace::step(pid, None)
                     .map_err(|e| anyhow!("PTRACE_SINGLESTEP failed: {}", e))?;
                 sys::wait::waitpid(pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
@@ -141,7 +147,32 @@ fn run_command(root: &str, args: Args) -> Result<()> {
     Ok(())
 }
 
-fn inject_string_constant(pid: unistd::Pid, s: String) -> Result<u64> {
+fn ensure_not_in_syscall(pid: unistd::Pid) -> Result<()> {
+    let initial_registers = get_registers(pid)?;
+    let initial_pc = initial_registers.pc;
+
+    loop {
+        sys::ptrace::step(pid, None).map_err(|e| anyhow!("PTRACE_SINGLESTEP failed: {}", e))?;
+        sys::wait::waitpid(pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
+            .map_err(|e| anyhow!("failed to waitpid (ensure_not_in_syscall): {}", e))?;
+        let current_registers = get_registers(pid)?;
+        if current_registers.pc != initial_pc {
+            break;
+        }
+        // TODO: sleep for an interval and have a timeout
+        // would also be nice to return to the user that the program may need user interaction
+    }
+
+    Ok(())
+}
+
+fn get_registers(pid: unistd::Pid) -> Result<libc::user_regs_struct> {
+    let registers = sys::ptrace::getregset::<sys::ptrace::regset::NT_PRSTATUS>(pid)
+        .map_err(|e| anyhow!("PTRACE_GETREGSET failed: {}", e))?;
+    Ok(registers)
+}
+
+fn inject_string_constant(pid: unistd::Pid, s: String) -> Result<(u64, u64)> {
     let addr = find_addr_for_string_constant(pid, s.len())?;
 
     // would be more efficient to use `process_vm_writev` but string should be short and this is simpler
@@ -152,7 +183,17 @@ fn inject_string_constant(pid: unistd::Pid, s: String) -> Result<u64> {
             .map_err(|e| anyhow!("PTRACE_POKEDATA failed: {}", e))?;
         offset += 1;
     }
-    Ok(addr)
+
+    let null_terminator_addr = p.wrapping_byte_offset(offset);
+    sys::ptrace::write(pid, null_terminator_addr, 0)
+        .map_err(|e| anyhow!("PTRACE_POKEDATA failed: {}", e))?;
+
+    // for execve we also need a pointer to an array whose only element is NULL; conveniently, a
+    // pointer to the null terminator at the end of the string works for this.
+    //
+    // the alternative -- injecting a separate empty array -- requires us to remember where we
+    // wrote the string constant so we don't overwrite it.
+    Ok((addr, null_terminator_addr as u64))
 }
 
 fn find_addr_for_string_constant(pid: unistd::Pid, length: usize) -> Result<u64> {
