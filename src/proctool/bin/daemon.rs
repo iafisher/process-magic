@@ -1,5 +1,5 @@
 use std::{
-    io::{BufRead, BufReader},
+    io::{BufRead, BufReader, IoSliceMut},
     net::{TcpListener, TcpStream},
     os::fd::RawFd,
 };
@@ -16,7 +16,7 @@ use nix::{fcntl, sys, unistd};
 use syscalls::Sysno;
 use telefork::{
     proctool::common::{Args, DaemonMessage, PORT},
-    teleclient::procfs,
+    teleclient::procfs::{self, MemoryMap},
 };
 
 pub fn main() -> Result<()> {
@@ -101,6 +101,9 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             ensure_not_in_syscall(pid)
                 .map_err(|e| anyhow!("failed to ensure not in syscall: {}", e))?;
 
+            let new_pc = find_svc_instruction(pid)
+                .map_err(|e| anyhow!("failed to find svc instruction: {}", e))?;
+
             let mut registers = sys::ptrace::getregset::<sys::ptrace::regset::NT_PRSTATUS>(pid)
                 .map_err(|e| anyhow!("PTRACE_GETREGSET failed: {}", e))?;
             let (str_addr, empty_addr) =
@@ -112,20 +115,10 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             registers.regs[0] = str_addr;
             registers.regs[1] = empty_addr;
             registers.regs[2] = empty_addr;
+            registers.pc = new_pc;
 
-            // PC on ARM64 is 1-2 instructions ahead of the next instruction to execute due to pipelining.
-            let p = (registers.pc - 8) as *mut libc::c_void;
             sys::ptrace::setregset::<sys::ptrace::regset::NT_PRSTATUS>(pid, registers)
                 .map_err(|e| anyhow!("PTRACE_SETREGSET failed: {}", e))?;
-
-            // 0xd4000001 = svc #0
-            let new_instructions: u64 = 0xd4000001d4000001;
-            sys::ptrace::write(pid, p, new_instructions as i64)
-                .map_err(|e| anyhow!("PTRACE_POKEDATA failed (syscall injection): {}", e))?;
-
-            let p2 = registers.pc as *mut libc::c_void;
-            sys::ptrace::write(pid, p2, new_instructions as i64)
-                .map_err(|e| anyhow!("PTRACE_POKEDATA failed (syscall injection): {}", e))?;
 
             if !args.pause {
                 sys::ptrace::step(pid, None)
@@ -164,6 +157,47 @@ fn ensure_not_in_syscall(pid: unistd::Pid) -> Result<()> {
     }
 
     Ok(())
+}
+
+fn find_svc_instruction(pid: unistd::Pid) -> Result<u64> {
+    let memory_maps = procfs::read_memory_maps(pid.as_raw())?;
+    for memory_map in memory_maps {
+        // [vdso] section should always have a syscall instruction
+        // more robust: look at every executable section
+        if memory_map.label == "[vdso]" {
+            return find_svc_instruction_in_map(pid, &memory_map);
+        }
+    }
+
+    Err(anyhow!("could not find [vdso] segment in binary"))
+}
+
+fn find_svc_instruction_in_map(pid: unistd::Pid, memory_map: &MemoryMap) -> Result<u64> {
+    let mut buffer = vec![0; memory_map.size as usize];
+    let local_iov = &mut [IoSliceMut::new(&mut buffer[..])];
+    let remote_iov = sys::uio::RemoteIoVec {
+        base: memory_map.base_address as usize,
+        len: memory_map.size as usize,
+    };
+    let nread = sys::uio::process_vm_readv(pid, local_iov, &[remote_iov])?;
+    if nread == 0 {
+        return Err(anyhow!("failed to read any data"));
+    }
+
+    // value: 0xd4000001
+    // little-endian representation: 0x01 0x00 0x00 0xd4
+
+    for i in 0..buffer.len() - 3 {
+        if buffer[i] == 0x01
+            && buffer[i + 1] == 0x00
+            && buffer[i + 2] == 0x00
+            && buffer[i + 3] == 0xd4
+        {
+            return Ok(memory_map.base_address + i as u64);
+        }
+    }
+
+    Err(anyhow!("could not find svc instruction in segment"))
 }
 
 fn get_registers(pid: unistd::Pid) -> Result<libc::user_regs_struct> {
