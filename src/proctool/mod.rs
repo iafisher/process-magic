@@ -19,12 +19,18 @@ pub mod common {
         DaemonStart,
         DaemonStatus,
         Pause(PauseArgs),
+        Redirect(RedirectArgs),
         Resume(ResumeArgs),
         Takeover(TakeoverArgs),
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct PauseArgs {
+        pub pid: i32,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct RedirectArgs {
         pub pid: i32,
     }
 

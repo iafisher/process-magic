@@ -92,6 +92,60 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             let pid = unistd::Pid::from_raw(args.pid);
             sys::ptrace::detach(pid, None)?;
         }
+        Args::Redirect(args) => {
+            // TODO: actually select an eligible terminal
+            let terminal = "/dev/pts/4";
+            let pid = unistd::Pid::from_raw(args.pid);
+
+            sys::ptrace::attach(pid)?;
+            sys::wait::waitpid(pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
+                .map_err(|e| anyhow!("failed to waitpid (set-up): {}", e))?;
+
+            ensure_not_in_syscall(pid)
+                .map_err(|e| anyhow!("failed to ensure not in syscall: {}", e))?;
+
+            let new_pc = find_svc_instruction(pid)
+                .map_err(|e| anyhow!("failed to find svc instruction: {}", e))?;
+
+            let mut registers = sys::ptrace::getregset::<sys::ptrace::regset::NT_PRSTATUS>(pid)
+                .map_err(|e| anyhow!("PTRACE_GETREGSET failed: {}", e))?;
+            let original_registers = registers.clone();
+
+            registers.regs[8] = Sysno::close.id() as u64;
+            registers.regs[0] = 1;
+            registers.pc = new_pc;
+
+            sys::ptrace::setregset::<sys::ptrace::regset::NT_PRSTATUS>(pid, registers)
+                .map_err(|e| anyhow!("PTRACE_SETREGSET failed: {}", e))?;
+
+            sys::ptrace::step(pid, None).map_err(|e| anyhow!("PTRACE_SINGLESTEP failed: {}", e))?;
+            sys::wait::waitpid(pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
+                .map_err(|e| anyhow!("failed to waitpid (syscall injection): {}", e))?;
+
+            registers = sys::ptrace::getregset::<sys::ptrace::regset::NT_PRSTATUS>(pid)
+                .map_err(|e| anyhow!("PTRACE_GETREGSET failed: {}", e))?;
+
+            let (str_addr, _) = inject_string_constant(pid, terminal.to_string())
+                .map_err(|e| anyhow!("failed to inject string constant: {}", e))?;
+
+            // ARM64 doesn't have open() syscall
+            registers.regs[8] = Sysno::openat.id() as u64;
+            registers.regs[0] = 0;
+            registers.regs[1] = str_addr;
+            registers.regs[2] = libc::O_WRONLY as u64;
+            registers.regs[3] = 0;
+            registers.pc = new_pc;
+
+            sys::ptrace::setregset::<sys::ptrace::regset::NT_PRSTATUS>(pid, registers)
+                .map_err(|e| anyhow!("PTRACE_SETREGSET failed: {}", e))?;
+
+            sys::ptrace::step(pid, None).map_err(|e| anyhow!("PTRACE_SINGLESTEP failed: {}", e))?;
+            sys::wait::waitpid(pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
+                .map_err(|e| anyhow!("failed to waitpid (syscall injection): {}", e))?;
+            sys::ptrace::setregset::<sys::ptrace::regset::NT_PRSTATUS>(pid, original_registers)
+                .map_err(|e| anyhow!("PTRACE_SETREGSET failed: {}", e))?;
+            sys::ptrace::detach(pid, None).map_err(|e| anyhow!("PTRACE_DETACH failed: {}", e))?;
+        }
         Args::Takeover(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
             sys::ptrace::attach(pid)?;
