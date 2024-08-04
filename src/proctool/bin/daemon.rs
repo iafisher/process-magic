@@ -94,8 +94,6 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             sys::ptrace::detach(pid, None)?;
         }
         Args::Redirect(args) => {
-            // TODO: actually select an eligible terminal
-            let terminal = "/dev/pts/4";
             let pid = unistd::Pid::from_raw(args.pid);
             let controller = ProcessController::new(pid);
 
@@ -105,7 +103,11 @@ fn run_command(root: &str, args: Args) -> Result<()> {
 
             controller.execute_syscall(Sysno::close, vec![1])?;
 
-            let str_addr = controller.inject_bytes(format!("{}\0", terminal).as_bytes())?;
+            let tty = normalize_tty(&args.tty)?;
+            // clearing terminal is best-effort
+            let _ = terminals::clear_terminal(&tty);
+
+            let str_addr = controller.inject_bytes(format!("{}\0", tty).as_bytes())?;
             // ARM64 doesn't have open() syscall
             controller.execute_syscall(
                 Sysno::openat,
@@ -351,6 +353,16 @@ fn find_svc_instruction_in_map(pid: unistd::Pid, memory_map: &MemoryMap) -> Resu
     }
 
     Err(anyhow!("could not find svc instruction in segment"))
+}
+
+fn normalize_tty(tty: &str) -> Result<String> {
+    if tty.starts_with("/dev/pts/") {
+        Ok(tty.to_string())
+    } else if tty.starts_with("pts/") {
+        Ok(format!("/dev/{}", tty))
+    } else {
+        Err(anyhow!("could not interpret {:?} as a TTY identifier", tty))
+    }
 }
 
 fn self_daemonize(root: &str) -> Result<()> {

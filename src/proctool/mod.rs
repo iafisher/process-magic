@@ -36,6 +36,8 @@ pub mod common {
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct RedirectArgs {
         pub pid: i32,
+        #[arg(long)]
+        pub tty: String,
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
