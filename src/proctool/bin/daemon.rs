@@ -101,7 +101,9 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             controller.ensure_not_in_syscall()?;
             let original_registers = controller.get_registers()?;
 
+            // TODO: redirect stdin as well
             controller.execute_syscall(Sysno::close, vec![1])?;
+            controller.execute_syscall(Sysno::close, vec![2])?;
 
             let tty = normalize_tty(&args.tty)?;
             // clearing terminal is best-effort
@@ -113,9 +115,13 @@ fn run_command(root: &str, args: Args) -> Result<()> {
                 Sysno::openat,
                 vec![0, str_addr as i64, libc::O_WRONLY as i64, 0],
             )?;
+            controller.execute_syscall(
+                Sysno::openat,
+                vec![0, str_addr as i64, libc::O_WRONLY as i64, 0],
+            )?;
 
             controller.set_registers(original_registers)?;
-            controller.detach()?;
+            controller.detach_and_stop()?;
         }
         Args::Rewind(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
