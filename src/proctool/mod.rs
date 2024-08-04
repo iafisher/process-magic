@@ -45,5 +45,7 @@ pub mod common {
         /// pause the program after taking it over, to inspect program state
         #[arg(long)]
         pub pause: bool,
+        #[arg(long)]
+        pub bin: Option<String>,
     }
 }

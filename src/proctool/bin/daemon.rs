@@ -121,8 +121,9 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             controller.attach()?;
             controller.ensure_not_in_syscall()?;
 
+            let path_to_program = args.bin.unwrap_or(format!("{}/bin/takeover", root));
             let (str_addr, empty_addr) =
-                controller.inject_string_constant(format!("{}/bin/takeover", root))?;
+                controller.inject_string_constant(path_to_program)?;
             let syscall_args = vec![str_addr, empty_addr, empty_addr];
             controller.set_up_syscall(Sysno::execve, syscall_args)?;
 
