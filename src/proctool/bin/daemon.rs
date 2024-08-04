@@ -16,7 +16,7 @@ use log4rs::{
 use nix::{fcntl, sys, unistd};
 use syscalls::Sysno;
 use telefork::{
-    proctool::common::{Args, DaemonMessage, PORT},
+    proctool::{common::{Args, DaemonMessage, PORT}, terminals},
     teleclient::myprocfs::{self, MemoryMap},
 };
 
@@ -121,6 +121,9 @@ fn run_command(root: &str, args: Args) -> Result<()> {
 
             controller.attach()?;
             controller.ensure_not_in_syscall()?;
+
+            let pts = terminals::get_terminal(pid)?;
+            terminals::clear_terminal(&pts)?;
 
             let command_line = myprocfs::get_command_line(pid.as_raw())?;
 
