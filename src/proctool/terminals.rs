@@ -72,23 +72,65 @@ pub fn spawn_on_terminal(args: Vec<String>, tty: String) -> Result<()> {
 
     // TODO: this should actually properly attach to the terminal's foreground process group
 
-    let _ = unistd::close(1);
-    let _ = unistd::close(2);
+    // https://blog.nelhage.com/2011/02/changing-ctty/
+    match unsafe { unistd::fork() }? {
+        unistd::ForkResult::Parent { child } => {
+            sys::wait::waitpid(child, Some(sys::wait::WaitPidFlag::WSTOPPED))?;
+            println!("current pgid: {}", unistd::getpgid(None).unwrap());
+            let child_pgid = unistd::getpgid(Some(child))?;
+            println!("child pgid: {}", child_pgid);
+            unistd::setpgid(unistd::Pid::from_raw(0), child_pgid)?;
+            println!("new pgid: {}", unistd::getpgid(None).unwrap());
+            unistd::setsid()?;
+            println!("my pid: {}", unistd::getpid());
 
-    let _ = fcntl::open(
-        tty_c.as_c_str(),
-        fcntl::OFlag::O_WRONLY,
-        sys::stat::Mode::empty(),
-    );
-    let _ = fcntl::open(
-        tty_c.as_c_str(),
-        fcntl::OFlag::O_WRONLY,
-        sys::stat::Mode::empty(),
-    );
+            // let mut x = String::new();
+            // std::io::stdin().read_line(&mut x).unwrap();
 
-    let _ = clear_terminal(&tty);
-    let _ = unistd::execv(&path, &args_c);
-    std::process::exit(1);
+            // unistd::close(1)?;
+            let fd = fcntl::open(
+                tty_c.as_c_str(),
+                fcntl::OFlag::O_RDWR,
+                sys::stat::Mode::empty(),
+            )?;
+            let r = unsafe { libc::ioctl(fd, libc::TIOCSCTTY, 1) };
+            if r == -1 {
+                let msg = CString::new("ioctl")?;
+                unsafe {
+                    libc::perror(msg.as_ptr());
+                }
+            }
+
+            println!("ioctl returned {}", r);
+            sys::signal::kill(child, sys::signal::Signal::SIGKILL)?;
+            let _ = clear_terminal(&tty);
+            let _ = unistd::execv(&path, &args_c);
+        }
+        unistd::ForkResult::Child => {
+            let _ = unistd::setpgid(unistd::Pid::from_raw(0), unistd::Pid::from_raw(0));
+            let _ = sys::signal::raise(sys::signal::SIGSTOP);
+        }
+    }
+
+    Ok(())
+
+    // let _ = unistd::close(1);
+    // let _ = unistd::close(2);
+
+    // let _ = fcntl::open(
+    //     tty_c.as_c_str(),
+    //     fcntl::OFlag::O_WRONLY,
+    //     sys::stat::Mode::empty(),
+    // );
+    // let _ = fcntl::open(
+    //     tty_c.as_c_str(),
+    //     fcntl::OFlag::O_WRONLY,
+    //     sys::stat::Mode::empty(),
+    // );
+
+    // let _ = clear_terminal(&tty);
+    // let _ = unistd::execv(&path, &args_c);
+    // std::process::exit(1);
 }
 
 pub fn normalize_tty(tty: &str) -> Result<String> {

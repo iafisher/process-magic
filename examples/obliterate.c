@@ -238,20 +238,24 @@ void animation3() {
     // }
 }
 
-int main() {
-    // paint();
-    animation3();
-    getc(stdin);
-    // animation2();
-    // struct winsize terminal_size = get_terminal_size();
-    // hide_cursor();
-    // fill_screen(terminal_size, "▒");
-    // getc(stdin);
-    // fill_screen(terminal_size, "▓");
-    // getc(stdin);
+int main(int argc, char* argv[]) {
+    char* selection;
+    if (argc >= 2) {
+        selection = argv[1];
+    } else {
+        selection = "primary";
+    }
 
+    if (strcmp(selection, "secondary") == 0) {
+        animation1();
+    } else {
+        animation3();
+    }
+
+    getc(stdin);
     clear_screen();
     return_cursor();
     show_cursor();
+
     return 0;
 }
