@@ -32,6 +32,9 @@ fn main() -> Result<()> {
         Args::DaemonStatus => {
             print_daemon_status();
         }
+        Args::Spawn(args) => {
+            terminals::spawn_on_terminal(args.cmd, args.tty)?;
+        }
         Args::WhatTerminal => {
             print_what_terminal()?;
         }

@@ -20,11 +20,14 @@ pub mod common {
         DaemonRestart,
         DaemonStart,
         DaemonStatus,
+        Obliterate,
         Pause(PauseArgs),
         Redirect(RedirectArgs),
         Resume(ResumeArgs),
         Rewind(RewindArgs),
+        Spawn(SpawnArgs),
         Takeover(TakeoverArgs),
+        TerminalSizes,
         WhatTerminal,
         WriteStdin(WriteStdinArgs),
     }
@@ -49,6 +52,14 @@ pub mod common {
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct RewindArgs {
         pub pid: i32,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct SpawnArgs {
+        #[arg(long)]
+        pub tty: String,
+        #[arg(long)]
+        pub cmd: Vec<String>,
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]

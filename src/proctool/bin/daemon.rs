@@ -1,5 +1,7 @@
 use std::{
     cell::OnceCell,
+    ffi::CString,
+    fs,
     io::{BufRead, BufReader, IoSlice, IoSliceMut},
     net::{TcpListener, TcpStream},
     os::fd::RawFd,
@@ -88,6 +90,26 @@ fn handle_client(root: &str, stream: TcpStream) -> Result<bool> {
 
 fn run_command(root: &str, args: Args) -> Result<()> {
     match args {
+        Args::Obliterate => {
+            let mut biggest_terminal = String::new();
+            let mut biggest_terminal_size = 0;
+            for dir_entry in fs::read_dir("/dev/pts")? {
+                let dir_entry = dir_entry?;
+                if let Ok(s) = dir_entry.file_name().into_string() {
+                    if s.parse::<u64>().is_ok() {
+                        let terminal = s;
+                        let (rows, cols) =
+                            terminals::get_terminal_size(&format!("/dev/pts/{}", terminal))?;
+
+                        let size = rows * cols;
+                        if size >= biggest_terminal_size {
+                            biggest_terminal = terminal;
+                            biggest_terminal_size = size;
+                        }
+                    }
+                }
+            }
+        }
         Args::Pause(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
             let controller = ProcessController::new(pid);
@@ -110,7 +132,7 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             controller.execute_syscall(Sysno::close, vec![1])?;
             controller.execute_syscall(Sysno::close, vec![2])?;
 
-            let tty = normalize_tty(&args.tty)?;
+            let tty = terminals::normalize_tty(&args.tty)?;
             // clearing terminal is best-effort
             let _ = terminals::clear_terminal(&tty);
 
@@ -409,16 +431,6 @@ fn find_svc_instruction_in_map(pid: unistd::Pid, memory_map: &MemoryMap) -> Resu
     }
 
     Err(anyhow!("could not find svc instruction in segment"))
-}
-
-fn normalize_tty(tty: &str) -> Result<String> {
-    if tty.starts_with("/dev/pts/") {
-        Ok(tty.to_string())
-    } else if tty.starts_with("pts/") {
-        Ok(format!("/dev/{}", tty))
-    } else {
-        Err(anyhow!("could not interpret {:?} as a TTY identifier", tty))
-    }
 }
 
 fn self_daemonize(root: &str) -> Result<()> {
