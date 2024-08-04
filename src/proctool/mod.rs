@@ -21,6 +21,7 @@ pub mod common {
         Pause(PauseArgs),
         Redirect(RedirectArgs),
         Resume(ResumeArgs),
+        Rewind(RewindArgs),
         Takeover(TakeoverArgs),
     }
 
@@ -36,6 +37,11 @@ pub mod common {
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct ResumeArgs {
+        pub pid: i32,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct RewindArgs {
         pub pid: i32,
     }
 

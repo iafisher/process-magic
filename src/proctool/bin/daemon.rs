@@ -1,6 +1,6 @@
 use std::{
     cell::OnceCell,
-    io::{BufRead, BufReader, IoSliceMut},
+    io::{BufRead, BufReader, IoSlice, IoSliceMut},
     net::{TcpListener, TcpStream},
     os::fd::RawFd,
 };
@@ -103,16 +103,20 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             controller.ensure_not_in_syscall()?;
             let original_registers = controller.get_registers()?;
 
-            controller.set_up_syscall(Sysno::close, vec![1])?;
-            controller.step_and_wait()?;
+            controller.execute_syscall(Sysno::close, vec![1])?;
 
-            let (str_addr, _) = controller.inject_string_constant(terminal.to_string())?;
+            let str_addr = controller.inject_bytes(format!("{}\0", terminal).as_bytes())?;
             // ARM64 doesn't have open() syscall
-            controller.set_up_syscall(Sysno::openat, vec![0, str_addr, libc::O_WRONLY as u64, 0])?;
+            controller.execute_syscall(
+                Sysno::openat,
+                vec![0, str_addr as i64, libc::O_WRONLY as i64, 0],
+            )?;
 
-            controller.step_and_wait()?;
             controller.set_registers(original_registers)?;
             controller.detach()?;
+        }
+        Args::Rewind(args) => {
+            todo!()
         }
         Args::Takeover(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
@@ -122,13 +126,13 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             controller.ensure_not_in_syscall()?;
 
             let path_to_program = args.bin.unwrap_or(format!("{}/bin/takeover", root));
-            let (str_addr, empty_addr) =
-                controller.inject_string_constant(path_to_program)?;
-            let syscall_args = vec![str_addr, empty_addr, empty_addr];
-            controller.set_up_syscall(Sysno::execve, syscall_args)?;
+            let str_addr = controller.inject_bytes(format!("{}\0", path_to_program).as_bytes())?;
+            let empty_addr = controller.inject_bytes(&[0])?;
+            let syscall_args = vec![str_addr as i64, empty_addr as i64, empty_addr as i64];
+            controller.prepare_syscall(Sysno::execve, syscall_args)?;
 
             if !args.pause {
-                controller.step_and_wait()?;
+                controller.ensure_not_in_syscall()?;
                 controller.detach()?;
             } else {
                 controller.detach_and_stop()?;
@@ -167,10 +171,7 @@ impl ProcessController {
         let initial_pc = initial_registers.pc;
 
         loop {
-            sys::ptrace::step(self.pid, None)
-                .map_err(|e| anyhow!("PTRACE_SINGLESTEP failed: {}", e))?;
-            sys::wait::waitpid(self.pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
-                .map_err(|e| anyhow!("failed to waitpid (ensure_not_in_syscall): {}", e))?;
+            self.step_and_wait()?;
             let current_registers = self.get_registers()?;
             if current_registers.pc != initial_pc {
                 break;
@@ -182,7 +183,7 @@ impl ProcessController {
         Ok(())
     }
 
-    pub fn set_up_syscall(&self, sysno: Sysno, args: Vec<u64>) -> Result<()> {
+    pub fn prepare_syscall(&self, sysno: Sysno, args: Vec<i64>) -> Result<()> {
         let new_pc = self.find_svc_instruction()?;
 
         let mut registers = self.get_registers()?;
@@ -190,12 +191,19 @@ impl ProcessController {
         // syscall number in x8, args in x0, x1, x2, x3...
         registers.regs[8] = sysno.id() as u64;
         for i in 0..args.len() {
-            registers.regs[i] = args[i];
+            registers.regs[i] = args[i] as u64;
         }
         registers.pc = new_pc;
 
         self.set_registers(registers)?;
         Ok(())
+    }
+
+    fn execute_syscall(&self, sysno: Sysno, args: Vec<i64>) -> Result<u64> {
+        self.prepare_syscall(sysno, args)?;
+        self.ensure_not_in_syscall()?;
+        let registers = self.get_registers()?;
+        Ok(registers.regs[0])
     }
 
     pub fn find_svc_instruction(&self) -> Result<u64> {
@@ -230,28 +238,30 @@ impl ProcessController {
         Ok(())
     }
 
-    pub fn inject_string_constant(&self, s: String) -> Result<(u64, u64)> {
-        let addr = find_addr_for_string_constant(self.pid, s.len())?;
+    pub fn inject_bytes(&self, bytes: &[u8]) -> Result<u64> {
+        let addr = self.execute_syscall(
+            Sysno::mmap,
+            vec![
+                0,
+                bytes.len() as i64,
+                (libc::PROT_READ | libc::PROT_WRITE) as i64,
+                (libc::MAP_ANON | libc::MAP_PRIVATE) as i64,
+                -1,
+                0,
+            ],
+        )?;
 
-        // would be more efficient to use `process_vm_writev` but string should be short and this is simpler
-        let p = addr as *mut libc::c_void;
-        let mut offset = 0;
-        for b in s.as_bytes() {
-            sys::ptrace::write(self.pid, p.wrapping_byte_offset(offset), *b as i64)
-                .map_err(|e| anyhow!("PTRACE_POKEDATA failed: {}", e))?;
-            offset += 1;
+        let local_iov = IoSlice::new(bytes);
+        let remote_iov = sys::uio::RemoteIoVec {
+            base: addr as usize,
+            len: bytes.len(),
+        };
+        let nwritten = sys::uio::process_vm_writev(self.pid, &[local_iov], &[remote_iov])?;
+        if nwritten == 0 {
+            return Err(anyhow!("failed to write data"));
         }
 
-        let null_terminator_addr = p.wrapping_byte_offset(offset);
-        sys::ptrace::write(self.pid, null_terminator_addr, 0)
-            .map_err(|e| anyhow!("PTRACE_POKEDATA failed: {}", e))?;
-
-        // for execve we also need a pointer to an array whose only element is NULL; conveniently, a
-        // pointer to the null terminator at the end of the string works for this.
-        //
-        // the alternative -- injecting a separate empty array -- requires us to remember where we
-        // wrote the string constant so we don't overwrite it.
-        Ok((addr, null_terminator_addr as u64))
+        Ok(addr)
     }
 
     pub fn detach(&self) -> Result<()> {
@@ -310,27 +320,6 @@ fn find_svc_instruction_in_map(pid: unistd::Pid, memory_map: &MemoryMap) -> Resu
     }
 
     Err(anyhow!("could not find svc instruction in segment"))
-}
-
-fn find_addr_for_string_constant(pid: unistd::Pid, length: usize) -> Result<u64> {
-    let memory_maps = procfs::read_memory_maps(pid.as_raw())?;
-    for memory_map in memory_maps {
-        if memory_map.size < length as u64 {
-            continue;
-        }
-
-        if !memory_map.readable || !memory_map.writable {
-            continue;
-        }
-
-        // don't want to overwrite important segments which are usually labelled (stack, heap, vdso, etc.)
-        if !memory_map.label.is_empty() {
-            continue;
-        }
-
-        return Ok(memory_map.base_address);
-    }
-    Err(anyhow!("no suitable memory region found"))
 }
 
 fn self_daemonize(root: &str) -> Result<()> {
