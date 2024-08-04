@@ -6,7 +6,8 @@ use anyhow::{anyhow, Result};
 
 use clap::Parser;
 
-use telefork::proctool::common::{Args, DaemonMessage, PORT};
+use nix::unistd;
+use telefork::proctool::{common::{Args, DaemonMessage, PORT}, terminals};
 
 fn main() -> Result<()> {
     let args = Args::parse();
@@ -30,6 +31,9 @@ fn main() -> Result<()> {
         }
         Args::DaemonStatus => {
             print_daemon_status();
+        }
+        Args::WhatTerminal => {
+            print_what_terminal()?;
         }
         _ => {
             dispatch_to_daemon(args)?;
@@ -85,6 +89,12 @@ fn print_daemon_status() {
         println!("daemon is not running");
         std::process::exit(1);
     }
+}
+
+fn print_what_terminal() -> Result<()> {
+    let terminal = terminals::get_terminal(unistd::Pid::this())?;
+    println!("{}", terminal);
+    Ok(())
 }
 
 struct Daemon {

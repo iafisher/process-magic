@@ -11,7 +11,7 @@ use nix::sys::wait::WaitPidFlag;
 use nix::unistd::{fork, Pid};
 use syscalls::Sysno;
 
-use crate::teleclient::procfs::{self, MemoryMap};
+use crate::teleclient::myprocfs::{self, MemoryMap};
 
 pub fn spawn_process(
     gp_register_data: &Vec<u8>,
@@ -100,7 +100,7 @@ fn set_registers(pid: Pid, kind: libc::c_int, register_data: &Vec<u8>) -> Result
 }
 
 fn unmap_existing_memory(pid: Pid) -> Result<()> {
-    let memory_maps = procfs::read_memory_maps(pid.as_raw())?;
+    let memory_maps = myprocfs::read_memory_maps(pid.as_raw())?;
 
     let process_registers = nix_ptrace::getregset::<nix::sys::ptrace::regset::NT_PRSTATUS>(pid)
         .map_err(|e| anyhow!("PTRACE_GETREGSET failed: {}", e))?;

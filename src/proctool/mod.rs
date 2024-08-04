@@ -1,3 +1,5 @@
+pub mod terminals;
+
 pub mod common {
     use clap::Parser;
     use serde::{Deserialize, Serialize};
@@ -23,6 +25,7 @@ pub mod common {
         Resume(ResumeArgs),
         Rewind(RewindArgs),
         Takeover(TakeoverArgs),
+        WhatTerminal,
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]

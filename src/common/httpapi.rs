@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::teleclient::procfs::MemoryMap;
+use crate::teleclient::myprocfs::MemoryMap;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TeleforkApiRequest {

@@ -1,2 +1,2 @@
-pub mod procfs;
+pub mod myprocfs;
 pub mod ptrace;

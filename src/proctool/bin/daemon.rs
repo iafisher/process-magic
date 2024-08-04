@@ -17,7 +17,7 @@ use nix::{fcntl, sys, unistd};
 use syscalls::Sysno;
 use telefork::{
     proctool::common::{Args, DaemonMessage, PORT},
-    teleclient::procfs::{self, MemoryMap},
+    teleclient::myprocfs::{self, MemoryMap},
 };
 
 pub fn main() -> Result<()> {
@@ -122,7 +122,7 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             controller.attach()?;
             controller.ensure_not_in_syscall()?;
 
-            let command_line = procfs::get_command_line(pid.as_raw())?;
+            let command_line = myprocfs::get_command_line(pid.as_raw())?;
 
             let mut addrs = Vec::new();
             for arg in command_line {
@@ -316,7 +316,7 @@ impl ProcessController {
             return Ok(());
         }
 
-        let memory_maps = procfs::read_memory_maps(self.pid.as_raw())?;
+        let memory_maps = myprocfs::read_memory_maps(self.pid.as_raw())?;
         let _ = self.memory_maps.set(memory_maps);
         Ok(())
     }

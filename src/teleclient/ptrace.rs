@@ -8,9 +8,9 @@ use nix::sys::wait::WaitPidFlag;
 use nix::unistd::Pid;
 use syscalls::Sysno;
 
-use crate::teleclient::procfs::MemoryMap;
+use crate::teleclient::myprocfs::MemoryMap;
 
-use super::procfs;
+use super::myprocfs;
 
 pub struct Tracer {
     pid: Pid,
@@ -73,7 +73,7 @@ impl Tracer {
     pub fn read_memory(&self) -> Result<Vec<MemoryMap>> {
         // https://unix.stackexchange.com/questions/6301/how-do-i-read-from-proc-pid-mem-under-linux
 
-        let mut memory_maps = procfs::read_memory_maps(self.pid.as_raw())?;
+        let mut memory_maps = myprocfs::read_memory_maps(self.pid.as_raw())?;
 
         let path = format!("/proc/{}/mem", self.pid);
         let mut file = File::open(&path)?;
