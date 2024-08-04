@@ -1,6 +1,6 @@
 use core::fmt;
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, Read};
 
 use anyhow::{anyhow, Result};
 use serde::{Deserialize, Serialize};
@@ -15,6 +15,28 @@ pub struct MemoryMap {
     pub executable: bool,
     pub private: bool,
     pub data: Vec<u8>,
+}
+
+pub fn get_command_line(pid: i32) -> Result<Vec<Vec<u8>>> {
+    let path = format!("/proc/{}/cmdline", pid);
+    let mut file = File::open(&path)?;
+
+    let mut buf = Vec::new();
+    file.read_to_end(&mut buf)?;
+
+    let mut start = 0;
+    let mut i = 0;
+    let mut args = Vec::new();
+
+    while i < buf.len() {
+        if buf[i] == 0 {
+            args.push(Vec::from(&buf[start..i+1]));
+            start = i + 1;
+        }
+        i += 1;
+    }
+
+    Ok(args)
 }
 
 pub fn read_memory_maps(pid: i32) -> Result<Vec<MemoryMap>> {

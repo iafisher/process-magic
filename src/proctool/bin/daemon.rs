@@ -116,7 +116,27 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             controller.detach()?;
         }
         Args::Rewind(args) => {
-            todo!()
+            let pid = unistd::Pid::from_raw(args.pid);
+            let controller = ProcessController::new(pid);
+
+            controller.attach()?;
+            controller.ensure_not_in_syscall()?;
+
+            let command_line = procfs::get_command_line(pid.as_raw())?;
+
+            let mut addrs = Vec::new();
+            for arg in command_line {
+                let addr = controller.inject_bytes(&arg)?;
+                addrs.push(addr);
+            }
+            let argv_addr = controller.inject_u64s(&addrs)?;
+            let envp_addr = controller.inject_bytes(&[0])?;
+
+            controller.execute_syscall(
+                Sysno::execve,
+                vec![addrs[0] as i64, argv_addr as i64, envp_addr as i64],
+            )?;
+            controller.detach()?;
         }
         Args::Takeover(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
@@ -262,6 +282,14 @@ impl ProcessController {
         }
 
         Ok(addr)
+    }
+
+    pub fn inject_u64s(&self, xs: &[u64]) -> Result<u64> {
+        let mut bytes = Vec::new();
+        for x in xs {
+            bytes.extend_from_slice(&x.to_le_bytes());
+        }
+        self.inject_bytes(&bytes)
     }
 
     pub fn detach(&self) -> Result<()> {
