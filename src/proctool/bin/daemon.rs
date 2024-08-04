@@ -1,5 +1,8 @@
 use std::{
-    cell::OnceCell, io::{BufRead, BufReader, IoSlice, IoSliceMut}, net::{TcpListener, TcpStream}, os::fd::RawFd
+    cell::OnceCell,
+    io::{BufRead, BufReader, IoSlice, IoSliceMut},
+    net::{TcpListener, TcpStream},
+    os::fd::RawFd,
 };
 
 use anyhow::{anyhow, Result};
@@ -13,7 +16,10 @@ use log4rs::{
 use nix::{fcntl, sys, unistd};
 use syscalls::Sysno;
 use telefork::{
-    proctool::{common::{Args, DaemonMessage, PORT}, terminals::{self, write_to_stdin}},
+    proctool::{
+        common::{Args, DaemonMessage, PORT},
+        terminals::{self, write_to_stdin},
+    },
     teleclient::myprocfs::{self, MemoryMap},
 };
 
@@ -84,21 +90,23 @@ fn run_command(root: &str, args: Args) -> Result<()> {
     match args {
         Args::Pause(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
-            sys::ptrace::attach(pid)?;
+            let controller = ProcessController::new(pid);
+            controller.attach()?;
         }
         Args::Resume(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
-            sys::ptrace::detach(pid, None)?;
+            let controller = ProcessController::new(pid);
+            controller.detach()?;
         }
         Args::Redirect(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
             let controller = ProcessController::new(pid);
 
             controller.attach()?;
-            controller.ensure_not_in_syscall()?;
+            controller.cancel_pending_read()?;
             let original_registers = controller.get_registers()?;
 
-            // TODO: redirect stdin as well
+            // controller.execute_syscall(Sysno::close, vec![0])?;
             controller.execute_syscall(Sysno::close, vec![1])?;
             controller.execute_syscall(Sysno::close, vec![2])?;
 
@@ -108,6 +116,10 @@ fn run_command(root: &str, args: Args) -> Result<()> {
 
             let str_addr = controller.inject_bytes(format!("{}\0", tty).as_bytes())?;
             // ARM64 doesn't have open() syscall
+            // controller.execute_syscall(
+            //     Sysno::openat,
+            //     vec![0, str_addr as i64, libc::O_RDONLY as i64, 0],
+            // )?;
             controller.execute_syscall(
                 Sysno::openat,
                 vec![0, str_addr as i64, libc::O_WRONLY as i64, 0],
@@ -118,7 +130,7 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             )?;
 
             controller.set_registers(original_registers)?;
-            controller.detach_and_stop()?;
+            controller.detach()?;
         }
         Args::Rewind(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
@@ -197,7 +209,45 @@ impl ProcessController {
         Ok(())
     }
 
+    pub fn cancel_pending_read(&self) -> Result<()> {
+        log::info!("cancel pending read");
+        if let Some((sysno, arg)) = self.current_syscall()? {
+            log::info!("cancel pending read: syscall {}", sysno);
+            // stdin is represented by 0
+            if sysno == Sysno::read.id() as u64 && arg == 0 {
+                log::info!("cancel pending read: writing to stdin");
+                terminals::write_to_stdin(self.pid, "")?;
+                self.step_and_wait()?;
+            }
+            Ok(())
+        } else {
+            log::info!("cancel pending read: not in a syscall");
+            // not in a syscall
+            Ok(())
+        }
+    }
+
+    /// returns (sysno, first arg)
+    pub fn current_syscall(&self) -> Result<Option<(u64, u64)>> {
+        let registers = self.get_registers()?;
+        let data = sys::ptrace::read(self.pid, registers.pc as *mut libc::c_void)?;
+        let current_instruction = (data & 0xffffffff) as u64;
+        if current_instruction == 0xd4000001 {
+            Ok(Some((registers.regs[8], registers.regs[0])))
+        } else {
+            Ok(None)
+        }
+    }
+
     pub fn ensure_not_in_syscall(&self) -> Result<()> {
+        // TODO: this method is flawed
+        //   if we are in a normal syscall then single-stepping is fine
+        //   if we are in a nanosleep we just need to wait that amount of time
+        //   if we are in a read we're probably reading from stdin (otherwise would not have blocked)
+        //     we can send a line to the process's stdin
+        //
+        // as currently written the method only works for nanosleep because it just spins until the syscall
+        // returns; it spins forever for reading from stdin
         let initial_registers = self.get_registers()?;
         let initial_pc = initial_registers.pc;
 
