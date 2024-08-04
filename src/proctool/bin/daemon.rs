@@ -1,8 +1,5 @@
 use std::{
-    cell::OnceCell,
-    io::{BufRead, BufReader, IoSlice, IoSliceMut},
-    net::{TcpListener, TcpStream},
-    os::fd::RawFd,
+    cell::OnceCell, io::{BufRead, BufReader, IoSlice, IoSliceMut}, net::{TcpListener, TcpStream}, os::fd::RawFd
 };
 
 use anyhow::{anyhow, Result};
@@ -16,7 +13,7 @@ use log4rs::{
 use nix::{fcntl, sys, unistd};
 use syscalls::Sysno;
 use telefork::{
-    proctool::{common::{Args, DaemonMessage, PORT}, terminals},
+    proctool::{common::{Args, DaemonMessage, PORT}, terminals::{self, write_to_stdin}},
     teleclient::myprocfs::{self, MemoryMap},
 };
 
@@ -168,6 +165,9 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             } else {
                 controller.detach_and_stop()?;
             }
+        }
+        Args::WriteStdin(args) => {
+            write_to_stdin(unistd::Pid::from_raw(args.pid), &args.message)?;
         }
         _ => {
             return Err(anyhow!("unknown command {:?}", args));

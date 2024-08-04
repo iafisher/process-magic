@@ -26,6 +26,7 @@ pub mod common {
         Rewind(RewindArgs),
         Takeover(TakeoverArgs),
         WhatTerminal,
+        WriteStdin(WriteStdinArgs),
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
@@ -58,5 +59,12 @@ pub mod common {
         pub pause: bool,
         #[arg(long)]
         pub bin: Option<String>,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct WriteStdinArgs {
+        pub pid: i32,
+        #[arg(long)]
+        pub message: String,
     }
 }
