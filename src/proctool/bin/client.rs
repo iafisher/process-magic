@@ -1,13 +1,17 @@
-use std::io::Write;
+use std::io::BufReader;
 use std::net::TcpStream;
 use std::process::Command;
+use std::{fs, io::Write};
 
 use anyhow::{anyhow, Result};
 
 use clap::Parser;
 
 use nix::unistd;
-use telefork::proctool::{common::{Args, DaemonMessage, PORT}, procinfo, terminals};
+use telefork::proctool::{
+    common::{Args, DaemonMessage, PORT},
+    cryogenics, procinfo, terminals,
+};
 
 fn main() -> Result<()> {
     let args = Args::parse();
@@ -48,8 +52,22 @@ fn main() -> Result<()> {
         Args::Terminals => {
             procinfo::list_terminals()?;
         }
-        Args::WhatTerminal => {
+        Args::Which => {
             print_what_terminal()?;
+        }
+        Args::Freeze(args) => {
+            let state = cryogenics::freeze(unistd::Pid::from_raw(args.pid))?;
+            let fname = format!("{}.state", args.pid);
+            let mut f = fs::File::options().write(true).create(true).open(&fname)?;
+
+            serde_json::to_writer(&mut f, &state)?;
+            println!("Saved to {}", fname);
+        }
+        Args::Thaw(args) => {
+            let f = fs::File::open(&args.path)?;
+            let mut reader = BufReader::new(f);
+            let state: cryogenics::ProcessState = serde_json::from_reader(&mut reader)?;
+            cryogenics::thaw(&state)?;
         }
         _ => {
             dispatch_to_daemon(args)?;

@@ -1,3 +1,5 @@
+pub mod cryogenics;
+pub mod pcontroller;
 pub mod procinfo;
 pub mod terminals;
 
@@ -21,6 +23,7 @@ pub mod common {
         DaemonRestart,
         DaemonStart,
         DaemonStatus,
+        Freeze(FreezeArgs),
         Groups,
         Obliterate,
         Pause(PauseArgs),
@@ -33,8 +36,14 @@ pub mod common {
         Takeover(TakeoverArgs),
         Terminals,
         TerminalSizes,
-        WhatTerminal,
+        Thaw(ThawArgs),
+        Which,
         WriteStdin(WriteStdinArgs),
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct FreezeArgs {
+        pub pid: i32,
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
@@ -82,6 +91,11 @@ pub mod common {
         pub pause: bool,
         #[arg(long)]
         pub bin: Option<String>,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct ThawArgs {
+        pub path: String,
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
