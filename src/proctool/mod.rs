@@ -1,3 +1,4 @@
+pub mod procinfo;
 pub mod terminals;
 
 pub mod common {
@@ -20,13 +21,17 @@ pub mod common {
         DaemonRestart,
         DaemonStart,
         DaemonStatus,
+        Groups,
         Obliterate,
         Pause(PauseArgs),
+        Processes(ProcessesArgs),
         Redirect(RedirectArgs),
         Resume(ResumeArgs),
         Rewind(RewindArgs),
+        Sessions,
         Spawn(SpawnArgs),
         Takeover(TakeoverArgs),
+        Terminals,
         TerminalSizes,
         WhatTerminal,
         WriteStdin(WriteStdinArgs),
@@ -35,6 +40,11 @@ pub mod common {
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct PauseArgs {
         pub pid: i32,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct ProcessesArgs {
+        pub pid: Option<i32>,
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]

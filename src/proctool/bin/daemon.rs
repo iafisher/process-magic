@@ -1,6 +1,5 @@
 use std::{
     cell::OnceCell,
-    ffi::CString,
     fs,
     io::{BufRead, BufReader, IoSlice, IoSliceMut},
     net::{TcpListener, TcpStream},
@@ -109,6 +108,8 @@ fn run_command(root: &str, args: Args) -> Result<()> {
                     }
                 }
             }
+
+            log::info!("biggest terminal: {} (size={})", biggest_terminal, biggest_terminal_size);
         }
         Args::Pause(args) => {
             let pid = unistd::Pid::from_raw(args.pid);

@@ -7,7 +7,7 @@ use anyhow::{anyhow, Result};
 use clap::Parser;
 
 use nix::unistd;
-use telefork::proctool::{common::{Args, DaemonMessage, PORT}, terminals};
+use telefork::proctool::{common::{Args, DaemonMessage, PORT}, procinfo, terminals};
 
 fn main() -> Result<()> {
     let args = Args::parse();
@@ -32,8 +32,24 @@ fn main() -> Result<()> {
         Args::DaemonStatus => {
             print_daemon_status();
         }
+        Args::Groups => {
+            procinfo::print_process_groups()?;
+        }
+        Args::Processes(args) => {
+            if let Some(pid) = args.pid {
+                procinfo::print_process_tree(pid)?;
+            } else {
+                procinfo::list_processes()?;
+            }
+        }
+        Args::Sessions => {
+            procinfo::print_sessions()?;
+        }
         Args::Spawn(args) => {
             terminals::spawn_on_terminal(args.cmd, args.tty)?;
+        }
+        Args::Terminals => {
+            procinfo::list_terminals()?;
         }
         Args::WhatTerminal => {
             print_what_terminal()?;

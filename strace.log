@@ -1,0 +1,2656 @@
+execve("/usr/bin/ps", ["ps", "2633835"], 0xffffef279cc8 /* 32 vars */) = 0
+brk(NULL)                               = 0xc6b9ef508000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf56172660000
+faccessat(AT_FDCWD, "/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=26179, ...}) = 0
+mmap(NULL, 26179, PROT_READ, MAP_PRIVATE, 3, 0) = 0xf56172659000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libproc2.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=264616, ...}) = 0
+mmap(NULL, 328080, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf561725d6000
+mmap(0xf561725e0000, 262544, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf561725e0000
+munmap(0xf561725d6000, 40960)           = 0
+munmap(0xf56172621000, 20880)           = 0
+mprotect(0xf56172610000, 40960, PROT_NONE) = 0
+mmap(0xf5617261a000, 28672, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3a000) = 0xf5617261a000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\360\206\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=1722920, ...}) = 0
+mmap(NULL, 1892240, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf56172412000
+mmap(0xf56172420000, 1826704, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf56172420000
+munmap(0xf56172412000, 57344)           = 0
+munmap(0xf561725de000, 8080)            = 0
+mprotect(0xf561725ba000, 77824, PROT_NONE) = 0
+mmap(0xf561725cd000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19d000) = 0xf561725cd000
+mmap(0xf561725d2000, 49040, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xf561725d2000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libsystemd.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=989464, ...}) = 0
+mmap(NULL, 1055528, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf5617231e000
+mmap(0xf56172320000, 989992, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf56172320000
+munmap(0xf5617231e000, 8192)            = 0
+munmap(0xf56172412000, 56104)           = 0
+mprotect(0xf561723f7000, 57344, PROT_NONE) = 0
+mmap(0xf56172405000, 53248, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xe5000) = 0xf56172405000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libcap.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\320}\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=67704, ...}) = 0
+mmap(NULL, 196696, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf561722ef000
+mmap(0xf561722f0000, 131160, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf561722f0000
+munmap(0xf561722ef000, 4096)            = 0
+munmap(0xf56172311000, 57432)           = 0
+mprotect(0xf561722fb000, 81920, PROT_NONE) = 0
+mmap(0xf5617230f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xf5617230f000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libgcrypt.so.20", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=1000536, ...}) = 0
+mmap(NULL, 1131128, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf561721db000
+mmap(0xf561721e0000, 1065592, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf561721e0000
+munmap(0xf561721db000, 20480)           = 0
+munmap(0xf561722e5000, 41592)           = 0
+mprotect(0xf561722c6000, 86016, PROT_NONE) = 0
+mmap(0xf561722db000, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xeb000) = 0xf561722db000
+mmap(0xf561722e4000, 632, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xf561722e4000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/liblz4.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=133136, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf56172657000
+mmap(NULL, 262256, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf5617219f000
+mmap(0xf561721a0000, 196720, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf561721a0000
+munmap(0xf5617219f000, 4096)            = 0
+munmap(0xf561721d1000, 57456)           = 0
+mprotect(0xf561721be000, 69632, PROT_NONE) = 0
+mmap(0xf561721cf000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f000) = 0xf561721cf000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/liblzma.so.5", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=198584, ...}) = 0
+mmap(NULL, 327696, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf5617214f000
+mmap(0xf56172150000, 262160, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf56172150000
+munmap(0xf5617214f000, 4096)            = 0
+munmap(0xf56172191000, 57360)           = 0
+mprotect(0xf5617217e000, 69632, PROT_NONE) = 0
+mmap(0xf5617218f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2f000) = 0xf5617218f000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libzstd.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=657432, ...}) = 0
+mmap(NULL, 786576, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf5617208f000
+mmap(0xf56172090000, 721040, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf56172090000
+munmap(0xf5617208f000, 4096)            = 0
+munmap(0xf56172141000, 57488)           = 0
+mprotect(0xf5617212b000, 81920, PROT_NONE) = 0
+mmap(0xf5617213f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x9f000) = 0xf5617213f000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libgpg-error.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=198648, ...}) = 0
+mmap(NULL, 328032, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf5617203f000
+mmap(0xf56172040000, 262496, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf56172040000
+munmap(0xf5617203f000, 4096)            = 0
+munmap(0xf56172081000, 57696)           = 0
+mprotect(0xf56172064000, 110592, PROT_NONE) = 0
+mmap(0xf5617207f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2f000) = 0xf5617207f000
+close(3)                                = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf56172655000
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf56172652000
+set_tid_address(0xf561726520f0)         = 2640132
+set_robust_list(0xf56172652100, 24)     = 0
+rseq(0xf56172652740, 0x20, 0, 0xd428bc00) = 0
+mprotect(0xf561725cd000, 12288, PROT_READ) = 0
+mprotect(0xf5617207f000, 4096, PROT_READ) = 0
+mprotect(0xf5617213f000, 4096, PROT_READ) = 0
+mprotect(0xf5617218f000, 4096, PROT_READ) = 0
+mprotect(0xf561721cf000, 4096, PROT_READ) = 0
+mprotect(0xf561722db000, 20480, PROT_READ) = 0
+mprotect(0xf5617230f000, 4096, PROT_READ) = 0
+mprotect(0xf56172405000, 45056, PROT_READ) = 0
+mprotect(0xf5617261a000, 24576, PROT_READ) = 0
+mprotect(0xc6b9e844c000, 16384, PROT_READ) = 0
+mprotect(0xf56172665000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0xf56172659000, 26179)           = 0
+getrandom("\x53\xe1\x01\x7c\x3a\x88\x07\x45", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0xc6b9ef508000
+brk(0xc6b9ef529000)                     = 0xc6b9ef529000
+prctl(PR_CAPBSET_READ, CAP_MAC_OVERRIDE) = 1
+prctl(PR_CAPBSET_READ, 0x30 /* CAP_??? */) = -1 EINVAL (Invalid argument)
+prctl(PR_CAPBSET_READ, CAP_CHECKPOINT_RESTORE) = 1
+prctl(PR_CAPBSET_READ, 0x2c /* CAP_??? */) = -1 EINVAL (Invalid argument)
+prctl(PR_CAPBSET_READ, 0x2a /* CAP_??? */) = -1 EINVAL (Invalid argument)
+prctl(PR_CAPBSET_READ, 0x29 /* CAP_??? */) = -1 EINVAL (Invalid argument)
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=3055776, ...}) = 0
+mmap(NULL, 3055776, PROT_READ, MAP_PRIVATE, 3, 0) = 0xf56171c00000
+close(3)                                = 0
+rt_sigaction(SIGSYS, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGPWR, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGIO, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGVTALRM, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGXFSZ, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGXCPU, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGTTIN, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGSTKFLT, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGTERM, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGALRM, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGPIPE, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGUSR2, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGSEGV, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGUSR1, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGFPE, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGBUS, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGABRT, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGTRAP, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGILL, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+rt_sigaction(SIGHUP, {sa_handler=0xc6b9e841ae70, sa_mask=~[RTMIN RT_1], sa_flags=0}, NULL, 8) = 0
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=26179, ...}) = 0
+mmap(NULL, 26179, PROT_READ, MAP_PRIVATE, 3, 0) = 0xf56172659000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libnuma.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/lib/aarch64-linux-gnu/", {st_mode=S_IFDIR|0755, st_size=36864, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/aarch64-linux-gnu/libnuma.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/aarch64-linux-gnu/", {st_mode=S_IFDIR|0755, st_size=36864, ...}, 0) = 0
+openat(AT_FDCWD, "/lib/libnuma.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/lib/", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/libnuma.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+munmap(0xf56172659000, 26179)           = 0
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=26179, ...}) = 0
+mmap(NULL, 26179, PROT_READ, MAP_PRIVATE, 3, 0) = 0xf56172659000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/aarch64-linux-gnu/libnuma.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=68424, ...}) = 0
+mmap(NULL, 214432, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_DENYWRITE, -1, 0) = 0xf5617200b000
+mmap(0xf56172010000, 148896, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xf56172010000
+munmap(0xf5617200b000, 20480)           = 0
+munmap(0xf56172035000, 42400)           = 0
+mprotect(0xf5617201c000, 77824, PROT_NONE) = 0
+mmap(0xf5617202f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xf5617202f000
+mmap(0xf56172031000, 13728, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xf56172031000
+close(3)                                = 0
+mprotect(0xf5617202f000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/proc/self/status", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+read(3, "Name:\tps\nUmask:\t0002\nState:\tR (r"..., 1024) = 1024
+read(3, "directBranch:\tunknown\nCpus_allow"..., 1024) = 174
+read(3, "", 1024)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/sys/devices/system/node", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+brk(0xc6b9ef550000)                     = 0xc6b9ef550000
+getdents64(3, 0xc6b9ef527aa0 /* 11 entries */, 32768) = 360
+getdents64(3, 0xc6b9ef527aa0 /* 0 entries */, 32768) = 0
+brk(0xc6b9ef548000)                     = 0xc6b9ef548000
+close(3)                                = 0
+sched_getaffinity(0, 512, [0 1 2 3 4 5]) = 8
+openat(AT_FDCWD, "/sys/devices/system/cpu/possible", O_RDONLY|O_CLOEXEC) = 3
+read(3, "0-5\n", 1024)                  = 4
+close(3)                                = 0
+openat(AT_FDCWD, "/proc/self/status", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+read(3, "Name:\tps\nUmask:\t0002\nState:\tR (r"..., 1024) = 1024
+read(3, "directBranch:\tunknown\nCpus_allow"..., 1024) = 174
+read(3, "", 1024)                       = 0
+close(3)                                = 0
+munmap(0xf56172659000, 26179)           = 0
+openat(AT_FDCWD, "/proc/self/stat", O_RDONLY) = 3
+read(3, "2640132 (ps) R 2640129 2640129 2"..., 1024) = 325
+close(3)                                = 0
+getpid()                                = 2640132
+newfstatat(AT_FDCWD, "/proc/self/task", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf56171fef000
+mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf56171fce000
+openat(AT_FDCWD, "/proc/uptime", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+read(3, "742065.12 4396008.79\n", 1024) = 21
+close(3)                                = 0
+openat(AT_FDCWD, "/proc/2640132/status", O_RDONLY) = 3
+read(3, "Name:\tps\nUmask:\t0002\nState:\tR (r"..., 1024) = 1024
+read(3, "directBranch:\tunknown\nCpus_allow"..., 1024) = 174
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/proc/2640132", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2640132/stat", O_RDONLY) = 3
+read(3, "2640132 (ps) R 2640129 2640129 2"..., 1024) = 326
+close(3)                                = 0
+ioctl(1, TIOCGWINSZ, {ws_row=41, ws_col=82, ws_xpixel=1476, ws_ypixel=1722}) = 0
+ioctl(1, TCGETS, {c_iflag=BRKINT|IGNPAR|ICRNL|IXON|IMAXBEL|IUTF8, c_oflag=NL0|CR0|TAB0|BS0|VT0|FF0|OPOST|ONLCR, c_cflag=B38400|CS8|CREAD, c_lflag=ISIG|ICANON|ECHO|ECHOE|ECHOK|IEXTEN|ECHOCTL|ECHOKE|PENDIN, ...}) = 0
+geteuid()                               = 1000
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=2996, ...}) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/en_US.UTF-8/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en_US.utf8/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en_US/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en.UTF-8/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en.utf8/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en_US.UTF-8/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en_US.utf8/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en_US/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en.UTF-8/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en.utf8/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en/LC_MESSAGES/procps-ng.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/proc/sys/kernel/pid_max", O_RDONLY) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=0, ...}) = 0
+read(3, "4194304\n", 1024)              = 8
+close(3)                                = 0
+mmap(NULL, 139264, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf56171fac000
+mprotect(0xf56171fcd000, 4096, PROT_NONE) = 0
+openat(AT_FDCWD, "/proc", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
+openat(AT_FDCWD, "/proc/uptime", O_RDONLY) = 4
+fstat(4, {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+read(4, "742065.14 4396008.84\n", 1024) = 21
+close(4)                                = 0
+mmap(NULL, 626688, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xf56171f13000
+getdents64(3, 0xc6b9ef5282c0 /* 246 entries */, 32768) = 6904
+newfstatat(AT_FDCWD, "/proc/1", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1/stat", O_RDONLY) = 4
+read(4, "1 (systemd) S 0 1 1 0 -1 4194560"..., 1024) = 199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1/status", O_RDONLY) = 4
+read(4, "Name:\tsystemd\nUmask:\t0000\nState:"..., 1024) = 1024
+read(4, "000001\nMems_allowed_list:\t0\nvolu"..., 1024) = 92
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/1/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/systemd/systemd\0--syste"..., 131072) = 51
+read(4, "", 131021)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2/stat", O_RDONLY) = 4
+read(4, "2 (kthreadd) S 0 0 0 0 -1 212998"..., 2048) = 150
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2/status", O_RDONLY) = 4
+read(4, "Name:\tkthreadd\nUmask:\t0000\nState"..., 2048) = 731
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/3", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/3/stat", O_RDONLY) = 4
+read(4, "3 (pool_workqueue_release) S 2 0"..., 2048) = 164
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/3/status", O_RDONLY) = 4
+read(4, "Name:\tpool_workqueue_release\nUma"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/3/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/3/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/3/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/4", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/4/stat", O_RDONLY) = 4
+read(4, "4 (kworker/R-rcu_g) I 2 0 0 0 -1"..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/4/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-rcu_g\nUmask:\t000"..., 2048) = 731
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/4/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/4/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/4/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/5", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/5/stat", O_RDONLY) = 4
+read(4, "5 (kworker/R-rcu_p) I 2 0 0 0 -1"..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/5/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-rcu_p\nUmask:\t000"..., 2048) = 731
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/5/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/5/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/5/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/6", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/6/stat", O_RDONLY) = 4
+read(4, "6 (kworker/R-slub_) I 2 0 0 0 -1"..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/6/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-slub_\nUmask:\t000"..., 2048) = 731
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/6/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/6/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/6/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/7", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/7/stat", O_RDONLY) = 4
+read(4, "7 (kworker/R-netns) I 2 0 0 0 -1"..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/7/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-netns\nUmask:\t000"..., 2048) = 731
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/7/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/7/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/7/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/10", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/10/stat", O_RDONLY) = 4
+read(4, "10 (kworker/0:0H-events_highpri)"..., 2048) = 172
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/10/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/0:0H-events_highpr"..., 2048) = 745
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/10/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/10/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/10/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/12", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/12/stat", O_RDONLY) = 4
+read(4, "12 (kworker/R-mm_pe) I 2 0 0 0 -"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/12/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-mm_pe\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/12/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/12/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/12/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/13", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/13/stat", O_RDONLY) = 4
+read(4, "13 (rcu_tasks_kthread) I 2 0 0 0"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/13/status", O_RDONLY) = 4
+read(4, "Name:\trcu_tasks_kthread\nUmask:\t0"..., 2048) = 737
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/13/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/13/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/13/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/14", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/14/stat", O_RDONLY) = 4
+read(4, "14 (rcu_tasks_rude_kthread) I 2 "..., 2048) = 165
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/14/status", O_RDONLY) = 4
+read(4, "Name:\trcu_tasks_rude_kthread\nUma"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/14/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/14/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/14/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/15", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/15/stat", O_RDONLY) = 4
+read(4, "15 (rcu_tasks_trace_kthread) I 2"..., 2048) = 166
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/15/status", O_RDONLY) = 4
+read(4, "Name:\trcu_tasks_trace_kthread\nUm"..., 2048) = 743
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/15/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/15/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/15/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/16", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/16/stat", O_RDONLY) = 4
+read(4, "16 (ksoftirqd/0) S 2 0 0 0 -1 69"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/16/status", O_RDONLY) = 4
+read(4, "Name:\tksoftirqd/0\nUmask:\t0000\nSt"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/16/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/16/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/16/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/17", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/17/stat", O_RDONLY) = 4
+read(4, "17 (rcu_preempt) I 2 0 0 0 -1 21"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/17/status", O_RDONLY) = 4
+read(4, "Name:\trcu_preempt\nUmask:\t0000\nSt"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/17/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/17/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/17/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/18", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/18/stat", O_RDONLY) = 4
+read(4, "18 (migration/0) S 2 0 0 0 -1 69"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/18/status", O_RDONLY) = 4
+read(4, "Name:\tmigration/0\nUmask:\t0000\nSt"..., 2048) = 738
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/18/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/18/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/18/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/19", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/19/stat", O_RDONLY) = 4
+read(4, "19 (idle_inject/0) S 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/19/status", O_RDONLY) = 4
+read(4, "Name:\tidle_inject/0\nUmask:\t0000\n"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/19/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/19/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/19/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/20", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/20/stat", O_RDONLY) = 4
+read(4, "20 (cpuhp/0) S 2 0 0 0 -1 692388"..., 2048) = 151
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/20/status", O_RDONLY) = 4
+read(4, "Name:\tcpuhp/0\nUmask:\t0000\nState:"..., 2048) = 730
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/20/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/20/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/20/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/21", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/21/stat", O_RDONLY) = 4
+read(4, "21 (cpuhp/1) S 2 0 0 0 -1 692388"..., 2048) = 151
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/21/status", O_RDONLY) = 4
+read(4, "Name:\tcpuhp/1\nUmask:\t0000\nState:"..., 2048) = 730
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/21/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/21/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/21/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/22", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/22/stat", O_RDONLY) = 4
+read(4, "22 (idle_inject/1) S 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/22/status", O_RDONLY) = 4
+read(4, "Name:\tidle_inject/1\nUmask:\t0000\n"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/22/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/22/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/22/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/23", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/23/stat", O_RDONLY) = 4
+read(4, "23 (migration/1) S 2 0 0 0 -1 69"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/23/status", O_RDONLY) = 4
+read(4, "Name:\tmigration/1\nUmask:\t0000\nSt"..., 2048) = 738
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/23/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/23/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/23/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/24", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/24/stat", O_RDONLY) = 4
+read(4, "24 (ksoftirqd/1) S 2 0 0 0 -1 69"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/24/status", O_RDONLY) = 4
+read(4, "Name:\tksoftirqd/1\nUmask:\t0000\nSt"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/24/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/24/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/24/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/26", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/26/stat", O_RDONLY) = 4
+read(4, "26 (kworker/1:0H-events_highpri)"..., 2048) = 172
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/26/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/1:0H-events_highpr"..., 2048) = 745
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/26/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/26/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/26/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/27", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/27/stat", O_RDONLY) = 4
+read(4, "27 (cpuhp/2) S 2 0 0 0 -1 692388"..., 2048) = 151
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/27/status", O_RDONLY) = 4
+read(4, "Name:\tcpuhp/2\nUmask:\t0000\nState:"..., 2048) = 730
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/27/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/27/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/27/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/28", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/28/stat", O_RDONLY) = 4
+read(4, "28 (idle_inject/2) S 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/28/status", O_RDONLY) = 4
+read(4, "Name:\tidle_inject/2\nUmask:\t0000\n"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/28/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/28/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/28/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/29", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/29/stat", O_RDONLY) = 4
+read(4, "29 (migration/2) S 2 0 0 0 -1 69"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/29/status", O_RDONLY) = 4
+read(4, "Name:\tmigration/2\nUmask:\t0000\nSt"..., 2048) = 738
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/29/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/29/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/29/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/30", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/30/stat", O_RDONLY) = 4
+read(4, "30 (ksoftirqd/2) S 2 0 0 0 -1 69"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/30/status", O_RDONLY) = 4
+read(4, "Name:\tksoftirqd/2\nUmask:\t0000\nSt"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/30/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/30/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/30/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/32", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/32/stat", O_RDONLY) = 4
+read(4, "32 (kworker/2:0H-events_highpri)"..., 2048) = 172
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/32/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/2:0H-events_highpr"..., 2048) = 745
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/32/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/32/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/32/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/33", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/33/stat", O_RDONLY) = 4
+read(4, "33 (cpuhp/3) S 2 0 0 0 -1 692388"..., 2048) = 151
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/33/status", O_RDONLY) = 4
+read(4, "Name:\tcpuhp/3\nUmask:\t0000\nState:"..., 2048) = 730
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/33/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/33/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/33/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/34", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/34/stat", O_RDONLY) = 4
+read(4, "34 (idle_inject/3) S 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/34/status", O_RDONLY) = 4
+read(4, "Name:\tidle_inject/3\nUmask:\t0000\n"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/34/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/34/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/34/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/35", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/35/stat", O_RDONLY) = 4
+read(4, "35 (migration/3) S 2 0 0 0 -1 69"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/35/status", O_RDONLY) = 4
+read(4, "Name:\tmigration/3\nUmask:\t0000\nSt"..., 2048) = 738
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/35/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/35/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/35/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/36", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/36/stat", O_RDONLY) = 4
+read(4, "36 (ksoftirqd/3) S 2 0 0 0 -1 69"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/36/status", O_RDONLY) = 4
+read(4, "Name:\tksoftirqd/3\nUmask:\t0000\nSt"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/36/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/36/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/36/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/38", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/38/stat", O_RDONLY) = 4
+read(4, "38 (kworker/3:0H-events_highpri)"..., 2048) = 172
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/38/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/3:0H-events_highpr"..., 2048) = 745
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/38/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/38/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/38/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/39", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/39/stat", O_RDONLY) = 4
+read(4, "39 (cpuhp/4) S 2 0 0 0 -1 692388"..., 2048) = 151
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/39/status", O_RDONLY) = 4
+read(4, "Name:\tcpuhp/4\nUmask:\t0000\nState:"..., 2048) = 730
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/39/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/39/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/39/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/40", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/40/stat", O_RDONLY) = 4
+read(4, "40 (idle_inject/4) S 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/40/status", O_RDONLY) = 4
+read(4, "Name:\tidle_inject/4\nUmask:\t0000\n"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/40/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/40/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/40/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/41", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/41/stat", O_RDONLY) = 4
+read(4, "41 (migration/4) S 2 0 0 0 -1 69"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/41/status", O_RDONLY) = 4
+read(4, "Name:\tmigration/4\nUmask:\t0000\nSt"..., 2048) = 738
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/41/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/41/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/41/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/42", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/42/stat", O_RDONLY) = 4
+read(4, "42 (ksoftirqd/4) S 2 0 0 0 -1 69"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/42/status", O_RDONLY) = 4
+read(4, "Name:\tksoftirqd/4\nUmask:\t0000\nSt"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/42/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/42/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/42/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/44", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/44/stat", O_RDONLY) = 4
+read(4, "44 (kworker/4:0H-events_highpri)"..., 2048) = 172
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/44/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/4:0H-events_highpr"..., 2048) = 745
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/44/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/44/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/44/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/45", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/45/stat", O_RDONLY) = 4
+read(4, "45 (cpuhp/5) S 2 0 0 0 -1 692388"..., 2048) = 151
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/45/status", O_RDONLY) = 4
+read(4, "Name:\tcpuhp/5\nUmask:\t0000\nState:"..., 2048) = 730
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/45/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/45/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/45/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/46", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/46/stat", O_RDONLY) = 4
+read(4, "46 (idle_inject/5) S 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/46/status", O_RDONLY) = 4
+read(4, "Name:\tidle_inject/5\nUmask:\t0000\n"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/46/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/46/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/46/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/47", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/47/stat", O_RDONLY) = 4
+read(4, "47 (migration/5) S 2 0 0 0 -1 69"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/47/status", O_RDONLY) = 4
+read(4, "Name:\tmigration/5\nUmask:\t0000\nSt"..., 2048) = 738
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/47/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/47/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/47/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/48", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/48/stat", O_RDONLY) = 4
+read(4, "48 (ksoftirqd/5) S 2 0 0 0 -1 69"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/48/status", O_RDONLY) = 4
+read(4, "Name:\tksoftirqd/5\nUmask:\t0000\nSt"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/48/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/48/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/48/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/50", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/50/stat", O_RDONLY) = 4
+read(4, "50 (kworker/5:0H-kblockd) I 2 0 "..., 2048) = 167
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/50/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/5:0H-kblockd\nUmask"..., 2048) = 743
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/50/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/50/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/50/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/51", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/51/stat", O_RDONLY) = 4
+read(4, "51 (kdevtmpfs) S 2 0 0 0 -1 2130"..., 2048) = 152
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/51/status", O_RDONLY) = 4
+read(4, "Name:\tkdevtmpfs\nUmask:\t0022\nStat"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/51/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/51/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/51/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/52", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/52/stat", O_RDONLY) = 4
+read(4, "52 (kworker/R-inet_) I 2 0 0 0 -"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/52/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-inet_\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/52/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/52/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/52/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/55", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/55/stat", O_RDONLY) = 4
+read(4, "55 (kauditd) S 2 0 0 0 -1 209721"..., 2048) = 150
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/55/status", O_RDONLY) = 4
+read(4, "Name:\tkauditd\nUmask:\t0000\nState:"..., 2048) = 733
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/55/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/55/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/55/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/56", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/56/stat", O_RDONLY) = 4
+read(4, "56 (khungtaskd) S 2 0 0 0 -1 212"..., 2048) = 155
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/56/status", O_RDONLY) = 4
+read(4, "Name:\tkhungtaskd\nUmask:\t0000\nSta"..., 2048) = 737
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/56/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/56/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/56/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/57", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/57/stat", O_RDONLY) = 4
+read(4, "57 (oom_reaper) S 2 0 0 0 -1 209"..., 2048) = 153
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/57/status", O_RDONLY) = 4
+read(4, "Name:\toom_reaper\nUmask:\t0000\nSta"..., 2048) = 734
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/57/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/57/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/57/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/58", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/58/stat", O_RDONLY) = 4
+read(4, "58 (kworker/R-write) I 2 0 0 0 -"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/58/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-write\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/58/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/58/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/58/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/59", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/59/stat", O_RDONLY) = 4
+read(4, "59 (kcompactd0) S 2 0 0 0 -1 209"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/59/status", O_RDONLY) = 4
+read(4, "Name:\tkcompactd0\nUmask:\t0000\nSta"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/59/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/59/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/59/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/60", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/60/stat", O_RDONLY) = 4
+read(4, "60 (ksmd) S 2 0 0 0 -1 2097216 0"..., 2048) = 147
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/60/status", O_RDONLY) = 4
+read(4, "Name:\tksmd\nUmask:\t0000\nState:\tS "..., 2048) = 728
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/60/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/60/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/60/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/61", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/61/stat", O_RDONLY) = 4
+read(4, "61 (khugepaged) S 2 0 0 0 -1 209"..., 2048) = 154
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/61/status", O_RDONLY) = 4
+read(4, "Name:\tkhugepaged\nUmask:\t0000\nSta"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/61/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/61/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/61/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/62", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/62/stat", O_RDONLY) = 4
+read(4, "62 (kworker/R-kinte) I 2 0 0 0 -"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/62/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-kinte\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/62/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/62/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/62/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/63", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/63/stat", O_RDONLY) = 4
+read(4, "63 (kworker/R-kbloc) I 2 0 0 0 -"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/63/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-kbloc\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/63/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/63/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/63/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/64", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/64/stat", O_RDONLY) = 4
+read(4, "64 (kworker/R-blkcg) I 2 0 0 0 -"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/64/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-blkcg\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/64/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/64/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/64/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/65", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/65/stat", O_RDONLY) = 4
+read(4, "65 (kworker/R-tpm_d) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/65/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-tpm_d\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/65/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/65/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/65/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/66", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/66/stat", O_RDONLY) = 4
+read(4, "66 (kworker/R-ata_s) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/66/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-ata_s\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/66/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/66/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/66/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/67", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/67/stat", O_RDONLY) = 4
+read(4, "67 (kworker/R-md) I 2 0 0 0 -1 6"..., 2048) = 158
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/67/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-md\nUmask:\t0000\nS"..., 2048) = 732
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/67/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/67/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/67/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/68", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/68/stat", O_RDONLY) = 4
+read(4, "68 (kworker/R-md_bi) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/68/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-md_bi\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/68/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/68/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/68/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/69", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/69/stat", O_RDONLY) = 4
+read(4, "69 (kworker/R-edac-) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/69/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-edac-\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/69/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/69/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/69/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/70", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/70/stat", O_RDONLY) = 4
+read(4, "70 (kworker/R-devfr) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/70/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-devfr\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/70/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/70/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/70/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/72", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/72/stat", O_RDONLY) = 4
+read(4, "72 (watchdogd) S 2 0 0 0 -1 2129"..., 2048) = 155
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/72/status", O_RDONLY) = 4
+read(4, "Name:\twatchdogd\nUmask:\t0000\nStat"..., 2048) = 733
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/72/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/72/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/72/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/73", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/73/stat", O_RDONLY) = 4
+read(4, "73 (kworker/2:1H-kblockd) I 2 0 "..., 2048) = 168
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/73/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/2:1H-kblockd\nUmask"..., 2048) = 742
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/73/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/73/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/73/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/75", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/75/stat", O_RDONLY) = 4
+read(4, "75 (kswapd0) S 2 0 0 0 -1 223033"..., 2048) = 154
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/75/status", O_RDONLY) = 4
+read(4, "Name:\tkswapd0\nUmask:\t0000\nState:"..., 2048) = 736
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/75/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/75/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/75/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/76", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/76/stat", O_RDONLY) = 4
+read(4, "76 (ecryptfs-kthread) S 2 0 0 0 "..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/76/status", O_RDONLY) = 4
+read(4, "Name:\tecryptfs-kthread\nUmask:\t00"..., 2048) = 740
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/76/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/76/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/76/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/77", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/77/stat", O_RDONLY) = 4
+read(4, "77 (kworker/R-kthro) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/77/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-kthro\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/77/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/77/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/77/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/78", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/78/stat", O_RDONLY) = 4
+read(4, "78 (irq/49-ACPI:Ged) S 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/78/status", O_RDONLY) = 4
+read(4, "Name:\tirq/49-ACPI:Ged\nUmask:\t000"..., 2048) = 737
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/78/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/78/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/78/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/79", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/79/stat", O_RDONLY) = 4
+read(4, "79 (kworker/R-acpi_) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/79/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-acpi_\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/79/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/79/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/79/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/81", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/81/stat", O_RDONLY) = 4
+read(4, "81 (kworker/R-mld) I 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/81/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-mld\nUmask:\t0000\n"..., 2048) = 733
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/81/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/81/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/81/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/82", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/82/stat", O_RDONLY) = 4
+read(4, "82 (kworker/0:1H-kblockd) I 2 0 "..., 2048) = 168
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/82/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/0:1H-kblockd\nUmask"..., 2048) = 743
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/82/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/82/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/82/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/83", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/83/stat", O_RDONLY) = 4
+read(4, "83 (kworker/R-ipv6_) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/83/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-ipv6_\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/83/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/83/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/83/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/90", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/90/stat", O_RDONLY) = 4
+read(4, "90 (kworker/R-kstrp) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/90/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-kstrp\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/90/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/90/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/90/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/94", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/94/stat", O_RDONLY) = 4
+read(4, "94 (kworker/u13:0) I 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/94/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/u13:0\nUmask:\t0000\n"..., 2048) = 733
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/94/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/94/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/94/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/98", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/98/stat", O_RDONLY) = 4
+read(4, "98 (kworker/R-charg) I 2 0 0 0 -"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/98/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-charg\nUmask:\t000"..., 2048) = 735
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/98/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/98/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/98/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/123", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/123/stat", O_RDONLY) = 4
+read(4, "123 (kworker/4:1H-kblockd) I 2 0"..., 2048) = 169
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/123/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/4:1H-kblockd\nUmask"..., 2048) = 746
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/123/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/123/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/123/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/127", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/127/stat", O_RDONLY) = 4
+read(4, "127 (kworker/1:1H-kblockd) I 2 0"..., 2048) = 169
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/127/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/1:1H-kblockd\nUmask"..., 2048) = 746
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/127/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/127/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/127/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/158", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/158/stat", O_RDONLY) = 4
+read(4, "158 (kworker/3:1H-kblockd) I 2 0"..., 2048) = 169
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/158/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/3:1H-kblockd\nUmask"..., 2048) = 747
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/158/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/158/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/158/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/159", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/159/stat", O_RDONLY) = 4
+read(4, "159 (hwrng) S 2 0 0 0 -1 2129984"..., 2048) = 152
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/159/status", O_RDONLY) = 4
+read(4, "Name:\thwrng\nUmask:\t0000\nState:\tS"..., 2048) = 737
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/159/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/159/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/159/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/160", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/160/stat", O_RDONLY) = 4
+read(4, "160 (kworker/5:1H) I 2 0 0 0 -1 "..., 2048) = 159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/160/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/5:1H\nUmask:\t0000\nS"..., 2048) = 734
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/160/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/160/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/160/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/186", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/186/stat", O_RDONLY) = 4
+read(4, "186 (kworker/R-kdmfl) I 2 0 0 0 "..., 2048) = 162
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/186/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-kdmfl\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/186/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/186/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/186/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/215", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/215/stat", O_RDONLY) = 4
+read(4, "215 (kworker/R-raid5) I 2 0 0 0 "..., 2048) = 162
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/215/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-raid5\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/215/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/215/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/215/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/258", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/258/stat", O_RDONLY) = 4
+read(4, "258 (jbd2/dm-0-8) S 2 0 0 0 -1 2"..., 2048) = 160
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/258/status", O_RDONLY) = 4
+read(4, "Name:\tjbd2/dm-0-8\nUmask:\t0000\nSt"..., 2048) = 747
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/258/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/258/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/258/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/259", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/259/stat", O_RDONLY) = 4
+read(4, "259 (kworker/R-ext4-) I 2 0 0 0 "..., 2048) = 163
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/259/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-ext4-\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/259/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/259/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/259/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/351", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/351/stat", O_RDONLY) = 4
+read(4, "351 (kworker/R-kmpat) I 2 0 0 0 "..., 2048) = 163
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/351/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-kmpat\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/351/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/351/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/351/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/352", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/352/stat", O_RDONLY) = 4
+read(4, "352 (kworker/R-kmpat) I 2 0 0 0 "..., 2048) = 163
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/352/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-kmpat\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/352/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/352/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/352/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/387", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/387/stat", O_RDONLY) = 4
+read(4, "387 (multipathd) S 1 387 387 0 -"..., 2048) = 188
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/387/status", O_RDONLY) = 4
+read(4, "Name:\tmultipathd\nUmask:\t0077\nSta"..., 2048) = 1129
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/387/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/387/cmdline", O_RDONLY) = 4
+read(4, "/sbin/multipathd\0-d\0-s\0", 131072) = 23
+read(4, "", 131049)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/387/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/482", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/482/stat", O_RDONLY) = 4
+read(4, "482 (jbd2/vdb-8) S 2 0 0 0 -1 23"..., 2048) = 158
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/482/status", O_RDONLY) = 4
+read(4, "Name:\tjbd2/vdb-8\nUmask:\t0000\nSta"..., 2048) = 743
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/482/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/482/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/482/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/483", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/483/stat", O_RDONLY) = 4
+read(4, "483 (kworker/R-ext4-) I 2 0 0 0 "..., 2048) = 163
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/483/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-ext4-\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/483/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/483/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/483/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/493", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/493/stat", O_RDONLY) = 4
+read(4, "493 (jbd2/vda2-8) S 2 0 0 0 -1 2"..., 2048) = 157
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/493/status", O_RDONLY) = 4
+read(4, "Name:\tjbd2/vda2-8\nUmask:\t0000\nSt"..., 2048) = 740
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/493/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/493/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/493/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/494", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/494/stat", O_RDONLY) = 4
+read(4, "494 (kworker/R-ext4-) I 2 0 0 0 "..., 2048) = 163
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/494/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-ext4-\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/494/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/494/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/494/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/667", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/667/stat", O_RDONLY) = 4
+read(4, "667 (scsi_eh_0) S 2 0 0 0 -1 212"..., 2048) = 155
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/667/status", O_RDONLY) = 4
+read(4, "Name:\tscsi_eh_0\nUmask:\t0000\nStat"..., 2048) = 737
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/667/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/667/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/667/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/668", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/668/stat", O_RDONLY) = 4
+read(4, "668 (kworker/R-scsi_) I 2 0 0 0 "..., 2048) = 163
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/668/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-scsi_\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/668/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/668/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/668/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/670", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/670/stat", O_RDONLY) = 4
+read(4, "670 (usb-storage) S 2 0 0 0 -1 2"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/670/status", O_RDONLY) = 4
+read(4, "Name:\tusb-storage\nUmask:\t0000\nSt"..., 2048) = 747
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/670/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/670/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/670/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/671", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/671/stat", O_RDONLY) = 4
+read(4, "671 (kworker/R-uas) I 2 0 0 0 -1"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/671/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-uas\nUmask:\t0000\n"..., 2048) = 737
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/671/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/671/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/671/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/680", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/680/stat", O_RDONLY) = 4
+read(4, "680 (kworker/R-cfg80) I 2 0 0 0 "..., 2048) = 163
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/680/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-cfg80\nUmask:\t000"..., 2048) = 739
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/680/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/680/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/680/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/685", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/685/stat", O_RDONLY) = 4
+read(4, "685 (systemd-logind) S 1 685 685"..., 2048) = 180
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/685/status", O_RDONLY) = 4
+read(4, "Name:\tsystemd-logind\nUmask:\t0022"..., 2048) = 1135
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/685/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/685/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/systemd/systemd-logind\0", 131072) = 32
+read(4, "", 131040)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/685/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/686", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/686/stat", O_RDONLY) = 4
+read(4, "686 (dbus-daemon) S 1 686 686 0 "..., 2048) = 176
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/686/status", O_RDONLY) = 4
+read(4, "Name:\tdbus-daemon\nUmask:\t0022\nSt"..., 2048) = 1148
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/686/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/686/cmdline", O_RDONLY) = 4
+read(4, "@dbus-daemon\0--system\0--address="..., 131072) = 97
+read(4, "", 130975)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/686/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/691", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/691/stat", O_RDONLY) = 4
+read(4, "691 (polkitd) S 1 691 691 0 -1 4"..., 2048) = 168
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/691/status", O_RDONLY) = 4
+read(4, "Name:\tpolkitd\nUmask:\t0077\nState:"..., 2048) = 1145
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/691/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/691/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/polkit-1/polkitd\0--no-d"..., 131072) = 37
+read(4, "", 131035)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/691/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/726", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/726/stat", O_RDONLY) = 4
+read(4, "726 (unattended-upgr) S 1 726 72"..., 2048) = 182
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/726/status", O_RDONLY) = 4
+read(4, "Name:\tunattended-upgr\nUmask:\t002"..., 2048) = 1131
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/726/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/726/cmdline", O_RDONLY) = 4
+read(4, "/usr/bin/python3\0/usr/share/unat"..., 131072) = 94
+read(4, "", 130978)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/726/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/727", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/727/stat", O_RDONLY) = 4
+read(4, "727 (rsyslogd) S 1 727 727 0 -1 "..., 2048) = 181
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/727/status", O_RDONLY) = 4
+read(4, "Name:\trsyslogd\nUmask:\t0022\nState"..., 2048) = 1147
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/727/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/727/cmdline", O_RDONLY) = 4
+read(4, "/usr/sbin/rsyslogd\0-n\0-iNONE\0", 131072) = 29
+read(4, "", 131043)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/727/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/760", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/760/stat", O_RDONLY) = 4
+read(4, "760 (ModemManager) S 1 760 760 0"..., 2048) = 177
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/760/status", O_RDONLY) = 4
+read(4, "Name:\tModemManager\nUmask:\t0022\nS"..., 2048) = 1130
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/760/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/760/cmdline", O_RDONLY) = 4
+read(4, "/usr/sbin/ModemManager\0", 131072) = 23
+read(4, "", 131049)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/760/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/831", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/831/stat", O_RDONLY) = 4
+read(4, "831 (cron) S 1 831 831 0 -1 4194"..., 2048) = 176
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/831/status", O_RDONLY) = 4
+read(4, "Name:\tcron\nUmask:\t0022\nState:\tS "..., 2048) = 1123
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/831/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/831/cmdline", O_RDONLY) = 4
+read(4, "/usr/sbin/cron\0-f\0-P\0", 131072) = 21
+read(4, "", 131051)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/831/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/837", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/837/stat", O_RDONLY) = 4
+read(4, "837 (agetty) S 1 837 837 52288 8"..., 2048) = 163
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/837/status", O_RDONLY) = 4
+read(4, "Name:\tagetty\nUmask:\t0022\nState:\t"..., 2048) = 1120
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/837/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/837/cmdline", O_RDONLY) = 4
+read(4, "/sbin/agetty\0-o\0-p -- \\u\0--keep-"..., 131072) = 69
+read(4, "", 131003)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/837/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/proc/tty/drivers", O_RDONLY) = 4
+read(4, "/dev/tty             /dev/tty   "..., 9999) = 881
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/dev/ttyAMA64", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/ttyAMA/64", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/ttyAMA", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+readlinkat(AT_FDCWD, "/proc/837/fd/2", 0xf56172653190, 127) = -1 EACCES (Permission denied)
+newfstatat(AT_FDCWD, "/dev/ttyIOC14", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+readlinkat(AT_FDCWD, "/proc/837/fd/255", 0xf56172653190, 127) = -1 EACCES (Permission denied)
+newfstatat(AT_FDCWD, "/proc/840", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/840/stat", O_RDONLY) = 4
+read(4, "840 (agetty) S 1 840 840 1025 84"..., 2048) = 162
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/840/status", O_RDONLY) = 4
+read(4, "Name:\tagetty\nUmask:\t0022\nState:\t"..., 2048) = 1120
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/840/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/840/cmdline", O_RDONLY) = 4
+read(4, "/sbin/agetty\0-o\0-p -- \\u\0--nocle"..., 131072) = 43
+read(4, "", 131029)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/840/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/tty1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x4, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/899", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/899/stat", O_RDONLY) = 4
+read(4, "899 (systemd) S 1 899 899 0 -1 4"..., 2048) = 178
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/899/status", O_RDONLY) = 4
+read(4, "Name:\tsystemd\nUmask:\t0002\nState:"..., 2048) = 1170
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/899/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/899/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/systemd/systemd\0--user\0", 131072) = 32
+read(4, "", 131040)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/899/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/900", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/900/stat", O_RDONLY) = 4
+read(4, "900 ((sd-pam)) S 899 899 899 0 -"..., 2048) = 164
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/900/status", O_RDONLY) = 4
+read(4, "Name:\t(sd-pam)\nUmask:\t0002\nState"..., 2048) = 1147
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/900/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/900/cmdline", O_RDONLY) = 4
+read(4, "(sd-pam)\0", 131072)           = 9
+read(4, "", 131063)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/900/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/1103", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1103/stat", O_RDONLY) = 4
+read(4, "1103 (sshd) S 1 1103 1103 0 -1 4"..., 2048) = 178
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1103/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1124
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1103/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/1103/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian [priv]\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1103/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/1158", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1158/stat", O_RDONLY) = 4
+read(4, "1158 (sshd) S 1103 1103 1103 0 -"..., 2048) = 177
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1158/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1180
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1158/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/1158/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian@pts/0\0\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1158/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/1159", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1159/stat", O_RDONLY) = 4
+read(4, "1159 (bash) S 1158 1159 1159 0 -"..., 2048) = 344
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1159/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0002\nState:\tS "..., 2048) = 1175
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1159/environ", O_RDONLY) = 4
+read(4, "LC_TERMINAL_VERSION=3.5.2\0LANG=e"..., 131072) = 475
+read(4, "", 130597)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1159/cmdline", O_RDONLY) = 4
+read(4, "-bash\0", 131072)              = 6
+read(4, "", 131066)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1159/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/3036", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/3036/stat", O_RDONLY) = 4
+read(4, "3036 (kworker/R-tls-s) I 2 0 0 0"..., 2048) = 166
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/3036/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/R-tls-s\nUmask:\t000"..., 2048) = 743
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/3036/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/3036/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/3036/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/485045", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/485045/stat", O_RDONLY) = 4
+read(4, "485045 (sudo) S 1159 485045 1159"..., 2048) = 189
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485045/status", O_RDONLY) = 4
+read(4, "Name:\tsudo\nUmask:\t0022\nState:\tS "..., 2048) = 1150
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485045/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/485045/cmdline", O_RDONLY) = 4
+read(4, "sudo\0su\0", 131072)           = 8
+read(4, "", 131064)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485045/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/485046", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/485046/stat", O_RDONLY) = 4
+read(4, "485046 (sudo) S 485045 485046 48"..., 2048) = 191
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485046/status", O_RDONLY) = 4
+read(4, "Name:\tsudo\nUmask:\t0022\nState:\tS "..., 2048) = 1144
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485046/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/485046/cmdline", O_RDONLY) = 4
+read(4, "sudo\0su\0", 131072)           = 8
+read(4, "", 131064)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485046/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts1", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/485047", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/485047/stat", O_RDONLY) = 4
+read(4, "485047 (su) S 485046 485047 4850"..., 2048) = 192
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485047/status", O_RDONLY) = 4
+read(4, "Name:\tsu\nUmask:\t0022\nState:\tS (s"..., 2048) = 1139
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485047/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/485047/cmdline", O_RDONLY) = 4
+read(4, "su\0", 131072)                 = 3
+read(4, "", 131069)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485047/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts1", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/485048", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/485048/stat", O_RDONLY) = 4
+read(4, "485048 (bash) S 485047 485048 48"..., 2048) = 220
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485048/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0022\nState:\tS "..., 2048) = 1145
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485048/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/485048/cmdline", O_RDONLY) = 4
+read(4, "bash\0", 131072)               = 5
+read(4, "", 131067)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/485048/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts1", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/622581", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/622581/stat", O_RDONLY) = 4
+read(4, "622581 (bash) S 485048 622581 48"..., 2048) = 225
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/622581/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0022\nState:\tS "..., 2048) = 1147
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/622581/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/622581/cmdline", O_RDONLY) = 4
+read(4, "/usr/bin/bash\0--login\0", 131072) = 22
+read(4, "", 131050)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/622581/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts1", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/633452", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/633452/stat", O_RDONLY) = 4
+read(4, "633452 (sshd) S 1 633452 633452 "..., 2048) = 188
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633452/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1136
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633452/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/633452/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian [priv]\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633452/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/633578", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/633578/stat", O_RDONLY) = 4
+read(4, "633578 (sshd) S 633452 633452 63"..., 2048) = 184
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633578/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1188
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633578/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/633578/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian@pts/2\0\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633578/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/633579", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/633579/stat", O_RDONLY) = 4
+read(4, "633579 (bash) S 633578 633579 63"..., 2048) = 343
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633579/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0002\nState:\tS "..., 2048) = 1189
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633579/environ", O_RDONLY) = 4
+read(4, "LC_TERMINAL_VERSION=3.5.3\0LANG=e"..., 131072) = 477
+read(4, "", 130595)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633579/cmdline", O_RDONLY) = 4
+read(4, "-bash\0", 131072)              = 6
+read(4, "", 131066)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/633579/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts2", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/2", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x2), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/768425", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/768425/stat", O_RDONLY) = 4
+read(4, "768425 (ld-linux-aarch6) S 1 768"..., 2048) = 196
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/768425/status", O_RDONLY) = 4
+read(4, "Name:\tld-linux-aarch6\nUmask:\t002"..., 2048) = 1147
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/768425/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/768425/cmdline", O_RDONLY) = 4
+read(4, "/sources/glibc-2.39/build/elf/ld"..., 131072) = 527
+read(4, "", 130545)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/768425/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts1", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/1118533", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1118533/stat", O_RDONLY) = 4
+read(4, "1118533 (ld-linux-aarch6) S 1 11"..., 2048) = 198
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1118533/status", O_RDONLY) = 4
+read(4, "Name:\tld-linux-aarch6\nUmask:\t002"..., 2048) = 1152
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1118533/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/1118533/cmdline", O_RDONLY) = 4
+read(4, "/sources/glibc-2.39/build/elf/ld"..., 131072) = 528
+read(4, "", 130544)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1118533/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts1", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/1895791", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1895791/stat", O_RDONLY) = 4
+read(4, "1895791 (dbus-daemon) S 899 1895"..., 2048) = 329
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1895791/status", O_RDONLY) = 4
+read(4, "Name:\tdbus-daemon\nUmask:\t0002\nSt"..., 2048) = 1198
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1895791/environ", O_RDONLY) = 4
+read(4, "HOME=/home/ian\0LANG=en_US.UTF-8\0"..., 131072) = 812
+read(4, "", 130260)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1895791/cmdline", O_RDONLY) = 4
+read(4, "/usr/bin/dbus-daemon\0--session\0-"..., 131072) = 106
+read(4, "", 130966)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1895791/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/1896095", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1896095/stat", O_RDONLY) = 4
+read(4, "1896095 (sshd) S 1 1896095 18960"..., 2048) = 191
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896095/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1142
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896095/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/1896095/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian [priv]\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896095/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/1896154", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1896154/stat", O_RDONLY) = 4
+read(4, "1896154 (sshd) S 1896095 1896095"..., 2048) = 189
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896154/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1196
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896154/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/1896154/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian@pts/3\0\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896154/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/1896155", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/1896155/stat", O_RDONLY) = 4
+read(4, "1896155 (bash) S 1896154 1896155"..., 2048) = 363
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896155/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0002\nState:\tS "..., 2048) = 1198
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896155/environ", O_RDONLY) = 4
+read(4, "LC_TERMINAL_VERSION=3.5.3\0LANG=e"..., 131072) = 477
+read(4, "", 130595)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896155/cmdline", O_RDONLY) = 4
+read(4, "-bash\0", 131072)              = 6
+read(4, "", 131066)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/1896155/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts3", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/3", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x3), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/2402319", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2402319/stat", O_RDONLY) = 4
+read(4, "2402319 (sshd) S 1 2402319 24023"..., 2048) = 191
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402319/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1142
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402319/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2402319/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian [priv]\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402319/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2402379", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2402379/stat", O_RDONLY) = 4
+read(4, "2402379 (sshd) S 2402319 2402319"..., 2048) = 195
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402379/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1201
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402379/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2402379/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian@pts/4\0\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402379/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2402380", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2402380/stat", O_RDONLY) = 4
+read(4, "2402380 (bash) S 2402379 2402380"..., 2048) = 363
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402380/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0002\nState:\tS "..., 2048) = 1199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402380/environ", O_RDONLY) = 4
+read(4, "LC_TERMINAL_VERSION=3.5.3\0LANG=e"..., 131072) = 478
+read(4, "", 130594)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402380/cmdline", O_RDONLY) = 4
+read(4, "-bash\0", 131072)              = 6
+read(4, "", 131066)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402380/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2402765", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2402765/stat", O_RDONLY) = 4
+read(4, "2402765 (sshd) S 1 2402765 24027"..., 2048) = 188
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402765/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1142
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402765/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2402765/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian [priv]\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402765/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2402815", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2402815/stat", O_RDONLY) = 4
+read(4, "2402815 (sshd) S 2402765 2402765"..., 2048) = 191
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402815/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1198
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402815/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2402815/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian@pts/6\0\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402815/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2402816", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2402816/stat", O_RDONLY) = 4
+read(4, "2402816 (bash) S 2402815 2402816"..., 2048) = 371
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402816/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0002\nState:\tS "..., 2048) = 1199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402816/environ", O_RDONLY) = 4
+read(4, "LC_TERMINAL_VERSION=3.5.3\0LANG=e"..., 131072) = 478
+read(4, "", 130594)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402816/cmdline", O_RDONLY) = 4
+read(4, "-bash\0", 131072)              = 6
+read(4, "", 131066)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2402816/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts6", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/6", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x6), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/2415644", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415644/stat", O_RDONLY) = 4
+read(4, "2415644 (psimon) S 2 0 0 0 -1 21"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415644/status", O_RDONLY) = 4
+read(4, "Name:\tpsimon\nUmask:\t0000\nState:\t"..., 2048) = 750
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415644/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415644/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415644/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2415677", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415677/stat", O_RDONLY) = 4
+read(4, "2415677 (systemd-network) S 1 24"..., 2048) = 196
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415677/status", O_RDONLY) = 4
+read(4, "Name:\tsystemd-network\nUmask:\t002"..., 2048) = 1178
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415677/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415677/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/systemd/systemd-network"..., 131072) = 34
+read(4, "", 131038)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415677/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2415678", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415678/stat", O_RDONLY) = 4
+read(4, "2415678 (systemd-resolve) S 1 24"..., 2048) = 198
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415678/status", O_RDONLY) = 4
+read(4, "Name:\tsystemd-resolve\nUmask:\t002"..., 2048) = 1177
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415678/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415678/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/systemd/systemd-resolve"..., 131072) = 34
+read(4, "", 131038)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415678/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2415679", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415679/stat", O_RDONLY) = 4
+read(4, "2415679 (sshd) S 1 2415679 24156"..., 2048) = 192
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415679/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0022\nState:\tS "..., 2048) = 1143
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415679/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415679/cmdline", O_RDONLY) = 4
+read(4, "sshd: /usr/sbin/sshd -D [listene"..., 131072) = 56
+read(4, "", 131016)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415679/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2415681", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415681/stat", O_RDONLY) = 4
+read(4, "2415681 (systemd-journal) S 1 24"..., 2048) = 199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415681/status", O_RDONLY) = 4
+read(4, "Name:\tsystemd-journal\nUmask:\t002"..., 2048) = 1159
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415681/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415681/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/systemd/systemd-journal"..., 131072) = 34
+read(4, "", 131038)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415681/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2415685", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415685/stat", O_RDONLY) = 4
+read(4, "2415685 (systemd-timesyn) S 1 24"..., 2048) = 196
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415685/status", O_RDONLY) = 4
+read(4, "Name:\tsystemd-timesyn\nUmask:\t002"..., 2048) = 1178
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415685/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415685/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/systemd/systemd-timesyn"..., 131072) = 35
+read(4, "", 131037)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415685/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2415692", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415692/stat", O_RDONLY) = 4
+read(4, "2415692 (systemd-udevd) S 1 2415"..., 2048) = 194
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415692/status", O_RDONLY) = 4
+read(4, "Name:\tsystemd-udevd\nUmask:\t0022\n"..., 2048) = 1155
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415692/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415692/cmdline", O_RDONLY) = 4
+read(4, "/usr/lib/systemd/systemd-udevd\0", 131072) = 31
+read(4, "", 131041)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415692/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2415695", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415695/stat", O_RDONLY) = 4
+read(4, "2415695 (udisksd) S 1 2415695 24"..., 2048) = 187
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415695/status", O_RDONLY) = 4
+read(4, "Name:\tudisksd\nUmask:\t0022\nState:"..., 2048) = 1148
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415695/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415695/cmdline", O_RDONLY) = 4
+read(4, "/usr/libexec/udisks2/udisksd\0", 131072) = 29
+read(4, "", 131043)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415695/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2415697", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2415697/stat", O_RDONLY) = 4
+read(4, "2415697 (psimon) S 2 0 0 0 -1 21"..., 2048) = 161
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415697/status", O_RDONLY) = 4
+read(4, "Name:\tpsimon\nUmask:\t0000\nState:\t"..., 2048) = 750
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415697/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2415697/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2415697/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2491268", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2491268/stat", O_RDONLY) = 4
+read(4, "2491268 (sh) S 1 2491214 2491214"..., 2048) = 320
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491268/status", O_RDONLY) = 4
+read(4, "Name:\tsh\nUmask:\t0002\nState:\tS (s"..., 2048) = 1186
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491268/environ", O_RDONLY) = 4
+read(4, "VSCODE_CLI_REQUIRE_TOKEN=4db6447"..., 131072) = 810
+read(4, "", 130262)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491268/cmdline", O_RDONLY) = 4
+read(4, "sh\0/home/ian/.vscode-server/cli/"..., 131072) = 276
+read(4, "", 130796)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491268/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2491272", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2491272/stat", O_RDONLY) = 4
+read(4, "2491272 (node) S 2491268 2491214"..., 2048) = 325
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491272/status", O_RDONLY) = 4
+read(4, "Name:\tnode\nUmask:\t0002\nState:\tS "..., 2048) = 1203
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491272/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 836
+read(4, "", 130236)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491272/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/cli/ser"..., 131072) = 373
+read(4, "", 130699)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491272/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2491457", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2491457/stat", O_RDONLY) = 4
+read(4, "2491457 (node) S 2491272 2491214"..., 2048) = 310
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491457/status", O_RDONLY) = 4
+read(4, "Name:\tnode\nUmask:\t0002\nState:\tS "..., 2048) = 1199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491457/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 1168
+read(4, "", 129904)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491457/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/cli/ser"..., 131072) = 285
+read(4, "", 130787)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2491457/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2500973", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2500973/stat", O_RDONLY) = 4
+read(4, "2500973 (countforever) T 2402380"..., 2048) = 331
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2500973/status", O_RDONLY) = 4
+read(4, "Name:\tcountforever\nUmask:\t0002\nS"..., 2048) = 1202
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2500973/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PYENV_SHELL=bash"..., 131072) = 2878
+read(4, "", 128194)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2500973/cmdline", O_RDONLY) = 4
+read(4, "./out/countforever\0", 131072) = 19
+read(4, "", 131053)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2500973/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2536660", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2536660/stat", O_RDONLY) = 4
+read(4, "2536660 (sshd) S 2415679 2536660"..., 2048) = 197
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536660/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1148
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536660/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2536660/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian [priv]\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536660/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2536784", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2536784/stat", O_RDONLY) = 4
+read(4, "2536784 (sshd) S 2536660 2536660"..., 2048) = 189
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536784/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1196
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536784/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2536784/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian@pts/5\0\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536784/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2536785", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2536785/stat", O_RDONLY) = 4
+read(4, "2536785 (bash) S 2536784 2536785"..., 2048) = 358
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536785/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0002\nState:\tS "..., 2048) = 1197
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536785/environ", O_RDONLY) = 4
+read(4, "LC_TERMINAL_VERSION=3.5.3\0LANG=e"..., 131072) = 478
+read(4, "", 130594)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536785/cmdline", O_RDONLY) = 4
+read(4, "-bash\0", 131072)              = 6
+read(4, "", 131066)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2536785/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts5", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/5", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x5), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/2581491", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2581491/stat", O_RDONLY) = 4
+read(4, "2581491 (proctool-daemon) S 1 25"..., 2048) = 188
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2581491/status", O_RDONLY) = 4
+read(4, "Name:\tproctool-daemon\nUmask:\t000"..., 2048) = 1153
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2581491/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2581491/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/proctool/bin/proctool-"..., 131072) = 39
+read(4, "", 131033)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2581491/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2581588", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2581588/stat", O_RDONLY) = 4
+read(4, "2581588 (proctool-daemon) Z 2581"..., 2048) = 186
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2581588/status", O_RDONLY) = 4
+read(4, "Name:\tproctool-daemon\nState:\tZ ("..., 2048) = 763
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2581588/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2581588/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2581588/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2592125", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2592125/stat", O_RDONLY) = 4
+read(4, "2592125 (proctool) T 1 2592125 2"..., 2048) = 330
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2592125/status", O_RDONLY) = 4
+read(4, "Name:\tproctool\nUmask:\t0002\nState"..., 2048) = 1190
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2592125/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PYENV_SHELL=bash"..., 131072) = 2943
+read(4, "", 128129)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2592125/cmdline", O_RDONLY) = 4
+read(4, "./target/debug/proctool\0spawn\0--"..., 131072) = 81
+read(4, "", 130991)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2592125/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts6", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/6", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x6), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/2602630", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2602630/stat", O_RDONLY) = 4
+read(4, "2602630 (kworker/4:1-mm_percpu_w"..., 2048) = 181
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2602630/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/4:1-mm_percpu_wq\nU"..., 2048) = 766
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2602630/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2602630/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2602630/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2604902", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2604902/stat", O_RDONLY) = 4
+read(4, "2604902 (kworker/0:0-mm_percpu_w"..., 2048) = 181
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2604902/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/0:0-events\nUmask:\t"..., 2048) = 761
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2604902/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2604902/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2604902/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2605053", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2605053/stat", O_RDONLY) = 4
+read(4, "2605053 (kworker/0:2) I 2 0 0 0 "..., 2048) = 167
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605053/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/0:2\nUmask:\t0000\nSt"..., 2048) = 749
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605053/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2605053/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605053/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2605057", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2605057/stat", O_RDONLY) = 4
+read(4, "2605057 (kworker/1:1-cgroup_dest"..., 2048) = 182
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605057/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/1:1-cgroup_destroy"..., 2048) = 765
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605057/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2605057/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605057/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2605066", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2605066/stat", O_RDONLY) = 4
+read(4, "2605066 (kworker/1:2-events) I 2"..., 2048) = 175
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605066/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/1:2-events\nUmask:\t"..., 2048) = 759
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605066/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2605066/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605066/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2605263", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2605263/stat", O_RDONLY) = 4
+read(4, "2605263 (node) S 2491272 2491214"..., 2048) = 320
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605263/status", O_RDONLY) = 4
+read(4, "Name:\tnode\nUmask:\t0002\nState:\tS "..., 2048) = 1202
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605263/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 1640
+read(4, "", 129432)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605263/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/cli/ser"..., 131072) = 295
+read(4, "", 130777)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605263/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2605274", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2605274/stat", O_RDONLY) = 4
+read(4, "2605274 (node) S 2491272 2491214"..., 2048) = 307
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605274/status", O_RDONLY) = 4
+read(4, "Name:\tnode\nUmask:\t0002\nState:\tS "..., 2048) = 1199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605274/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 1063
+read(4, "", 130009)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605274/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/cli/ser"..., 131072) = 227
+read(4, "", 130845)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605274/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2605313", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2605313/stat", O_RDONLY) = 4
+read(4, "2605313 (rust-analyzer) S 260526"..., 2048) = 364
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605313/status", O_RDONLY) = 4
+read(4, "Name:\trust-analyzer\nUmask:\t0002\n"..., 2048) = 1203
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605313/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 1683
+read(4, "", 129389)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605313/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/extensi"..., 131072) = 102
+read(4, "", 130970)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2605313/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2606506", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2606506/stat", O_RDONLY) = 4
+read(4, "2606506 (kworker/2:0-events) I 2"..., 2048) = 175
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2606506/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/2:0-events\nUmask:\t"..., 2048) = 759
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2606506/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2606506/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2606506/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2606962", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2606962/stat", O_RDONLY) = 4
+read(4, "2606962 (kworker/u12:0-events_po"..., 2048) = 194
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2606962/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/u12:0-events_power"..., 2048) = 782
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2606962/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2606962/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2606962/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2616921", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2616921/stat", O_RDONLY) = 4
+read(4, "2616921 (rust-analyzer-p) S 2605"..., 2048) = 346
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2616921/status", O_RDONLY) = 4
+read(4, "Name:\trust-analyzer-p\nUmask:\t000"..., 2048) = 1208
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2616921/environ", O_RDONLY) = 4
+read(4, "BROWSER=/home/ian/.vscode-server"..., 131072) = 1835
+read(4, "", 129237)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2616921/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.rustup/toolchains/sta"..., 131072) = 99
+read(4, "", 130973)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2616921/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2625080", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2625080/stat", O_RDONLY) = 4
+read(4, "2625080 (kworker/u12:1-events_un"..., 2048) = 185
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2625080/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/u12:1-events_unbou"..., 2048) = 772
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2625080/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2625080/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2625080/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2627241", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2627241/stat", O_RDONLY) = 4
+read(4, "2627241 (kworker/5:0) I 2 0 0 0 "..., 2048) = 167
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2627241/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/5:0\nUmask:\t0000\nSt"..., 2048) = 749
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2627241/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2627241/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2627241/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2630902", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2630902/stat", O_RDONLY) = 4
+read(4, "2630902 (kworker/u12:4-events_po"..., 2048) = 193
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2630902/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/u12:4-events_power"..., 2048) = 780
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2630902/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2630902/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2630902/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2631370", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2631370/stat", O_RDONLY) = 4
+read(4, "2631370 (kworker/3:2-events) I 2"..., 2048) = 175
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2631370/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/3:2-events\nUmask:\t"..., 2048) = 759
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2631370/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2631370/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2631370/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2633493", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2633493/stat", O_RDONLY) = 4
+read(4, "2633493 (kworker/3:0-cgwb_releas"..., 2048) = 180
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2633493/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/3:0-cgwb_release\nU"..., 2048) = 762
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2633493/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2633493/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2633493/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2633835", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2633835/stat", O_RDONLY) = 4
+read(4, "2633835 (python3) S 2402816 2633"..., 2048) = 352
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2633835/status", O_RDONLY) = 4
+read(4, "Name:\tpython3\nUmask:\t0002\nState:"..., 2048) = 1198
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2633835/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PYENV_HOOK_PATH="..., 131072) = 3358
+read(4, "", 127714)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2633835/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.pyenv/versions/3.11.9"..., 131072) = 45
+read(4, "", 131027)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2633835/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts6", 0xffffc37efbf8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/dev/pts/6", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x6), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/proc/2634412", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2634412/stat", O_RDONLY) = 4
+read(4, "2634412 (kworker/5:1-events) I 2"..., 2048) = 174
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2634412/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/5:1-events\nUmask:\t"..., 2048) = 759
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2634412/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2634412/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2634412/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2636294", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2636294/stat", O_RDONLY) = 4
+read(4, "2636294 (kworker/2:3-events) I 2"..., 2048) = 174
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2636294/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/2:3-events\nUmask:\t"..., 2048) = 759
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2636294/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2636294/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2636294/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638608", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638608/stat", O_RDONLY) = 4
+read(4, "2638608 (kworker/4:0-cgroup_dest"..., 2048) = 182
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638608/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/4:0-cgroup_destroy"..., 2048) = 764
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638608/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2638608/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638608/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638609", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638609/stat", O_RDONLY) = 4
+read(4, "2638609 (kworker/4:2-cgwb_releas"..., 2048) = 180
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638609/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/4:2-cgwb_release\nU"..., 2048) = 763
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638609/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2638609/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638609/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638655", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638655/stat", O_RDONLY) = 4
+read(4, "2638655 (sshd) S 2415679 2638655"..., 2048) = 197
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638655/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1148
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638655/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2638655/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian [priv]\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638655/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638780", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638780/stat", O_RDONLY) = 4
+read(4, "2638780 (sshd) S 2638655 2638655"..., 2048) = 187
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638780/status", O_RDONLY) = 4
+read(4, "Name:\tsshd\nUmask:\t0002\nState:\tS "..., 2048) = 1196
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638780/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2638780/cmdline", O_RDONLY) = 4
+read(4, "sshd: ian@notty\0\0\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638780/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638782", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638782/stat", O_RDONLY) = 4
+read(4, "2638782 (bash) S 2638780 2638782"..., 2048) = 328
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638782/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0002\nState:\tS "..., 2048) = 1194
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638782/environ", O_RDONLY) = 4
+read(4, "USER=ian\0LOGNAME=ian\0HOME=/home/"..., 131072) = 394
+read(4, "", 130678)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638782/cmdline", O_RDONLY) = 4
+read(4, "-bash\0", 131072)              = 6
+read(4, "", 131066)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638782/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638791", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638791/stat", O_RDONLY) = 4
+read(4, "2638791 (bash) S 2638782 2638782"..., 2048) = 329
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638791/status", O_RDONLY) = 4
+read(4, "Name:\tbash\nUmask:\t0002\nState:\tS "..., 2048) = 1194
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638791/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 578
+read(4, "", 130494)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638791/cmdline", O_RDONLY) = 4
+read(4, "bash\0", 131072)               = 5
+read(4, "", 131067)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638791/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638810", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638810/stat", O_RDONLY) = 4
+read(4, "2638810 (code-f1e16e1e62) S 2638"..., 2048) = 307
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638810/status", O_RDONLY) = 4
+read(4, "Name:\tcode-f1e16e1e62\nUmask:\t000"..., 2048) = 1207
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638810/environ", O_RDONLY) = 4
+read(4, "VSCODE_CLI_REQUIRE_TOKEN=ac9646d"..., 131072) = 742
+read(4, "", 130330)                     = 0
+close(4)                                = 0
+brk(0xc6b9ef569000)                     = 0xc6b9ef569000
+openat(AT_FDCWD, "/proc/2638810/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/code-f1"..., 131072) = 187
+read(4, "", 130885)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638810/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638844", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638844/stat", O_RDONLY) = 4
+read(4, "2638844 (node) S 2491272 2491214"..., 2048) = 310
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638844/status", O_RDONLY) = 4
+read(4, "Name:\tnode\nUmask:\t0002\nState:\tS "..., 2048) = 1199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638844/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 1640
+read(4, "", 129432)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638844/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/cli/ser"..., 131072) = 295
+read(4, "", 130777)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638844/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638851", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638851/stat", O_RDONLY) = 4
+read(4, "2638851 (node) S 2491272 2491214"..., 2048) = 304
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638851/status", O_RDONLY) = 4
+read(4, "Name:\tnode\nUmask:\t0002\nState:\tS "..., 2048) = 1197
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638851/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 1063
+read(4, "", 130009)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638851/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/cli/ser"..., 131072) = 227
+read(4, "", 130845)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638851/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638921", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638921/stat", O_RDONLY) = 4
+read(4, "2638921 (rust-analyzer) S 263884"..., 2048) = 356
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638921/status", O_RDONLY) = 4
+read(4, "Name:\trust-analyzer\nUmask:\t0002\n"..., 2048) = 1203
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638921/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 1683
+read(4, "", 129389)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638921/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.vscode-server/extensi"..., 131072) = 102
+read(4, "", 130970)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638921/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2638979", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2638979/stat", O_RDONLY) = 4
+read(4, "2638979 (rust-analyzer-p) S 2638"..., 2048) = 346
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638979/status", O_RDONLY) = 4
+read(4, "Name:\trust-analyzer-p\nUmask:\t000"..., 2048) = 1208
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638979/environ", O_RDONLY) = 4
+read(4, "BROWSER=/home/ian/.vscode-server"..., 131072) = 1835
+read(4, "", 129237)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638979/cmdline", O_RDONLY) = 4
+read(4, "/home/ian/.rustup/toolchains/sta"..., 131072) = 99
+read(4, "", 130973)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2638979/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2640111", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2640111/stat", O_RDONLY) = 4
+read(4, "2640111 (kworker/1:0) I 2 0 0 0 "..., 2048) = 167
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640111/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/1:0\nUmask:\t0000\nSt"..., 2048) = 749
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640111/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2640111/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640111/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2640112", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2640112/stat", O_RDONLY) = 4
+read(4, "2640112 (kworker/1:3) I 2 0 0 0 "..., 2048) = 167
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640112/status", O_RDONLY) = 4
+read(4, "Name:\tkworker/1:3\nUmask:\t0000\nSt"..., 2048) = 749
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640112/environ", O_RDONLY) = -1 EACCES (Permission denied)
+openat(AT_FDCWD, "/proc/2640112/cmdline", O_RDONLY) = 4
+read(4, "", 131072)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640112/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2640113", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2640113/stat", O_RDONLY) = 4
+read(4, "2640113 (sleep) S 2638791 263878"..., 2048) = 319
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640113/status", O_RDONLY) = 4
+read(4, "Name:\tsleep\nUmask:\t0002\nState:\tS"..., 2048) = 1194
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640113/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PWD=/home/ian\0LO"..., 131072) = 624
+read(4, "", 130448)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640113/cmdline", O_RDONLY) = 4
+read(4, "sleep\000180\0", 131072)       = 10
+read(4, "", 131062)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640113/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2640129", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2640129/stat", O_RDONLY) = 4
+read(4, "2640129 (strace) S 2402380 26401"..., 2048) = 335
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640129/status", O_RDONLY) = 4
+read(4, "Name:\tstrace\nUmask:\t0002\nState:\t"..., 2048) = 1199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640129/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PYENV_SHELL=bash"..., 131072) = 2935
+read(4, "", 128137)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640129/cmdline", O_RDONLY) = 4
+read(4, "strace\0ps\0002633835\0", 131072) = 18
+read(4, "", 131054)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640129/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/proc/2640132", {st_mode=S_IFDIR|0555, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/2640132/stat", O_RDONLY) = 4
+read(4, "2640132 (ps) R 2640129 2640129 2"..., 2048) = 327
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640132/status", O_RDONLY) = 4
+read(4, "Name:\tps\nUmask:\t0002\nState:\tR (r"..., 2048) = 1199
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640132/environ", O_RDONLY) = 4
+read(4, "SHELL=/bin/bash\0PYENV_SHELL=bash"..., 131072) = 2935
+read(4, "", 128137)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640132/cmdline", O_RDONLY) = 4
+read(4, "ps\0002633835\0", 131072)      = 11
+read(4, "", 131061)                     = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/proc/2640132/ctty", O_RDONLY) = -1 ENOENT (No such file or directory)
+getdents64(3, 0xc6b9ef5282c0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}) = 0
+write(1, "    PID TTY      STAT   TIME COM"..., 37) = 37
+openat(AT_FDCWD, "/usr/lib/aarch64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=27028, ...}) = 0
+mmap(NULL, 27028, PROT_READ, MAP_SHARED, 3, 0) = 0xf56172659000
+close(3)                                = 0
+futex(0xf561725d166c, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+write(1, "2633835 pts/6    S+     0:00 /ho"..., 74) = 74
+munmap(0xf56171f13000, 626688)          = 0
+close(1)                                = 0
+close(2)                                = 0
+exit_group(0)                           = ?
++++ exited with 0 +++
