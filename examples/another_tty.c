@@ -8,6 +8,7 @@
 void do_child() {
     setpgid(0, 0);
     raise(SIGSTOP);
+    puts("child exiting");
 }
 
 void wait_for_input() {
@@ -34,7 +35,9 @@ void do_parent(pid_t child) {
         return;
     }
 
-    kill(child, SIGKILL);
+    kill(child, SIGCONT);
+    waitpid(child, NULL, 0);
+    puts("waited for child to exit");
 
     const char* term = "/dev/pts/5";
     int fd = open(term, O_RDONLY, 0);
@@ -67,7 +70,10 @@ void do_parent(pid_t child) {
 
     puts("success!");
 
-    while (1) {}
+    while (1) {
+        puts("alive");
+        sleep(1);
+    }
 }
 
 int main(int argc, char* argv[]) {
