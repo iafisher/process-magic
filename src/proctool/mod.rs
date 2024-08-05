@@ -69,7 +69,9 @@ pub mod common {
         #[arg(long)]
         pub tty: String,
         #[arg(long)]
-        pub cmd: Vec<String>,
+        pub cmd: String,
+        #[arg(long)]
+        pub uid: Option<u32>,
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]

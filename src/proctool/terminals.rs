@@ -61,9 +61,14 @@ pub fn write_to_stdin(pid: unistd::Pid, line: &str) -> Result<()> {
     Ok(())
 }
 
-pub fn spawn_on_terminal(args: Vec<String>, tty: String) -> Result<()> {
+pub fn spawn_on_terminal(
+    path: String,
+    args: Vec<String>,
+    tty: String,
+    uid_opt: Option<u32>,
+) -> Result<()> {
     let tty = normalize_tty(&tty)?;
-    let path = CString::new(args[0].clone())?;
+    let path = CString::new(path)?;
     let tty_c = CString::new(tty.clone())?;
     let args_c: Vec<CString> = args
         .iter()
@@ -76,18 +81,15 @@ pub fn spawn_on_terminal(args: Vec<String>, tty: String) -> Result<()> {
     match unsafe { unistd::fork() }? {
         unistd::ForkResult::Parent { child } => {
             sys::wait::waitpid(child, Some(sys::wait::WaitPidFlag::WSTOPPED))?;
-            println!("current pgid: {}", unistd::getpgid(None).unwrap());
             let child_pgid = unistd::getpgid(Some(child))?;
-            println!("child pgid: {}", child_pgid);
-            unistd::setpgid(unistd::Pid::from_raw(0), child_pgid)?;
-            println!("new pgid: {}", unistd::getpgid(None).unwrap());
-            unistd::setsid()?;
-            println!("my pid: {}", unistd::getpid());
+            unistd::setpgid(unistd::Pid::from_raw(0), child_pgid)
+                .map_err(|e| anyhow!("setpgid failed: {}", e))?;
+            unistd::setsid().map_err(|e| anyhow!("setsid failed: {}", e))?;
 
-            // let mut x = String::new();
-            // std::io::stdin().read_line(&mut x).unwrap();
+            sys::signal::kill(child, sys::signal::Signal::SIGCONT)
+                .map_err(|e| anyhow!("kill (SIGCONT) failed: {}", e))?;
+            sys::wait::waitpid(child, None).map_err(|e| anyhow!("waitpid() failed: {}", e))?;
 
-            // unistd::close(1)?;
             let fd = fcntl::open(
                 tty_c.as_c_str(),
                 fcntl::OFlag::O_RDWR,
@@ -95,16 +97,22 @@ pub fn spawn_on_terminal(args: Vec<String>, tty: String) -> Result<()> {
             )?;
             let r = unsafe { libc::ioctl(fd, libc::TIOCSCTTY, 1) };
             if r == -1 {
-                let msg = CString::new("ioctl")?;
-                unsafe {
-                    libc::perror(msg.as_ptr());
-                }
+                return Err(anyhow!("ioctl(TIOCSCTTY) failed"));
             }
 
-            println!("ioctl returned {}", r);
-            sys::signal::kill(child, sys::signal::Signal::SIGKILL)?;
+            if let Some(uid) = uid_opt {
+                unistd::setuid(unistd::Uid::from_raw(uid))
+                    .map_err(|e| anyhow!("setuid() failed: {}", e))?;
+            }
+
+            unistd::dup2(fd, 0)?;
+            unistd::dup2(fd, 1)?;
+            unistd::dup2(fd, 2)?;
+            unistd::close(fd)?;
+
             let _ = clear_terminal(&tty);
             let _ = unistd::execv(&path, &args_c);
+            log::error!("execv appears to have failed");
         }
         unistd::ForkResult::Child => {
             let _ = unistd::setpgid(unistd::Pid::from_raw(0), unistd::Pid::from_raw(0));

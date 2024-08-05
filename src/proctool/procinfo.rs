@@ -4,7 +4,7 @@ use std::{
     io::{BufRead, BufReader, Read},
 };
 
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use nix::{fcntl, sys, unistd};
 
 pub fn print_process_tree(mut pid: i32) -> Result<()> {
@@ -95,6 +95,18 @@ pub fn list_processes() -> Result<()> {
         println!("{}  {}", info.pid, info.name);
     }
     Ok(())
+}
+
+pub fn get_session_id_for_terminal(path: &str) -> Result<i32> {
+    for info in get_all_process_info()? {
+        if let Some(tty) = info.tty {
+            if path == tty {
+                return Ok(info.pid);
+            }
+        }
+    }
+
+    Err(anyhow!("not found"))
 }
 
 pub fn list_terminals() -> Result<()> {

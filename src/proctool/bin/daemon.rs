@@ -4,6 +4,7 @@ use std::{
     io::{BufRead, BufReader, IoSlice, IoSliceMut},
     net::{TcpListener, TcpStream},
     os::fd::RawFd,
+    process::Command,
 };
 
 use anyhow::{anyhow, Result};
@@ -18,8 +19,7 @@ use nix::{fcntl, sys, unistd};
 use syscalls::Sysno;
 use telefork::{
     proctool::{
-        common::{Args, DaemonMessage, PORT},
-        terminals::{self, write_to_stdin},
+        common::{Args, DaemonMessage, PORT}, procinfo, terminals::{self, write_to_stdin}
     },
     teleclient::myprocfs::{self, MemoryMap},
 };
@@ -109,7 +109,11 @@ fn run_command(root: &str, args: Args) -> Result<()> {
                 }
             }
 
-            log::info!("biggest terminal: {} (size={})", biggest_terminal, biggest_terminal_size);
+            log::info!(
+                "biggest terminal: {} (size={})",
+                biggest_terminal,
+                biggest_terminal_size
+            );
         }
         Args::Pause(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
@@ -180,6 +184,27 @@ fn run_command(root: &str, args: Args) -> Result<()> {
                 vec![addrs[0] as i64, argv_addr as i64, envp_addr as i64],
             )?;
             controller.detach()?;
+        }
+        Args::Spawn(args) => {
+            let tty = terminals::normalize_tty(&args.tty)?;
+            let session_id = procinfo::get_session_id_for_terminal(&tty)?;
+            terminals::write_to_stdin(unistd::Pid::from_raw(session_id), &args.cmd)?;
+
+            // let output = Command::new("which").arg(&args.cmd[0]).output()?;
+            // let mut fullpath = String::from_utf8(output.stdout)?;
+            // fullpath = fullpath.trim_end_matches("\n").to_string();
+
+            // match unsafe { unistd::fork() }? {
+            //     unistd::ForkResult::Parent { .. } => {}
+            //     unistd::ForkResult::Child => {
+            //         if let Err(e) =
+            //             terminals::spawn_on_terminal(fullpath, args.cmd, args.tty, args.uid)
+            //         {
+            //             log::error!("failed to spawn: {}", e);
+            //         }
+            //         std::process::exit(0);
+            //     }
+            // }
         }
         Args::Takeover(args) => {
             let pid = unistd::Pid::from_raw(args.pid);

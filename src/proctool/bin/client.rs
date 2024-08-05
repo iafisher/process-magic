@@ -45,9 +45,6 @@ fn main() -> Result<()> {
         Args::Sessions => {
             procinfo::print_sessions()?;
         }
-        Args::Spawn(args) => {
-            terminals::spawn_on_terminal(args.cmd, args.tty)?;
-        }
         Args::Terminals => {
             procinfo::list_terminals()?;
         }
