@@ -108,8 +108,24 @@ void paint() {
     // }
 }
 
-const char* random_error() {
-    switch (rand() % 5) {
+static int random_poem_counter = 0;
+const char* poems[] = {
+    "Summer surprised us, coming over the Starnbergersee",
+    "Though much is taken, much abides",
+    "Things fall apart; the centre cannot hold",
+    NULL,
+};
+
+const char* random_poem() {
+    const char* r = poems[random_poem_counter];
+    if (r != NULL) {
+        random_poem_counter++;
+    }
+    return r;
+}
+
+const char* random_error(int poem) {
+    switch (rand() % (poem ? 6 : 5)) {
         case 0:
             return "system error";
         case 1:
@@ -118,8 +134,10 @@ const char* random_error() {
             return "reboot reboot reboot";
         case 3:
             return "core dumped";
-        default:
+        case 4:
             return "***********";
+        default:
+            return random_poem();
     }
 }
 
@@ -128,9 +146,12 @@ void animation1() {
     hide_cursor();
     clear_screen();
     struct winsize terminal_size = get_terminal_size();
-    int ms = 300;
-    for (int i = 0; i < 20; i++) {
-        const char* msg = random_error();
+    int ms = 400;
+    for (int i = 0; i < 30; i++) {
+        const char* msg = random_error(i >= 5);
+        if (msg == NULL) {
+            continue;
+        }
         size_t n = strlen(msg);
 
         int row = rand() % terminal_size.ws_row;
@@ -139,8 +160,11 @@ void animation1() {
         printf("%s", msg);
         fflush(stdout);
 
-        sleep_ms(ms);
-        ms -= 10;
+        int jitter = (rand() % 40) - 20;
+        sleep_ms(ms + jitter);
+        if (ms >= 220) {
+            ms -= 20;
+        }
     }
 }
 
