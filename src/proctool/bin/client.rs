@@ -57,6 +57,10 @@ fn main() -> Result<()> {
         }
         Args::Freeze(args) => {
             let state = cryogenics::freeze(unistd::Pid::from_raw(args.pid))?;
+
+            // TODO: don't save file as root
+            // This doesn't work:
+            //   unistd::setuid(unistd::getuid())?;
             let fname = format!("{}.state", args.pid);
             let mut f = fs::File::options().write(true).create(true).open(&fname)?;
 

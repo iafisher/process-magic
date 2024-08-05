@@ -1,8 +1,9 @@
 use core::fmt;
 use std::fs::File;
-use std::io::{BufRead, BufReader, Read};
+use std::io::{BufRead, BufReader, Read, Seek};
 
 use anyhow::{anyhow, Result};
+use nix::unistd;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -30,7 +31,7 @@ pub fn get_command_line(pid: i32) -> Result<Vec<Vec<u8>>> {
 
     while i < buf.len() {
         if buf[i] == 0 {
-            args.push(Vec::from(&buf[start..i+1]));
+            args.push(Vec::from(&buf[start..i + 1]));
             start = i + 1;
         }
         i += 1;
@@ -50,6 +51,48 @@ pub fn read_memory_maps(pid: i32) -> Result<Vec<MemoryMap>> {
         r.push(parse_map_line(&line)?);
     }
     Ok(r)
+}
+
+pub fn populate_memory(pid: unistd::Pid, maps: &mut Vec<MemoryMap>) -> Result<()> {
+    let path = format!("/proc/{}/mem", pid);
+    let mut file = File::open(&path)?;
+
+    for memory_map in maps.iter_mut() {
+        // [vvar] is special data used by the vDSO which for reasons unknown cannot be read via procfs
+        // further discussion:
+        //   - https://lwn.net/Articles/615809/
+        //   - https://stackoverflow.com/questions/42730260/
+        if !memory_map.readable || memory_map.label == "[vvar]" {
+            continue;
+        }
+
+        file.seek(std::io::SeekFrom::Start(memory_map.base_address))
+            .map_err(|e| {
+                anyhow!(
+                    "unable to seek to {:#x} in {}: {}",
+                    memory_map.base_address,
+                    path,
+                    e
+                )
+            })?;
+
+        let mut buf = vec![0u8; memory_map.size as usize];
+        if let Err(e) = file.read_exact(&mut buf).map_err(|e| {
+            anyhow!(
+                "unable to read {} byte(s) from {} at offset {:#x}: {}",
+                memory_map.size,
+                path,
+                memory_map.base_address,
+                e
+            )
+        }) {
+            eprintln!("error: {}", e);
+            continue;
+        }
+        memory_map.data = buf;
+    }
+
+    Ok(())
 }
 
 fn parse_map_line(line: &str) -> Result<MemoryMap> {

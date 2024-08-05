@@ -20,9 +20,12 @@ pub fn freeze(pid: unistd::Pid) -> Result<ProcessState> {
     controller.attach()?;
     let registers = controller.get_registers()?;
     controller.detach_and_stop()?;
+
+    let mut memory_maps = myprocfs::read_memory_maps(pid.as_raw())?;
+    myprocfs::populate_memory(pid, &mut memory_maps)?;
+
     Ok(ProcessState {
-        // TODO: read memory maps
-        memory_maps: Vec::new(),
+        memory_maps,
         regs: registers.regs,
         sp: registers.sp,
         pc: registers.pc,
@@ -43,6 +46,14 @@ pub fn thaw(state: &ProcessState) -> Result<()> {
                 pc: state.pc,
                 pstate: state.pstate,
             })?;
+
+            let svc_region_addr = controller.map_svc_region()?;
+            controller.unmap_existing_regions(svc_region_addr)?;
+
+            for map in state.memory_maps.iter() {
+                controller.map_and_fill_region(svc_region_addr, map)?;
+            }
+
             controller.detach_and_stop()?;
             println!("child pid: {}", child);
             loop {}

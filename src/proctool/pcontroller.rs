@@ -1,10 +1,16 @@
-use std::{cell::OnceCell, io::{IoSlice, IoSliceMut}};
+use std::{
+    cell::OnceCell,
+    io::{IoSlice, IoSliceMut},
+};
 
 use anyhow::{anyhow, Result};
 use nix::{sys, unistd};
 use syscalls::Sysno;
 
-use crate::{proctool::terminals, teleclient::myprocfs::{self, MemoryMap}};
+use crate::{
+    proctool::terminals,
+    teleclient::myprocfs::{self, MemoryMap},
+};
 
 pub struct ProcessController {
     pid: unistd::Pid,
@@ -126,6 +132,22 @@ impl ProcessController {
         sys::ptrace::setregset::<sys::ptrace::regset::NT_PRSTATUS>(self.pid, registers)
             .map_err(|e| anyhow!("PTRACE_SETREGSET failed: {}", e))?;
         Ok(())
+    }
+
+    pub fn map_svc_region(&self) -> Result<u64> {
+        todo!()
+    }
+
+    pub fn unmap_existing_regions(&self, svc_region_addr: u64) -> Result<()> {
+        todo!()
+    }
+
+    pub fn map_and_fill_region(
+        &self,
+        svc_region_addr: u64,
+        memory_map: &myprocfs::MemoryMap,
+    ) -> Result<()> {
+        todo!()
     }
 
     pub fn step_and_wait(&self) -> Result<()> {

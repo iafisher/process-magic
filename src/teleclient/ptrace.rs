@@ -1,5 +1,3 @@
-use std::fs::File;
-use std::io::{Read, Seek};
 use std::mem::MaybeUninit;
 
 use anyhow::{anyhow, Result};
@@ -74,44 +72,7 @@ impl Tracer {
         // https://unix.stackexchange.com/questions/6301/how-do-i-read-from-proc-pid-mem-under-linux
 
         let mut memory_maps = myprocfs::read_memory_maps(self.pid.as_raw())?;
-
-        let path = format!("/proc/{}/mem", self.pid);
-        let mut file = File::open(&path)?;
-
-        for memory_map in memory_maps.iter_mut() {
-            // [vvar] is special data used by the vDSO which for reasons unknown cannot be read via procfs
-            // further discussion:
-            //   - https://lwn.net/Articles/615809/
-            //   - https://stackoverflow.com/questions/42730260/
-            if !memory_map.readable || memory_map.label == "[vvar]" {
-                continue;
-            }
-
-            file.seek(std::io::SeekFrom::Start(memory_map.base_address))
-                .map_err(|e| {
-                    anyhow!(
-                        "unable to seek to {:#x} in {}: {}",
-                        memory_map.base_address,
-                        path,
-                        e
-                    )
-                })?;
-
-            let mut buf = vec![0u8; memory_map.size as usize];
-            if let Err(e) = file.read_exact(&mut buf).map_err(|e| {
-                anyhow!(
-                    "unable to read {} byte(s) from {} at offset {:#x}: {}",
-                    memory_map.size,
-                    path,
-                    memory_map.base_address,
-                    e
-                )
-            }) {
-                eprintln!("error: {}", e);
-                continue;
-            }
-            memory_map.data = buf;
-        }
+        myprocfs::populate_memory(self.pid, &mut memory_maps)?;
 
         Ok(memory_maps)
     }
