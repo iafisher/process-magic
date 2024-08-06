@@ -189,9 +189,28 @@ impl ProcessController {
         Ok(addr)
     }
 
+    fn get_segment_address(&self, label: &str) -> Result<(u64, u64)> {
+        for map in self.get_memory_maps()? {
+            if map.label == label {
+                return Ok((map.base_address, map.size));
+            }
+        }
+
+        Err(anyhow!("could not find [vvar] address"))
+    }
+
     pub fn unmap_existing_regions(&self, svc_region_addr: u64) -> Result<()> {
-        match self.execute_syscall_at_pc(Sysno::munmap, vec![0, svc_region_addr as i64], svc_region_addr) {
-            Ok(r) => println!("return value: {}", r),
+        let (vvar_address, _) = self.get_segment_address("[vvar]")?;
+        let (vdso_address, vdso_size) = self.get_segment_address("[vdso]")?;
+
+        println!("align: {}", (vdso_address + vdso_size) % 4096);
+        match self.execute_syscall_at_pc(Sysno::munmap, vec![(vdso_address + vdso_size) as i64, svc_region_addr as i64], svc_region_addr) {
+            Ok(r) => println!("munmap returned (1): {:#x} ({})", r, r as i64),
+            Err(e) => println!("munmap error: {}", e),
+        }
+
+        match self.execute_syscall_at_pc(Sysno::munmap, vec![0, vvar_address as i64], svc_region_addr) {
+            Ok(r) => println!("munmap returned (2): {:#x} ({})", r, r as i64),
             Err(e) => println!("munmap error: {}", e),
         }
 
