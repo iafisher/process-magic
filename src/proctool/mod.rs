@@ -25,7 +25,7 @@ pub mod common {
         DaemonStatus,
         Freeze(FreezeArgs),
         Groups,
-        Obliterate,
+        Oblivion,
         Pause(PauseArgs),
         Processes(ProcessesArgs),
         Redirect(RedirectArgs),

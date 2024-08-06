@@ -90,7 +90,7 @@ fn handle_client(root: &str, stream: TcpStream) -> Result<bool> {
 
 fn run_command(root: &str, args: Args) -> Result<()> {
     match args {
-        Args::Obliterate => {
+        Args::Oblivion => {
             let mut biggest_terminal = String::new();
             let mut biggest_terminal_size = 0;
             for dir_entry in fs::read_dir("/dev/pts")? {

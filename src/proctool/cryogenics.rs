@@ -36,6 +36,7 @@ pub fn freeze(pid: unistd::Pid) -> Result<ProcessState> {
 pub fn thaw(state: &ProcessState) -> Result<()> {
     match unsafe { unistd::fork() }? {
         unistd::ForkResult::Parent { child } => {
+            println!("child pid: {}", child);
             sys::wait::waitpid(child, Some(sys::wait::WaitPidFlag::WSTOPPED))
                 .map_err(|e| anyhow!("failed to waitpid: {}", e))?;
 
@@ -48,14 +49,14 @@ pub fn thaw(state: &ProcessState) -> Result<()> {
             })?;
 
             let svc_region_addr = controller.map_svc_region()?;
+            println!("mapped region to: {:#x}", svc_region_addr);
             controller.unmap_existing_regions(svc_region_addr)?;
 
-            for map in state.memory_maps.iter() {
-                controller.map_and_fill_region(svc_region_addr, map)?;
-            }
+            // for map in state.memory_maps.iter() {
+            //     controller.map_and_fill_region(svc_region_addr, map)?;
+            // }
 
             controller.detach_and_stop()?;
-            println!("child pid: {}", child);
             loop {}
         }
         unistd::ForkResult::Child => {

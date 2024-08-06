@@ -55,7 +55,7 @@ impl ProcessController {
         let registers = self.get_registers()?;
         let data = sys::ptrace::read(self.pid, registers.pc as *mut libc::c_void)?;
         let current_instruction = (data & 0xffffffff) as u64;
-        if current_instruction == 0xd4000001 {
+        if current_instruction as u32 == SVC {
             Ok(Some((registers.regs[8], registers.regs[0])))
         } else {
             Ok(None)
@@ -89,7 +89,10 @@ impl ProcessController {
 
     pub fn prepare_syscall(&self, sysno: Sysno, args: Vec<i64>) -> Result<()> {
         let new_pc = self.find_svc_instruction()?;
+        self.prepare_syscall_at_pc(sysno, args, new_pc)
+    }
 
+    pub fn prepare_syscall_at_pc(&self, sysno: Sysno, args: Vec<i64>, pc: u64) -> Result<()> {
         let mut registers = self.get_registers()?;
 
         // syscall number in x8, args in x0, x1, x2, x3...
@@ -97,7 +100,7 @@ impl ProcessController {
         for i in 0..args.len() {
             registers.regs[i] = args[i] as u64;
         }
-        registers.pc = new_pc;
+        registers.pc = pc;
 
         self.set_registers(registers)?;
         Ok(())
@@ -105,6 +108,13 @@ impl ProcessController {
 
     pub fn execute_syscall(&self, sysno: Sysno, args: Vec<i64>) -> Result<u64> {
         self.prepare_syscall(sysno, args)?;
+        self.ensure_not_in_syscall()?;
+        let registers = self.get_registers()?;
+        Ok(registers.regs[0])
+    }
+
+    pub fn execute_syscall_at_pc(&self, sysno: Sysno, args: Vec<i64>, pc: u64) -> Result<u64> {
+        self.prepare_syscall_at_pc(sysno, args, pc)?;
         self.ensure_not_in_syscall()?;
         let registers = self.get_registers()?;
         Ok(registers.regs[0])
@@ -135,11 +145,55 @@ impl ProcessController {
     }
 
     pub fn map_svc_region(&self) -> Result<u64> {
-        todo!()
+        let mut highest_addr: u64 = 0;
+        for memory_map in self.get_memory_maps()? {
+            highest_addr = std::cmp::max(memory_map.base_address + memory_map.size, highest_addr);
+        }
+
+        let addr = highest_addr + 4096;
+        let region_size = 4096;
+        self.execute_syscall(
+            Sysno::mmap,
+            vec![
+                addr as i64,
+                region_size,
+                (libc::PROT_READ | libc::PROT_WRITE | libc::PROT_EXEC) as i64,
+                (libc::MAP_PRIVATE | libc::MAP_ANONYMOUS) as i64,
+            ],
+        )?;
+
+        let mut bytes = Vec::new();
+        for _ in 0..(region_size as usize) / SVC_BYTES.len() {
+            bytes.extend_from_slice(&SVC_BYTES[..]);
+        }
+
+        let local_iov = IoSlice::new(&bytes);
+        let remote_iov = sys::uio::RemoteIoVec {
+            base: addr as usize,
+            len: bytes.len(),
+        };
+        let nwritten = sys::uio::process_vm_writev(self.pid, &[local_iov], &[remote_iov])
+            .map_err(|e| anyhow!("process_vm_writev failed: {}", e))?;
+        if nwritten == 0 {
+            return Err(anyhow!("failed to write data"));
+        }
+
+        Ok(addr)
     }
 
     pub fn unmap_existing_regions(&self, svc_region_addr: u64) -> Result<()> {
-        todo!()
+        for memory_map in self.get_memory_maps()? {
+            println!("unmapping {:#x}", memory_map.base_address);
+            match self.execute_syscall_at_pc(
+                Sysno::munmap,
+                vec![memory_map.base_address as i64, memory_map.size as i64],
+                svc_region_addr,
+            ) {
+                Ok(r) => println!("return value: {}", r),
+                Err(e) => println!("munmap error: {}", e),
+            }
+        }
+        Ok(())
     }
 
     pub fn map_and_fill_region(
@@ -234,14 +288,11 @@ fn find_svc_instruction_in_map(pid: unistd::Pid, memory_map: &MemoryMap) -> Resu
         return Err(anyhow!("failed to read any data"));
     }
 
-    // value: 0xd4000001
-    // little-endian representation: 0x01 0x00 0x00 0xd4
-
     for i in 0..buffer.len() - 3 {
-        if buffer[i] == 0x01
-            && buffer[i + 1] == 0x00
-            && buffer[i + 2] == 0x00
-            && buffer[i + 3] == 0xd4
+        if buffer[i] == SVC_BYTES[0]
+            && buffer[i + 1] == SVC_BYTES[1]
+            && buffer[i + 2] == SVC_BYTES[2]
+            && buffer[i + 3] == SVC_BYTES[3]
         {
             return Ok(memory_map.base_address + i as u64);
         }
@@ -249,3 +300,7 @@ fn find_svc_instruction_in_map(pid: unistd::Pid, memory_map: &MemoryMap) -> Resu
 
     Err(anyhow!("could not find svc instruction in segment"))
 }
+
+const SVC: u32 = 0xd4000001;
+// little-endian representation: 0x01 0x00 0x00 0xd4
+const SVC_BYTES: [u8; 4] = [0x01, 0x00, 0x00, 0xd4];
