@@ -8,8 +8,8 @@ use anyhow::{anyhow, Result};
 use clap::Parser;
 
 use nix::{sys, unistd};
-use telefork::proctool::pcontroller::ProcessController;
-use telefork::proctool::{
+use process_magic::proctool::pcontroller::ProcessController;
+use process_magic::proctool::{
     common::{Args, DaemonMessage, PORT},
     cryogenics, procinfo, terminals,
 };

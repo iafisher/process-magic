@@ -3,7 +3,7 @@ use rocket::serde::json::Json;
 use rocket::Config;
 use rocket::{data::Limits, http::Status};
 
-use telefork::{common::httpapi, teleserver};
+use process_magic::{common::httpapi, teleserver};
 
 #[macro_use]
 extern crate rocket;

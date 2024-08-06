@@ -1313,6 +1313,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "process_magic"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "libc",
+ "log",
+ "log4rs",
+ "nix",
+ "procfs",
+ "reqwest",
+ "rocket",
+ "serde",
+ "serde_json",
+ "syscalls",
+]
+
+[[package]]
 name = "procfs"
 version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1929,24 +1947,6 @@ checksum = "a75fb188eb626b924683e3b95e3a48e63551fcfb51949de2f06a9d91dbee93c9"
 dependencies = [
  "core-foundation-sys",
  "libc",
-]
-
-[[package]]
-name = "telefork"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clap",
- "libc",
- "log",
- "log4rs",
- "nix",
- "procfs",
- "reqwest",
- "rocket",
- "serde",
- "serde_json",
- "syscalls",
 ]
 
 [[package]]

@@ -15,7 +15,7 @@ use log4rs::{
 };
 use nix::{fcntl, sys, unistd};
 use syscalls::Sysno;
-use telefork::{
+use process_magic::{
     proctool::{
         common::{Args, DaemonMessage, PORT},
         pcontroller::ProcessController,

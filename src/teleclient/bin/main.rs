@@ -1,8 +1,8 @@
 use anyhow::Result;
 use clap::Parser;
 
-use telefork::common::httpapi;
-use telefork::teleclient::ptrace;
+use process_magic::common::httpapi;
+use process_magic::teleclient::ptrace;
 
 #[derive(Parser, Debug)]
 struct Args {
