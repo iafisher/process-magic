@@ -41,20 +41,29 @@ pub fn thaw(state: &ProcessState) -> Result<()> {
                 .map_err(|e| anyhow!("failed to waitpid: {}", e))?;
 
             let controller = ProcessController::new(child);
+            // TODO: why is this necessary?
+            // We shouldn't have to set the registers before calling `map_svc_region` as any
+            // registers we need are explicitly written.
+            //
+            // But without this line, `map_svc_region` fails...
             controller.set_registers(libc::user_regs_struct {
                 regs: state.regs,
                 sp: state.sp,
                 pc: state.pc,
                 pstate: state.pstate,
             })?;
-
             let svc_region_addr = controller.map_svc_region()?;
-            println!("mapped region to: {:#x}", svc_region_addr);
-            controller.unmap_existing_regions(svc_region_addr)?;
 
-            // for map in state.memory_maps.iter() {
-            //     controller.map_and_fill_region(svc_region_addr, map)?;
-            // }
+            for map in state.memory_maps.iter() {
+                controller.map_and_fill_region(svc_region_addr, map)?;
+            }
+
+            controller.set_registers(libc::user_regs_struct {
+                regs: state.regs,
+                sp: state.sp,
+                pc: state.pc,
+                pstate: state.pstate,
+            })?;
 
             controller.detach_and_stop()?;
             loop {}

@@ -152,7 +152,8 @@ impl ProcessController {
 
         let addr = highest_addr + 4096;
         let region_size = 4096;
-        self.execute_syscall(
+        println!("trying to map to addr {:#x}", addr);
+        let r = self.execute_syscall(
             Sysno::mmap,
             vec![
                 addr as i64,
@@ -161,6 +162,11 @@ impl ProcessController {
                 (libc::MAP_PRIVATE | libc::MAP_ANONYMOUS) as i64,
             ],
         )?;
+        if r as *mut libc::c_void == libc::MAP_FAILED {
+            return Err(anyhow!("mmap failed at {:#x} (size={})", addr, region_size));
+        }
+
+        println!("mmap returned {:#x}", r);
 
         let mut bytes = Vec::new();
         for _ in 0..(region_size as usize) / SVC_BYTES.len() {
@@ -201,7 +207,77 @@ impl ProcessController {
         svc_region_addr: u64,
         memory_map: &myprocfs::MemoryMap,
     ) -> Result<()> {
-        todo!()
+        println!("mapping {:#x}", memory_map.base_address);
+        self.execute_syscall_at_pc(
+            Sysno::munmap,
+            vec![memory_map.base_address as i64, memory_map.size as i64],
+            svc_region_addr,
+        )?;
+
+        let mut prot = 0;
+        if memory_map.readable {
+            prot |= libc::PROT_READ;
+        }
+
+        if memory_map.writable {
+            prot |= libc::PROT_WRITE;
+        }
+
+        if memory_map.executable {
+            prot |= libc::PROT_EXEC;
+        }
+
+        let mut options = libc::MAP_ANONYMOUS;
+        if memory_map.private {
+            options |= libc::MAP_PRIVATE;
+        }
+
+        let r = self.execute_syscall_at_pc(
+            Sysno::mmap,
+            vec![
+                memory_map.base_address as i64,
+                memory_map.size as i64,
+                // we need it to be writable for the next step
+                (prot | libc::PROT_WRITE) as i64,
+                options as i64,
+            ],
+            svc_region_addr,
+        )?;
+        if r as i64 == -1 {
+            return Err(anyhow!("mmap failed at {:#x} (size={})", memory_map.base_address, memory_map.size));
+        }
+
+        if memory_map.data.len() > 0 {
+            let local_iov = IoSlice::new(&memory_map.data);
+            let remote_iov = sys::uio::RemoteIoVec {
+                base: memory_map.base_address as usize,
+                len: memory_map.data.len(),
+            };
+            let nwritten = sys::uio::process_vm_writev(self.pid, &[local_iov], &[remote_iov])
+                .map_err(|e| anyhow!("process_vm_writev failed: {}", e))?;
+            if nwritten == 0 {
+                return Err(anyhow!("failed to write data"));
+            }
+        } else {
+            if memory_map.size > 0 {
+                println!("warning: size={} but data is empty", memory_map.size);
+            }
+        }
+
+        if !memory_map.writable {
+            // if it wasn't supposed to be writable, fix it
+            self.execute_syscall_at_pc(
+                Sysno::mprotect,
+                vec![
+                    memory_map.base_address as i64,
+                    memory_map.size as i64,
+                    prot as i64,
+                ],
+                svc_region_addr,
+            )?;
+        }
+
+        Ok(())
     }
 
     pub fn step_and_wait(&self) -> Result<()> {
@@ -252,6 +328,12 @@ impl ProcessController {
 
     pub fn detach_and_stop(&self) -> Result<()> {
         self.detach_generic(Some(sys::signal::Signal::SIGSTOP))
+    }
+
+    pub fn waitpid(&self) -> Result<()> {
+        sys::wait::waitpid(self.pid, None)
+            .map_err(|e| anyhow!("failed to waitpid: {}", e))?;
+        Ok(())
     }
 
     fn detach_generic(&self, signal: Option<sys::signal::Signal>) -> Result<()> {
