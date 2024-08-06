@@ -160,6 +160,8 @@ impl ProcessController {
                 region_size,
                 (libc::PROT_READ | libc::PROT_WRITE | libc::PROT_EXEC) as i64,
                 (libc::MAP_PRIVATE | libc::MAP_ANONYMOUS) as i64,
+                -1,
+                0,
             ],
         )?;
         if r as *mut libc::c_void == libc::MAP_FAILED {
@@ -226,10 +228,11 @@ impl ProcessController {
             prot |= libc::PROT_EXEC;
         }
 
-        let mut options = libc::MAP_ANONYMOUS;
-        if memory_map.private {
-            options |= libc::MAP_PRIVATE;
-        }
+        // TODO: this definitely doesn't handle shared memory correctly
+        let options = libc::MAP_ANONYMOUS | libc::MAP_PRIVATE;
+        // if memory_map.private {
+        //     options |= libc::MAP_PRIVATE;
+        // }
 
         let r = self.execute_syscall_at_pc(
             Sysno::mmap,
@@ -239,6 +242,8 @@ impl ProcessController {
                 // we need it to be writable for the next step
                 (prot | libc::PROT_WRITE) as i64,
                 options as i64,
+                -1,
+                0,
             ],
             svc_region_addr,
         )?;

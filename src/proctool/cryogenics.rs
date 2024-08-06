@@ -2,7 +2,10 @@ use anyhow::{anyhow, Result};
 use nix::{sys, unistd};
 use serde::{Deserialize, Serialize};
 
-use crate::{proctool::{pcontroller::ProcessController, terminals}, teleclient::myprocfs};
+use crate::{
+    proctool::{pcontroller::ProcessController, terminals},
+    teleclient::myprocfs,
+};
 
 #[derive(Serialize, Deserialize)]
 pub struct ProcessState {
@@ -22,6 +25,7 @@ pub fn freeze(pid: unistd::Pid) -> Result<ProcessState> {
     controller.detach_and_stop()?;
 
     let mut memory_maps = myprocfs::read_memory_maps(pid.as_raw())?;
+    println!("reading process memory... this may take a while");
     myprocfs::populate_memory(pid, &mut memory_maps)?;
 
     Ok(ProcessState {
@@ -41,21 +45,27 @@ pub fn thaw(state: &ProcessState) -> Result<()> {
                 .map_err(|e| anyhow!("failed to waitpid: {}", e))?;
 
             let controller = ProcessController::new(child);
-            // TODO: why is this necessary?
-            // We shouldn't have to set the registers before calling `map_svc_region` as any
-            // registers we need are explicitly written.
-            //
-            // But without this line, `map_svc_region` fails...
-            controller.set_registers(libc::user_regs_struct {
-                regs: state.regs,
-                sp: state.sp,
-                pc: state.pc,
-                pstate: state.pstate,
-            })?;
-            let svc_region_addr = controller.map_svc_region()?;
+            let svc_region_addr = controller
+                .map_svc_region()
+                .map_err(|e| anyhow!("failed to map svc region: {}", e))?;
 
             for map in state.memory_maps.iter() {
-                controller.map_and_fill_region(svc_region_addr, map)?;
+                println!(
+                    "mapping memory region at {:#x} (size={})",
+                    map.base_address, map.size
+                );
+                if let Err(e) = controller
+                    .map_and_fill_region(svc_region_addr, map)
+                    .map_err(|e| {
+                        anyhow!(
+                            "failed to map/fill memory region (addr={:#x}): {}",
+                            map.base_address,
+                            e
+                        )
+                    })
+                {
+                    println!("error: {}", e);
+                }
             }
 
             controller.set_registers(libc::user_regs_struct {
@@ -65,8 +75,10 @@ pub fn thaw(state: &ProcessState) -> Result<()> {
                 pstate: state.pstate,
             })?;
 
+            // TODO:
             terminals::clear_terminal("/dev/tty")?;
             controller.detach()?;
+            // controller.detach_and_stop()?;
             controller.waitpid()?;
         }
         unistd::ForkResult::Child => {
