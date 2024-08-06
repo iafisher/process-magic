@@ -2,7 +2,7 @@ use anyhow::{anyhow, Result};
 use nix::{sys, unistd};
 use serde::{Deserialize, Serialize};
 
-use crate::{proctool::pcontroller::ProcessController, teleclient::myprocfs};
+use crate::{proctool::{pcontroller::ProcessController, terminals}, teleclient::myprocfs};
 
 #[derive(Serialize, Deserialize)]
 pub struct ProcessState {
@@ -65,8 +65,9 @@ pub fn thaw(state: &ProcessState) -> Result<()> {
                 pstate: state.pstate,
             })?;
 
-            controller.detach_and_stop()?;
-            loop {}
+            terminals::clear_terminal("/dev/tty")?;
+            controller.detach()?;
+            controller.waitpid()?;
         }
         unistd::ForkResult::Child => {
             sys::ptrace::traceme()?;

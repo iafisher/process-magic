@@ -207,7 +207,6 @@ impl ProcessController {
         svc_region_addr: u64,
         memory_map: &myprocfs::MemoryMap,
     ) -> Result<()> {
-        println!("mapping {:#x}", memory_map.base_address);
         self.execute_syscall_at_pc(
             Sysno::munmap,
             vec![memory_map.base_address as i64, memory_map.size as i64],
@@ -244,7 +243,11 @@ impl ProcessController {
             svc_region_addr,
         )?;
         if r as i64 == -1 {
-            return Err(anyhow!("mmap failed at {:#x} (size={})", memory_map.base_address, memory_map.size));
+            return Err(anyhow!(
+                "mmap failed at {:#x} (size={})",
+                memory_map.base_address,
+                memory_map.size
+            ));
         }
 
         if memory_map.data.len() > 0 {
@@ -257,10 +260,6 @@ impl ProcessController {
                 .map_err(|e| anyhow!("process_vm_writev failed: {}", e))?;
             if nwritten == 0 {
                 return Err(anyhow!("failed to write data"));
-            }
-        } else {
-            if memory_map.size > 0 {
-                println!("warning: size={} but data is empty", memory_map.size);
             }
         }
 
@@ -331,8 +330,7 @@ impl ProcessController {
     }
 
     pub fn waitpid(&self) -> Result<()> {
-        sys::wait::waitpid(self.pid, None)
-            .map_err(|e| anyhow!("failed to waitpid: {}", e))?;
+        sys::wait::waitpid(self.pid, None).map_err(|e| anyhow!("failed to waitpid: {}", e))?;
         Ok(())
     }
 
