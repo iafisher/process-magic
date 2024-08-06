@@ -190,17 +190,36 @@ impl ProcessController {
     }
 
     pub fn unmap_existing_regions(&self, svc_region_addr: u64) -> Result<()> {
-        for memory_map in self.get_memory_maps()? {
-            println!("unmapping {:#x}", memory_map.base_address);
-            match self.execute_syscall_at_pc(
-                Sysno::munmap,
-                vec![memory_map.base_address as i64, memory_map.size as i64],
-                svc_region_addr,
-            ) {
-                Ok(r) => println!("return value: {}", r),
-                Err(e) => println!("munmap error: {}", e),
-            }
+        match self.execute_syscall_at_pc(Sysno::munmap, vec![0, svc_region_addr as i64], svc_region_addr) {
+            Ok(r) => println!("return value: {}", r),
+            Err(e) => println!("munmap error: {}", e),
         }
+
+        // for (i, memory_map) in self.get_memory_maps()?.iter().enumerate() {
+        //     if i == 15
+        //         || i == 16
+        //         || i == 17
+        //         || i == 18
+        //         || i == 19
+        //         || i == 20
+        //         || i == 21
+        //         || i == 22
+        //         || !memory_map.readable && !memory_map.writable && !memory_map.executable
+        //     {
+        //         println!("skipping {:#x}", memory_map.base_address);
+        //         continue;
+        //     }
+
+        //     println!("unmapping {:#x} (i={})", memory_map.base_address, i);
+        //     match self.execute_syscall_at_pc(
+        //         Sysno::munmap,
+        //         vec![memory_map.base_address as i64, memory_map.size as i64],
+        //         svc_region_addr,
+        //     ) {
+        //         Ok(r) => println!("return value: {}", r),
+        //         Err(e) => println!("munmap error: {}", e),
+        //     }
+        // }
         Ok(())
     }
 

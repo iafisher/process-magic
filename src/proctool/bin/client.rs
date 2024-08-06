@@ -7,7 +7,8 @@ use anyhow::{anyhow, Result};
 
 use clap::Parser;
 
-use nix::unistd;
+use nix::{sys, unistd};
+use telefork::proctool::pcontroller::ProcessController;
 use telefork::proctool::{
     common::{Args, DaemonMessage, PORT},
     cryogenics, procinfo, terminals,
@@ -73,6 +74,26 @@ fn main() -> Result<()> {
             let state: cryogenics::ProcessState = serde_json::from_reader(&mut reader)?;
             cryogenics::thaw(&state)?;
         }
+        Args::UnmapChild => match unsafe { unistd::fork() }? {
+            unistd::ForkResult::Parent { child } => {
+                sys::wait::waitpid(child, Some(sys::wait::WaitPidFlag::WSTOPPED))
+                    .map_err(|e| anyhow!("failed to waitpid: {}", e))?;
+                println!("child pid: {}", child);
+
+                let controller = ProcessController::new(child);
+                let svc_region_addr = controller
+                    .map_svc_region()
+                    .map_err(|e| anyhow!("failed to map svc region: {}", e))?;
+
+                controller.unmap_existing_regions(svc_region_addr)?;
+                controller.detach_and_stop()?;
+                controller.waitpid()?;
+            }
+            unistd::ForkResult::Child => {
+                sys::ptrace::traceme()?;
+                sys::signal::raise(sys::signal::SIGSTOP)?;
+            }
+        },
         _ => {
             dispatch_to_daemon(args)?;
         }

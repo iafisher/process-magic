@@ -37,6 +37,7 @@ pub mod common {
         Terminals,
         TerminalSizes,
         Thaw(ThawArgs),
+        UnmapChild,
         Which,
         WriteStdin(WriteStdinArgs),
     }
