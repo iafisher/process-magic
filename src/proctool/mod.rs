@@ -31,6 +31,7 @@ pub mod common {
         Redirect(RedirectArgs),
         Resume(ResumeArgs),
         Rewind(RewindArgs),
+        Rot13(Rot13Args),
         Sessions,
         Spawn(SpawnArgs),
         Takeover(TakeoverArgs),
@@ -71,6 +72,11 @@ pub mod common {
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct RewindArgs {
+        pub pid: i32,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct Rot13Args {
         pub pid: i32,
     }
 

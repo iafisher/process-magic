@@ -71,6 +71,9 @@ impl ProcessController {
         //
         // as currently written the method only works for nanosleep because it just spins until the syscall
         // returns; it spins forever for reading from stdin
+        //
+        // alternatively, seems like we could single-step; if that fails to advance PC, then do PTRACE_SYSCALL
+        // to wait for syscall exit
         let initial_registers = self.get_registers()?;
         let initial_pc = initial_registers.pc;
 
@@ -144,6 +147,40 @@ impl ProcessController {
         Ok(())
     }
 
+    pub fn wait_for_syscall(&self) -> Result<()> {
+        sys::ptrace::syscall(self.pid, None)
+            .map_err(|e| anyhow!("PTRACE_SYSCALL failed: {}", e))?;
+        sys::wait::waitpid(self.pid, Some(sys::wait::WaitPidFlag::WSTOPPED))
+            .map_err(|e| anyhow!("failed to waitpid after PTRACE_SYSCALL: {}", e))?;
+        Ok(())
+    }
+
+    pub fn stop_at_next_syscall(&self) -> Result<()> {
+        sys::ptrace::syscall(self.pid, None)
+            .map_err(|e| anyhow!("PTRACE_SYSCALL failed: {}", e))?;
+        self.wait_for_anything()?;
+        Ok(())
+    }
+
+    pub fn continue_syscall(&self) -> Result<()> {
+        sys::ptrace::syscall(self.pid, None).map_err(|e| anyhow!("PTRACE_SYSCALL: {}", e))?;
+        self.wait_for_anything()?;
+        Ok(())
+    }
+
+    pub fn wait_for_anything(&self) -> Result<()> {
+        // per "Stopped states" section of ptrace(2)
+        sys::wait::waitpid(self.pid, Some(sys::wait::WaitPidFlag::__WALL))
+            .map_err(|e| anyhow!("waitpid: {}", e))?;
+        Ok(())
+    }
+
+    pub fn is_writing_to_stdout(&self) -> Result<bool> {
+        let registers = self.get_registers()?;
+        Ok(registers.regs[8] == Sysno::write.id() as u64
+            && registers.regs[0] == libc::STDOUT_FILENO as u64)
+    }
+
     pub fn map_svc_region(&self) -> Result<u64> {
         let mut highest_addr: u64 = 0;
         for memory_map in self.get_memory_maps()? {
@@ -204,12 +241,20 @@ impl ProcessController {
         let (vdso_address, vdso_size) = self.get_segment_address("[vdso]")?;
 
         println!("align: {}", (vdso_address + vdso_size) % 4096);
-        match self.execute_syscall_at_pc(Sysno::munmap, vec![(vdso_address + vdso_size) as i64, svc_region_addr as i64], svc_region_addr) {
+        match self.execute_syscall_at_pc(
+            Sysno::munmap,
+            vec![(vdso_address + vdso_size) as i64, svc_region_addr as i64],
+            svc_region_addr,
+        ) {
             Ok(r) => println!("munmap returned (1): {:#x} ({})", r, r as i64),
             Err(e) => println!("munmap error: {}", e),
         }
 
-        match self.execute_syscall_at_pc(Sysno::munmap, vec![0, vvar_address as i64], svc_region_addr) {
+        match self.execute_syscall_at_pc(
+            Sysno::munmap,
+            vec![0, vvar_address as i64],
+            svc_region_addr,
+        ) {
             Ok(r) => println!("munmap returned (2): {:#x} ({})", r, r as i64),
             Err(e) => println!("munmap error: {}", e),
         }

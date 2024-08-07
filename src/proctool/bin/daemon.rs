@@ -14,7 +14,6 @@ use log4rs::{
     Config,
 };
 use nix::{fcntl, sys, unistd};
-use syscalls::Sysno;
 use process_magic::{
     proctool::{
         common::{Args, DaemonMessage, PORT},
@@ -24,6 +23,7 @@ use process_magic::{
     },
     teleclient::myprocfs,
 };
+use syscalls::Sysno;
 
 pub fn main() -> Result<()> {
     let root =
@@ -229,6 +229,24 @@ fn run_command(root: &str, args: Args) -> Result<()> {
         }
         Args::WriteStdin(args) => {
             write_to_stdin(unistd::Pid::from_raw(args.pid), &args.message)?;
+        }
+        Args::Rot13(args) => {
+            let pid = unistd::Pid::from_raw(args.pid);
+            let controller = ProcessController::new(pid);
+
+            controller.attach()?;
+
+            loop {
+                controller.stop_at_next_syscall()?;
+                if controller.is_writing_to_stdout()? {
+                    log::info!("writing to stdout");
+                } else {
+                    log::info!("not writing to stdout");
+                }
+                controller.continue_syscall()?;
+            }
+
+            controller.detach()?;
         }
         _ => {
             return Err(anyhow!("unknown command {:?}", args));
