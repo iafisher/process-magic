@@ -15,6 +15,7 @@ use crate::{
 pub struct ProcessController {
     pid: unistd::Pid,
     memory_maps: OnceCell<Vec<MemoryMap>>,
+    pub detach_on_drop: bool,
 }
 
 impl ProcessController {
@@ -22,6 +23,7 @@ impl ProcessController {
         Self {
             pid,
             memory_maps: OnceCell::new(),
+            detach_on_drop: true,
         }
     }
 
@@ -547,7 +549,9 @@ impl ProcessController {
 
 impl Drop for ProcessController {
     fn drop(&mut self) {
-        let _ = self.detach();
+        if self.detach_on_drop {
+            let _ = self.detach();
+        }
     }
 }
 

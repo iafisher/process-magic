@@ -129,7 +129,8 @@ fn run_command(root: &str, args: Args) -> Result<()> {
         }
         Args::Pause(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
-            let controller = ProcessController::new(pid);
+            let mut controller = ProcessController::new(pid);
+            controller.detach_on_drop = false;
             controller.attach()?;
         }
         Args::Resume(args) => {
