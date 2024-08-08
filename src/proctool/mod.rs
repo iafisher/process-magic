@@ -32,6 +32,7 @@ pub mod common {
         Resume(ResumeArgs),
         Rewind(RewindArgs),
         Rot13(Rot13Args),
+        ColorizeStderr(ColorizeStderrArgs),
         Sessions,
         Spawn(SpawnArgs),
         Takeover(TakeoverArgs),
@@ -82,6 +83,11 @@ pub mod common {
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct Rot13Args {
+        pub pid: i32,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct ColorizeStderrArgs {
         pub pid: i32,
     }
 

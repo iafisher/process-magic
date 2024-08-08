@@ -1,5 +1,4 @@
 use std::{
-    fs,
     io::{BufRead, BufReader},
     net::{TcpListener, TcpStream},
     os::fd::RawFd,
@@ -242,6 +241,42 @@ fn run_command(root: &str, args: Args) -> Result<()> {
         Args::WriteStdin(args) => {
             write_to_stdin(unistd::Pid::from_raw(args.pid), &args.message)?;
         }
+        Args::ColorizeStderr(args) => {
+            let pid = unistd::Pid::from_raw(args.pid);
+            let controller = ProcessController::new(pid);
+
+            controller.attach()?;
+
+            let registers = controller.get_registers()?;
+            let region_addr = controller.map_region(4096 * 16)?;
+            controller.set_registers(registers)?;
+
+            loop {
+                if controller.stop_at_next_syscall().is_err() {
+                    break;
+                }
+
+                // we are now in syscall-enter-stop
+
+                if let Some((addr, count)) = controller.is_writing_to_stderr()? {
+                    let original_registers = controller.get_registers()?;
+                    controller.colorize_stderr(region_addr, addr, count)?;
+                    controller.continue_syscall()?;
+                    let mut new_registers = controller.get_registers()?;
+                    new_registers.regs[0] = original_registers.regs[2];
+                    new_registers.regs[1] = original_registers.regs[1];
+                    new_registers.regs[2] = original_registers.regs[2];
+                    controller.set_registers(new_registers)?;
+                } else {
+                    controller.continue_syscall()?;
+                }
+
+                // we are now in syscall-exit-stop
+            }
+
+            // if detach() failed the process has probably died and we have nothing left to do
+            let _ = controller.detach();
+        }
         Args::Rot13(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
             let controller = ProcessController::new(pid);
@@ -253,6 +288,8 @@ fn run_command(root: &str, args: Args) -> Result<()> {
                     break;
                 }
 
+                // we are now in syscall-enter-stop
+
                 if let Some((addr, count)) = controller.is_writing_to_stdout()? {
                     controller.rot13(addr, count)?;
                     controller.continue_syscall()?;
@@ -260,9 +297,12 @@ fn run_command(root: &str, args: Args) -> Result<()> {
                 } else {
                     controller.continue_syscall()?;
                 }
+
+                // we are now in syscall-exit-stop
             }
 
-            controller.detach()?;
+            // if detach() failed the process has probably died and we have nothing left to do
+            let _ = controller.detach();
         }
         _ => {
             return Err(anyhow!("unknown command {:?}", args));

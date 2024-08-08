@@ -32,6 +32,14 @@ impl ProcessController {
         Ok(())
     }
 
+    pub fn in_syscall(&self) -> Result<bool> {
+        let initial_registers = self.get_registers()?;
+        let initial_pc = initial_registers.pc;
+        self.step_and_wait()?;
+        let current_registers = self.get_registers()?;
+        Ok(current_registers.pc == initial_pc)
+    }
+
     pub fn cancel_pending_read(&self) -> Result<()> {
         log::info!("cancel pending read");
         if let Some((sysno, arg)) = self.current_syscall()? {
@@ -178,8 +186,22 @@ impl ProcessController {
     /// returns (buffer address, byte count)
     pub fn is_writing_to_stdout(&self) -> Result<Option<(u64, u64)>> {
         let registers = self.get_registers()?;
+
         if registers.regs[8] == Sysno::write.id() as u64
             && registers.regs[0] == libc::STDOUT_FILENO as u64
+        {
+            Ok(Some((registers.regs[1], registers.regs[2])))
+        } else {
+            Ok(None)
+        }
+    }
+
+    /// returns (buffer address, byte count)
+    pub fn is_writing_to_stderr(&self) -> Result<Option<(u64, u64)>> {
+        let registers = self.get_registers()?;
+
+        if registers.regs[8] == Sysno::write.id() as u64
+            && registers.regs[0] == libc::STDERR_FILENO as u64
         {
             Ok(Some((registers.regs[1], registers.regs[2])))
         } else {
@@ -198,6 +220,62 @@ impl ProcessController {
             }
         }
         Ok(())
+    }
+
+    pub fn colorize_stderr(&self, region_addr: u64, base_addr: u64, count: u64) -> Result<()> {
+        let s = self.read_string(base_addr, count)?;
+        let mut colored_s = format!("\x1b[31m{}\x1b[0m", s);
+        let original_length = colored_s.as_bytes().len();
+
+        while colored_s.len() % 8 != 0 {
+            colored_s.push('\0');
+        }
+
+        let bytes = colored_s.as_bytes();
+        let mut original_regs = self.get_registers()?;
+
+        let mut i = 0;
+        while i < bytes.len() {
+            let p = (region_addr + i as u64) as *mut libc::c_void;
+            let x = i64::from_le_bytes(bytes[i..i + 8].try_into().unwrap());
+            sys::ptrace::write(self.pid, p, x)?;
+            i += 8;
+        }
+
+        original_regs.regs[1] = region_addr;
+        original_regs.regs[2] = original_length as u64;
+        self.set_registers(original_regs)?;
+
+        Ok(())
+    }
+
+    pub fn read_string(&self, base_addr: u64, count: u64) -> Result<String> {
+        let mut buffer = vec![0; count as usize];
+        let local_iov = &mut [IoSliceMut::new(&mut buffer[..])];
+        let remote_iov = sys::uio::RemoteIoVec {
+            base: base_addr as usize,
+            len: count as usize,
+        };
+
+        let nread = sys::uio::process_vm_readv(self.pid, local_iov, &[remote_iov])?;
+        if nread == 0 {
+            return Err(anyhow!("process_vm_readv failed to read any bytes"));
+        }
+        Ok(String::from_utf8(buffer)?)
+    }
+
+    pub fn map_region(&self, size: u64) -> Result<u64> {
+        self.execute_syscall(
+            Sysno::mmap,
+            vec![
+                0,
+                size as i64,
+                (libc::PROT_READ | libc::PROT_WRITE | libc::PROT_EXEC) as i64,
+                (libc::MAP_PRIVATE | libc::MAP_ANONYMOUS) as i64,
+                -1,
+                0,
+            ],
+        )
     }
 
     pub fn map_svc_region(&self) -> Result<u64> {
@@ -394,6 +472,20 @@ impl ProcessController {
         Ok(())
     }
 
+    pub fn inject_bytes_at_addr(&self, bytes: &[u8], addr: u64) -> Result<u64> {
+        let local_iov = IoSlice::new(bytes);
+        let remote_iov = sys::uio::RemoteIoVec {
+            base: addr as usize,
+            len: bytes.len(),
+        };
+        let nwritten = sys::uio::process_vm_writev(self.pid, &[local_iov], &[remote_iov])?;
+        if nwritten == 0 {
+            return Err(anyhow!("failed to write data"));
+        }
+
+        Ok(addr)
+    }
+
     pub fn inject_bytes(&self, bytes: &[u8]) -> Result<u64> {
         let addr = self.execute_syscall(
             Sysno::mmap,
@@ -407,17 +499,7 @@ impl ProcessController {
             ],
         )?;
 
-        let local_iov = IoSlice::new(bytes);
-        let remote_iov = sys::uio::RemoteIoVec {
-            base: addr as usize,
-            len: bytes.len(),
-        };
-        let nwritten = sys::uio::process_vm_writev(self.pid, &[local_iov], &[remote_iov])?;
-        if nwritten == 0 {
-            return Err(anyhow!("failed to write data"));
-        }
-
-        Ok(addr)
+        self.inject_bytes_at_addr(bytes, addr)
     }
 
     pub fn inject_u64s(&self, xs: &[u64]) -> Result<u64> {
@@ -460,6 +542,12 @@ impl ProcessController {
         let memory_maps = myprocfs::read_memory_maps(self.pid.as_raw())?;
         let _ = self.memory_maps.set(memory_maps);
         Ok(())
+    }
+}
+
+impl Drop for ProcessController {
+    fn drop(&mut self) {
+        let _ = self.detach();
     }
 }
 
