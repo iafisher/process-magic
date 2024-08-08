@@ -8,7 +8,7 @@ use anyhow::{anyhow, Result};
 use clap::Parser;
 
 use nix::{sys, unistd};
-use process_magic::proctool::pcontroller::ProcessController;
+use process_magic::proctool::pcontroller::{self, ProcessController};
 use process_magic::proctool::{
     common::{Args, DaemonMessage, PORT},
     cryogenics, procinfo, terminals,
@@ -57,7 +57,8 @@ fn main() -> Result<()> {
             print_what_terminal()?;
         }
         Args::Freeze(args) => {
-            let state = cryogenics::freeze(unistd::Pid::from_raw(args.pid))?;
+            let pid = unistd::Pid::from_raw(args.pid);
+            let state = cryogenics::freeze(pid)?;
 
             // TODO: don't save file as root
             // This doesn't work:
@@ -66,6 +67,7 @@ fn main() -> Result<()> {
             let mut f = fs::File::options().write(true).create(true).open(&fname)?;
 
             serde_json::to_writer(&mut f, &state)?;
+            pcontroller::takeover(pid, &format!("{}/bin/risen", root), false)?;
             println!("Saved to {}", fname);
         }
         Args::Thaw(args) => {

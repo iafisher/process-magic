@@ -16,7 +16,7 @@ use nix::{fcntl, sys, unistd};
 use process_magic::{
     proctool::{
         common::{Args, DaemonMessage, PORT},
-        pcontroller::ProcessController,
+        pcontroller::{self, ProcessController},
         procinfo,
         terminals::{self, write_to_stdin},
     },
@@ -221,23 +221,8 @@ fn run_command(root: &str, args: Args) -> Result<()> {
         }
         Args::Takeover(args) => {
             let pid = unistd::Pid::from_raw(args.pid);
-            let controller = ProcessController::new(pid);
-
-            controller.attach()?;
-            controller.ensure_not_in_syscall()?;
-
             let path_to_program = args.bin.unwrap_or(format!("{}/bin/takeover", root));
-            let str_addr = controller.inject_bytes(format!("{}\0", path_to_program).as_bytes())?;
-            let empty_addr = controller.inject_bytes(&[0])?;
-            let syscall_args = vec![str_addr as i64, empty_addr as i64, empty_addr as i64];
-            controller.prepare_syscall(Sysno::execve, syscall_args)?;
-
-            if !args.pause {
-                controller.ensure_not_in_syscall()?;
-                controller.detach()?;
-            } else {
-                controller.detach_and_stop()?;
-            }
+            pcontroller::takeover(pid, &path_to_program, args.pause)?;
         }
         Args::WriteStdin(args) => {
             write_to_stdin(unistd::Pid::from_raw(args.pid), &args.message)?;

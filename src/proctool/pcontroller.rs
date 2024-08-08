@@ -555,6 +555,27 @@ impl Drop for ProcessController {
     }
 }
 
+pub fn takeover(pid: unistd::Pid, path_to_program: &str, pause: bool) -> Result<()> {
+    let controller = ProcessController::new(pid);
+
+    controller.attach()?;
+    controller.ensure_not_in_syscall()?;
+
+    let str_addr = controller.inject_bytes(format!("{}\0", path_to_program).as_bytes())?;
+    let empty_addr = controller.inject_bytes(&[0])?;
+    let syscall_args = vec![str_addr as i64, empty_addr as i64, empty_addr as i64];
+    controller.prepare_syscall(Sysno::execve, syscall_args)?;
+
+    if !pause {
+        controller.ensure_not_in_syscall()?;
+        controller.detach()?;
+    } else {
+        controller.detach_and_stop()?;
+    }
+
+    Ok(())
+}
+
 fn find_svc_instruction_in_map(pid: unistd::Pid, memory_map: &MemoryMap) -> Result<u64> {
     let mut buffer = vec![0; memory_map.size as usize];
     let local_iov = &mut [IoSliceMut::new(&mut buffer[..])];
