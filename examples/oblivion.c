@@ -112,7 +112,7 @@ static int random_poem_counter = 0;
 const char* poems[] = {
     "Summer surprised us, coming over the Starnbergersee",
     "Я помню чудное мгновенье",
-    "Though much is taken, much abides",
+    "Il faut imaginer Sisyphe heureux",
     "Things fall apart; the centre cannot hold",
     NULL,
 };
