@@ -209,8 +209,19 @@ void animation3() {
     int y2 = terminal_size.ws_row;
     int i = 0;
 
+    const char* msg = "  no more computer  ";
+    size_t n = strlen(msg);
+    int target_y = terminal_size.ws_row / 2;
+    int target_x = (terminal_size.ws_col / 2) - (n / 2);
     while (!(y1 == y2 && x2 - x1 < 0)) {
+        char c;
         if (i % 2 == 0) {
+            if (y1 == target_y && x1 >= target_x && x1 < target_x + n) {
+                c = msg[x1 - target_x];
+            } else {
+                c = '*';
+            }
+
             set_cursor(y1, x1);
             if (x1 == terminal_size.ws_col) {
                 x1 = 1;
@@ -219,6 +230,7 @@ void animation3() {
                 x1++;
             }
         } else {
+            c = '*';
             set_cursor(y2, x2);
             if (x2 == 0) {
                 x2 = terminal_size.ws_col;
@@ -228,9 +240,9 @@ void animation3() {
             }
         }
 
-        printf("*");
+        printf("%c", c);
         fflush(stdout);
-        sleep_ms(1);
+        sleep_ms(4);
         i++;
     }
 
@@ -263,16 +275,57 @@ void animation3() {
     // }
 }
 
+void animation4() {
+    for (int i = 0; i < 100; i++) {
+        if (i % 7 == 0) {
+            puts("illegal instruction");
+        } else {
+            puts("fatal error");
+        }
+        sleep_ms(70);
+    }
+}
+
+void animation5() {
+    hide_cursor();
+
+    struct winsize terminal_size = get_terminal_size();
+    for (int i = 0; i < 10; i++) {
+        clear_screen();
+        for (int x = 0; x <= terminal_size.ws_row; x++) {
+            for (int y = 0; y < terminal_size.ws_col; y++) {
+                if (rand() % 7 == 0) {
+                    printf("%%");
+                } else {
+                    printf(" ");
+                }
+            }
+
+            if (x != terminal_size.ws_row - 1) {
+                printf("\n");
+            }
+        }
+
+        sleep_ms(700);
+    }
+}
+
 int main(int argc, char* argv[]) {
+    // srand(time(NULL));
+
     char* selection;
     if (argc >= 2) {
         selection = argv[1];
     } else {
-        selection = "primary";
+        selection = "0";
     }
 
-    if (strcmp(selection, "secondary") == 0) {
+    if (strcmp(selection, "1") == 0) {
         animation1();
+    } else if (strcmp(selection, "2") == 0) {
+        animation4();
+    } else if (strcmp(selection, "3") == 0) {
+        animation5();
     } else {
         animation3();
     }

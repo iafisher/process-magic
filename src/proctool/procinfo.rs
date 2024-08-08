@@ -151,8 +151,11 @@ fn get_all_process_info() -> Result<Vec<ProcessInfo>> {
         }
         let pid = pid_result.unwrap();
 
-        let info = get_process_info(pid)?;
-        r.push(info);
+        if let Ok(info) =
+            get_process_info(pid).map_err(|e| anyhow!("failed to get process info: {}", e))
+        {
+            r.push(info);
+        };
     }
     Ok(r)
 }

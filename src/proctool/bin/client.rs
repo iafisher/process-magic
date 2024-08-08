@@ -94,6 +94,10 @@ fn main() -> Result<()> {
                 sys::signal::raise(sys::signal::SIGSTOP)?;
             }
         },
+        Args::Oblivion(_) => {
+            dispatch_to_daemon(args)?;
+            Command::new(format!("{}/bin/oblivion", root)).arg("3").spawn()?;
+        }
         _ => {
             dispatch_to_daemon(args)?;
         }

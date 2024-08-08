@@ -90,31 +90,43 @@ fn handle_client(root: &str, stream: TcpStream) -> Result<bool> {
 
 fn run_command(root: &str, args: Args) -> Result<()> {
     match args {
-        Args::Oblivion => {
-            let mut biggest_terminal = String::new();
-            let mut biggest_terminal_size = 0;
-            for dir_entry in fs::read_dir("/dev/pts")? {
-                let dir_entry = dir_entry?;
-                if let Ok(s) = dir_entry.file_name().into_string() {
-                    if s.parse::<u64>().is_ok() {
-                        let terminal = s;
-                        let (rows, cols) =
-                            terminals::get_terminal_size(&format!("/dev/pts/{}", terminal))?;
-
-                        let size = rows * cols;
-                        if size >= biggest_terminal_size {
-                            biggest_terminal = terminal;
-                            biggest_terminal_size = size;
-                        }
-                    }
-                }
+        Args::Oblivion(args) => {
+            for (i, ttyno) in args.ttys.iter().enumerate() {
+                let tty = format!("/dev/pts/{}", ttyno);
+                log::info!("tty: {}", tty);
+                let session_id = procinfo::get_session_id_for_terminal(&tty)
+                    .map_err(|e| anyhow!("oblivion: failed to get session id: {}", e))?;
+                terminals::write_to_stdin(
+                    unistd::Pid::from_raw(session_id),
+                    &format!("{}/bin/oblivion {}", root, i),
+                )
+                .map_err(|e| anyhow!("oblivion: failed to write to stdin: {}", e))?;
             }
 
-            log::info!(
-                "biggest terminal: {} (size={})",
-                biggest_terminal,
-                biggest_terminal_size
-            );
+            // let mut biggest_terminal = String::new();
+            // let mut biggest_terminal_size = 0;
+            // for dir_entry in fs::read_dir("/dev/pts")? {
+            //     let dir_entry = dir_entry?;
+            //     if let Ok(s) = dir_entry.file_name().into_string() {
+            //         if s.parse::<u64>().is_ok() {
+            //             let terminal = s;
+            //             let (rows, cols) =
+            //                 terminals::get_terminal_size(&format!("/dev/pts/{}", terminal))?;
+
+            //             let size = rows * cols;
+            //             if size >= biggest_terminal_size {
+            //                 biggest_terminal = terminal;
+            //                 biggest_terminal_size = size;
+            //             }
+            //         }
+            //     }
+            // }
+
+            // log::info!(
+            //     "biggest terminal: {} (size={})",
+            //     biggest_terminal,
+            //     biggest_terminal_size
+            // );
         }
         Args::Pause(args) => {
             let pid = unistd::Pid::from_raw(args.pid);

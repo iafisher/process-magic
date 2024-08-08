@@ -25,7 +25,7 @@ pub mod common {
         DaemonStatus,
         Freeze(FreezeArgs),
         Groups,
-        Oblivion,
+        Oblivion(OblivionArgs),
         Pause(PauseArgs),
         Processes(ProcessesArgs),
         Redirect(RedirectArgs),
@@ -46,6 +46,11 @@ pub mod common {
     #[derive(clap::Args, Debug, Serialize, Deserialize)]
     pub struct FreezeArgs {
         pub pid: i32,
+    }
+
+    #[derive(clap::Args, Debug, Serialize, Deserialize)]
+    pub struct OblivionArgs {
+        pub ttys: Vec<i32>,
     }
 
     #[derive(clap::Args, Debug, Serialize, Deserialize)]

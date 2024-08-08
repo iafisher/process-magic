@@ -44,7 +44,8 @@ pub fn write_to_stdin(pid: unistd::Pid, line: &str) -> Result<()> {
         fpath.as_c_str(),
         fcntl::OFlag::O_WRONLY,
         sys::stat::Mode::empty(),
-    )?;
+    )
+    .map_err(|_e| anyhow!("failed to open file {:?}", fpath))?;
 
     for byte in line.as_bytes() {
         unsafe {
