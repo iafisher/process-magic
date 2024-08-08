@@ -175,10 +175,29 @@ impl ProcessController {
         Ok(())
     }
 
-    pub fn is_writing_to_stdout(&self) -> Result<bool> {
+    /// returns (buffer address, byte count)
+    pub fn is_writing_to_stdout(&self) -> Result<Option<(u64, u64)>> {
         let registers = self.get_registers()?;
-        Ok(registers.regs[8] == Sysno::write.id() as u64
-            && registers.regs[0] == libc::STDOUT_FILENO as u64)
+        if registers.regs[8] == Sysno::write.id() as u64
+            && registers.regs[0] == libc::STDOUT_FILENO as u64
+        {
+            Ok(Some((registers.regs[1], registers.regs[2])))
+        } else {
+            Ok(None)
+        }
+    }
+
+    pub fn rot13(&self, base_addr: u64, count: u64) -> Result<()> {
+        for i in 0..count {
+            let addr = (base_addr + i) as *mut libc::c_void;
+            let c = sys::ptrace::read(self.pid, addr)? as u64;
+
+            let rot = (c & !0xff) | rot13_byte((c & 0xff00000000000000 >> 56) as u8) as u64;
+            if rot != c {
+                sys::ptrace::write(self.pid, addr, rot as i64)?;
+            }
+        }
+        Ok(())
     }
 
     pub fn map_svc_region(&self) -> Result<u64> {
@@ -472,3 +491,23 @@ fn find_svc_instruction_in_map(pid: unistd::Pid, memory_map: &MemoryMap) -> Resu
 const SVC: u32 = 0xd4000001;
 // little-endian representation: 0x01 0x00 0x00 0xd4
 const SVC_BYTES: [u8; 4] = [0x01, 0x00, 0x00, 0xd4];
+
+fn rot13_byte(b: u8) -> u8 {
+    if b >= 65 && b <= 90 {
+        (((b - 65) + 13) % 26) + 65
+    } else if b >= 97 && b <= 122 {
+        (((b - 97) + 13) % 26) + 97
+    } else {
+        b
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::proctool::pcontroller::rot13_byte;
+
+    #[test]
+    fn test_rot13_byte() {
+        assert_eq!(rot13_byte(0x6f), 0x62);
+    }
+}

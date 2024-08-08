@@ -237,13 +237,17 @@ fn run_command(root: &str, args: Args) -> Result<()> {
             controller.attach()?;
 
             loop {
-                controller.stop_at_next_syscall()?;
-                if controller.is_writing_to_stdout()? {
-                    log::info!("writing to stdout");
-                } else {
-                    log::info!("not writing to stdout");
+                if controller.stop_at_next_syscall().is_err() {
+                    break;
                 }
-                controller.continue_syscall()?;
+
+                if let Some((addr, count)) = controller.is_writing_to_stdout()? {
+                    controller.rot13(addr, count)?;
+                    controller.continue_syscall()?;
+                    controller.rot13(addr, count)?;
+                } else {
+                    controller.continue_syscall()?;
+                }
             }
 
             controller.detach()?;
